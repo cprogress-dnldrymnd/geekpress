@@ -107,29 +107,32 @@
 	.introBox li a:hover {
 		color: #f3ff49;
 	}
+
 	.home__baner.home__baner {
-		background-color: var( --e-global-color-primary );
-			min-height: 0;
+		background-color: var(--e-global-color-primary);
+		min-height: 0;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		margin-bottom: 10px;
 	}
 
 	.home__baner h1 {
-		
-		color: var( --e-global-color-secondary );
-		font-family: Roboto !important; 
+
+		color: var(--e-global-color-secondary);
+		font-family: Roboto !important;
 		font-size: 20px !important;
 		font-weight: 400;
 	}
+
 	.home__baner h1 span {
 		font-weight: bold;
-		color: var( --e-global-color-secondary );
+		color: var(--e-global-color-secondary);
 
-		
+
 	}
+
 	.banner__content.banner__content {
-		position:static;
+		position: static;
 		transform: none;
 	}
 </style>
@@ -277,10 +280,8 @@
 										<span><?php echo esc_html(get_the_date('F j, Y')); ?> at <?php echo esc_html(get_the_time('g:i A')); ?></span>
 									</div>
 									<div>
-
 										<img src="<?php echo get_theme_file_uri(); ?>/images/user.svg" alt="" />
 										<span>by <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
-
 									</div>
 								</div>
 								<h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>

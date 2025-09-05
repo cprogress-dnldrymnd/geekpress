@@ -1280,6 +1280,7 @@ function get__user_company($user_id, $link = true, $id_only = false)
         return $html;
     }
 }
+
 function get__company_contacts($ids_only = true)
 {
     if (get_post_type() == 'company') {
@@ -1311,7 +1312,7 @@ function get__company_contacts($ids_only = true)
                 $user_arr[] = $user->ID;
             }
         } else {
-            $html .= '<div class="company-contacts">';
+            $html = '<div class="company-contacts">';
             foreach ($user_query->get_results() as $user) {
                 $html .= '<div class="company-contact">';
 
@@ -1330,6 +1331,12 @@ function get__company_contacts($ids_only = true)
     } else {
         return false;
     }
+}
+function get__company_country()
+{
+    $country = get_field('country');
+    $country_code = get_country_code_by_name($country);
+    return '<div class="flag"> </div>';
 }
 function get__company_posts()
 {
