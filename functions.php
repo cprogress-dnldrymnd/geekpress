@@ -555,7 +555,7 @@ function custom_search_where($where)
 
     if (is_search() && !is_admin()) {
         $search_term = esc_sql(get_query_var('s'));
-        
+
         // This is the updated line to include both post types in the direct SQL query
         $where = " AND ({$wpdb->posts}.post_type = 'post' OR {$wpdb->posts}.post_type = 'company')
                    AND {$wpdb->posts}.post_status = 'publish'
@@ -1464,7 +1464,8 @@ function file_type($attachment_id)
  * @param array $columns The existing columns.
  * @return array The modified columns.
  */
-function add_listing_status_column($columns) {
+function add_listing_status_column($columns)
+{
     // Add the new column after the 'title' column
     $new_columns = [];
     foreach ($columns as $key => $title) {
@@ -1485,18 +1486,21 @@ add_filter('manage_posts_columns', 'add_listing_status_column');
  * @param string $column_name The name of the column to display.
  * @param int    $post_id     The ID of the current post.
  */
-function display_listing_status_column_content($column_name, $post_id) {
+function display_listing_status_column_content($column_name, $post_id)
+{
     if ($column_name === 'listing_status') {
         // Get the value of the custom field
         $status = get_post_meta($post_id, 'listing_status', true);
 
         if (!empty($status)) {
             // Sanitize and display the value
-            echo esc_html(ucwords(str_replace('_', ' ', $status)));
+            $status = esc_html(ucwords(str_replace('_', ' ', $status)));
         } else {
             // Display a default value if not set
-            echo 'Pending';
+            $status = 'Pending';
         }
+
+        echo '<span class="status-' . $status . '">' . $status . '</span>';
     }
 }
 add_action('manage_posts_custom_column', 'display_listing_status_column_content', 10, 2);
@@ -1508,7 +1512,8 @@ add_action('manage_posts_custom_column', 'display_listing_status_column_content'
  * @param array $columns The existing sortable columns.
  * @return array The modified sortable columns.
  */
-function make_listing_status_column_sortable($columns) {
+function make_listing_status_column_sortable($columns)
+{
     $columns['listing_status'] = 'listing_status';
     return $columns;
 }
