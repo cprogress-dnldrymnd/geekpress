@@ -48,25 +48,15 @@
                     <div class="meta-info-holder">
                         <small class="meta__info"><img src="<?php echo get_theme_file_uri() ?>/images/clock.svg" alt="" />
                             <span><?php echo get_the_date('F j, Y') ?> </span></small>
-
                         <div>
-
-                            <img src="<?php echo get_theme_file_uri(); ?>/images/user.svg" alt="" />
-                            <span>by <?= get__user_company(get_the_author_meta('ID'), true) ?></span>
+                            <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
+                            <span><?= get__user_company(get_the_author_meta('ID'), true) ?></span>
                         </div>
                     </div>
                     <h1>
                         <?php the_title() ?>
                     </h1>
 
-                    <?php if (is_user_logged_in()) { ?>
-                        <small class="meta__info">
-                            <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
-                            <span>
-                                <?= get__user_company(get_the_author_meta('ID'), true) ?>
-                            </span>
-                        </small>
-                    <?php } ?>
 
 
                     <div class="single__main__content__article">
@@ -296,7 +286,7 @@
                                 </p>
                                 <ul>
                                     <li>
-                                       <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
+                                        <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
                                         <span><?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                     <li>
