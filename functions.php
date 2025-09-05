@@ -1340,9 +1340,11 @@ function get__company_contacts($ids_only = true)
         return false;
     }
 }
-function get__company_country($post_Id)
+function get__user_company_flag($author_id)
 {
-    $country = get_field('country', $post_Id);
+    $company_id = get__user_company_id($author_id);
+
+    $country = get_field('country', $company_id);
     $country_code = get_country_code_by_name($country);
     return '<div class="flag">' . $country_code . ' </div>';
 }
