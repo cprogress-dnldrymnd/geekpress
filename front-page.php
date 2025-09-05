@@ -329,7 +329,9 @@
 
 						<div class="info">
 							<small>
-								<img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" /> by <?= get__user_company(get_the_author_meta('ID'), true) ?> </small>
+								<?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
+								<?= get__user_company(get_the_author_meta('ID'), true) ?>
+							</small>
 							<span><?php print_r(get_the_category(get_the_ID())[0]->name) ?></span>
 						</div>
 					</div>
