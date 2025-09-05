@@ -1524,11 +1524,11 @@ function display_listing_status_column_content($column_name, $post_id)
             line-height: 1;
         }
 
-        .approve {
+        .approve-listing {
             color: #5cb85c;
         }
 
-        .reject {
+        .reject-listing {
             color: #d9534f
         }
     </style>
@@ -1555,8 +1555,8 @@ function display_listing_status_column_content($column_name, $post_id)
         echo "</div>";
         if ($status === 'Pending') {
             echo "<div class='listing-status-wrapper approve--reject'>";
-            echo '<a class="approve" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=approve') . '">Approve</a>';
-            echo '<a class="reject" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=reject') . '">Reject</a>';
+            echo '<a class="approve-listing" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=approve') . '">Approve</a>';
+            echo '<a class="reject-listing" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=reject') . '">Reject</a>';
             echo "</div>";
         }
     }
