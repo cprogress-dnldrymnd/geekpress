@@ -2174,7 +2174,7 @@ function get_country_code_by_name($country_name)
     $sanitized_name = trim($country_name);
 
     if (array_key_exists($sanitized_name, $countries)) {
-        return $countries[$sanitized_name];
+        return strtolower($countries[$sanitized_name]);
     }
 
     return false;
