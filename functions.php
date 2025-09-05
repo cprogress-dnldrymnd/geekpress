@@ -1495,7 +1495,7 @@ function display_listing_status_column_content($column_name, $post_id) {
             echo esc_html(ucwords(str_replace('_', ' ', $status)));
         } else {
             // Display a default value if not set
-            echo '—';
+            echo 'Pending';
         }
     }
 }
