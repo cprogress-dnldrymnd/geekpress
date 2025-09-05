@@ -1510,6 +1510,7 @@ function display_listing_status_column_content($column_name, $post_id)
             background-color: #d9534f;
             color: white;
         }
+
         .listing-status-wrapper {
             display: flex;
             align-items: center;
@@ -1534,9 +1535,15 @@ function display_listing_status_column_content($column_name, $post_id)
         echo '<span class="listing-status status-' . $status . '">' . $status . '</span>';
 
         if ($status === 'Pending') {
-            echo '<br><a href="' . admin_url('post.php?post=' . $post_id . '&action=edit') . '">Review</a>';
+            echo '<a href="' . admin_url('post.php?post=' . $post_id . '&action=edit') . '">Review</a>';
         }
         echo "</div>";
+        if ($status === 'Pending') {
+            echo "<div class='listing-status-wrapper'>";
+            echo '<a href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=approved') . '">Aprroved</a>';
+            echo '<a href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=rejected') . '">Review</a>';
+            echo "</div>";
+        }
     }
 }
 add_action('manage_posts_custom_column', 'display_listing_status_column_content', 10, 2);
