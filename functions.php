@@ -1633,7 +1633,7 @@ function update_acf_on_post_edit_with_url_param()
 
                 $to = get_post_author_email_by_id($post_id);
                 $subject = 'Geekpress rejected your submission';
-                $message = email__template('Submission Rejected', 'We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you. ');
+                $message = email__template('Submission Rejected for ' . get_the_title($post_id), '<p>We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you.<p>');
 
                 wp_mail($to, $subject, $message);
             }
