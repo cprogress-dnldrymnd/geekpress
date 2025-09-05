@@ -1630,7 +1630,6 @@ function update_acf_on_post_edit_with_url_param()
                     'ID' => $post_id,
                     'post_status' => 'pending'
                 ));
-                reject__email($post_id);
             }
     ?>
             <script>
