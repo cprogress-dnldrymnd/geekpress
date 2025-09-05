@@ -1630,12 +1630,7 @@ function update_acf_on_post_edit_with_url_param()
                     'ID' => $post_id,
                     'post_status' => 'pending'
                 ));
-
-                $to = get_post_author_email_by_id($post_id);
-                $subject = 'Geekpress rejected your submission';
-                $message = email__template('Submission Rejected for ' . get_the_title($post_id), '<p>We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you.<p>');
-
-                wp_mail($to, $subject, $message);
+                reject__email($post_id);
             }
     ?>
             <script>
@@ -1650,6 +1645,62 @@ function update_acf_on_post_edit_with_url_param()
         }
     }
 }
+
+function reject__email($post_id)
+{
+    $to = get_post_author_email_by_id($post_id);
+    $subject = 'Geekpress rejected your submission';
+    $message = email__template('Submission Rejected for ' . get_the_title($post_id), '<p>We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you.<p>');
+    wp_mail($to, $subject, $message);
+}
+/**
+ * Sends an email to the post author when a specific ACF field value changes.
+ *
+ * This function is hooked into 'acf/update_value' which runs before a field
+ * value is saved to the database. This allows us to compare the new value
+ * with the old one.
+ *
+ * Field Name: listing_status
+ * Trigger Value: reject
+ *
+ * @param mixed $value   The new field value.
+ * @param int   $post_id The ID of the post being updated.
+ * @param array $field   The ACF field object.
+ * @return mixed The original value to allow the update to proceed.
+ */
+function send_email_on_listing_rejection($value, $post_id, $field)
+{
+
+    // --- Configuration ---
+    // The post type you want this to run for. Use 'any' for all post types.
+    $target_post_type = 'post'; // e.g., 'post', 'page', 'your_custom_post_type'
+
+    // --- Validation ---
+    // 1. Check if the post type matches our target.
+    //    If you want this to run for ANY post type, you can remove this block.
+    if ($target_post_type !== 'any' && get_post_type($post_id) !== $target_post_type) {
+        return $value;
+    }
+
+    // 2. Get the value of the field *before* this update.
+    $old_value = get_field('listing_status', $post_id);
+
+    // 3. Check if the new value is 'reject' and the old value was NOT 'reject'.
+    //    This ensures the email is sent only when the status changes *to* reject.
+    if ($value === 'reject' && $old_value !== 'reject') {
+        reject__email($post_id);
+    }
+
+    // IMPORTANT: Always return the original value to allow ACF to save the field.
+    return $value;
+}
+
+/**
+ * We use a targeted hook 'acf/update_value/name={$field_name}' for better performance.
+ * This ensures our function only runs when the 'listing_status' field is updated.
+ */
+add_filter('acf/update_value/name=listing_status', 'send_email_on_listing_rejection', 10, 3);
+
 function wpse27856_set_content_type()
 {
     return "text/html";
