@@ -1501,7 +1501,7 @@ function display_listing_status_column_content($column_name, $post_id)
             color: white;
         }
 
-        .status-Approv {
+        .status-Approve {
             background-color: #5cb85c;
             color: white;
         }
