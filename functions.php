@@ -1546,6 +1546,7 @@ function display_listing_status_column_content($column_name, $post_id)
         }
 
         echo "<div class='listing-status-wrapper'>";
+        echo get_post_author_email_by_id($post_id);
 
         echo '<span class="listing-status status-' . $status . '">' . $status . '</span>';
 
@@ -1592,9 +1593,6 @@ add_filter('manage_edit-post_sortable_columns', 'make_listing_status_column_sort
 function update_acf_on_post_edit_with_url_param()
 {
 
-
-    // --- Configuration ---
-
     // 1. Set the name of the URL parameter to check for.
     $url_parameter = 'listing_status';
 
@@ -1606,7 +1604,7 @@ function update_acf_on_post_edit_with_url_param()
 
     // Check if the URL parameter is set in the current request.
     if (isset($_GET[$url_parameter])) {
-
+        $post_id = $_GET['post'];
         // Sanitize the input from the URL parameter to ensure security.
         // 'sanitize_text_field' is a good general-purpose function.
         // For other data types, consider using functions like 'absint' for integers
@@ -1616,20 +1614,28 @@ function update_acf_on_post_edit_with_url_param()
         // Update the ACF field with the sanitized value.
         // The `update_field()` function is the recommended way to update ACF fields.
         // It requires the field name (or key), the new value, and the post ID.
-        update_field($acf_field_name, $status_value, $_GET['post']);
+        update_field($acf_field_name, $status_value, $post_id);
 
         if ($status_value === 'approve') {
             // Set the post status to 'publish' if approved
             wp_update_post(array(
-                'ID' => $_GET['post'],
+                'ID' => $post_id,
                 'post_status' => 'publish'
             ));
         } elseif ($status_value === 'reject') {
             // Set the post status to 'draft' if rejected
             wp_update_post(array(
-                'ID' => $_GET['post'],
+                'ID' => $post_id,
                 'post_status' => 'pending'
             ));
+
+            $to = get_post_author_email_by_id($post_id);
+            $subject = '';
+            $headers = '';
+            $message = '';
+            $to = '';
+
+            wp_mail($to, $subject, $message, $headers);
         }
     ?>
         <script>
@@ -1640,7 +1646,7 @@ function update_acf_on_post_edit_with_url_param()
                 <?php } ?>
             });
         </script>
-<?php
+    <?php
     }
 }
 
@@ -1648,5 +1654,201 @@ function update_acf_on_post_edit_with_url_param()
 add_action('admin_footer', 'update_acf_on_post_edit_with_url_param');
 
 
+function html__template($headline, $content)
+{
+    ob_start();
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>GeekPress Email Template</title>
+        <style>
+            /* Basic Reset */
+            body,
+            table,
+            td,
+            a {
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+            }
+
+            table,
+            td {
+                mso-table-lspace: 0pt;
+                mso-table-rspace: 0pt;
+            }
+
+            img {
+                -ms-interpolation-mode: bicubic;
+                border: 0;
+                height: auto;
+                line-height: 100%;
+                outline: none;
+                text-decoration: none;
+            }
+
+            table {
+                border-collapse: collapse !important;
+            }
+
+            body {
+                height: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            /* General Styles */
+            body {
+                background-color: #f4f4f4;
+                font-family: Arial, sans-serif;
+            }
+
+            /* Responsive Styles */
+            @media screen and (max-width: 600px) {
+                .email-container {
+                    width: 100% !important;
+                    margin: auto !important;
+                }
+
+                .fluid {
+                    max-width: 100% !important;
+                    height: auto !important;
+                    margin-left: auto !important;
+                    margin-right: auto !important;
+                }
+
+                .stack-column,
+                .stack-column-center {
+                    display: block !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    direction: ltr !important;
+                }
+
+                .stack-column-center {
+                    text-align: center !important;
+                }
+            }
+        </style>
+    </head>
+
+    <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f4f4f4;">
+        <center style="width: 100%; background-color: #f4f4f4;">
+            <!--[if (gte mso 9)|(IE)]>
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="background-color: #222222;">
+        <tr>
+        <td>
+        <![endif]-->
+
+            <!-- Main Email Wrapper -->
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: auto; background-color: #0D0629;" class="email-container">
+
+                <!-- BEGIN HEADER -->
+                <tr>
+                    <td style="padding: 20px 20px; text-align: center;">
+                        <!-- LOGO: Replace with your logo URL -->
+                        <img src="https://geekpress.theprogressteam.com/wp-content/uploads/2025/09/GEEK_PRESS_PNG.png" width="200" alt="GeekPress Logo" border="0" style="font-family: sans-serif; font-size: 15px; line-height: 15px; color: #ffffff;">
+                    </td>
+                </tr>
+                <!-- END HEADER -->
+
+                <!-- BEGIN BODY -->
+                <tr>
+                    <td style="background-color: #ffffff; padding: 40px 30px;">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="font-family: Arial, sans-serif; font-size: 24px; color: #333333; font-weight: bold; text-align: center; padding-bottom: 20px;">
+                                    <!-- HEADLINE: Edit your main message here -->
+                                    <?= $headline ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; color: #555555; text-align: left; padding-bottom: 30px;">
+                                    <?= wpautop($content) ?>
+                                </td>
+                            </tr>
+                            <!-- BEGIN CTA BUTTON -->
+                            <tr>
+                                <td align="center">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                        <tr>
+                                            <td class="button-td" style="border-radius: 5px; background: #F3FF49; text-align: center;">
+                                                <!-- BUTTON: Edit link and text -->
+                                                <a href="https://geekpress.theprogressteam.com/" style="background: #F3FF49; border: 15px solid #F3FF49; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 5px; color: #0D0629;">
+                                                    Visit Website
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- END CTA BUTTON -->
+                        </table>
+                    </td>
+                </tr>
+                <!-- END BODY -->
+
+                <!-- BEGIN FOOTER -->
+                <tr>
+                    <td style="text-align: center; padding: 30px 20px; font-family: Arial, sans-serif; font-size: 12px; line-height: 18px; color: #888888;">
+                        <!-- COMPANY INFO: Edit your company details -->
+                        <p style="margin: 0;">GeekPress &copy; 2025. All Rights Reserved.</p>
+                        <p style="margin: 0;">International House, 64 Nile Street, London N1 7SR</p>
+                        <br>
+                    </td>
+                </tr>
+                <!-- END FOOTER -->
+
+            </table>
+            <!-- Main Email Wrapper -->
+
+            <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+        </center>
+    </body>
+
+    </html>
+
+<?php
+    return ob_get_clean();
+}
+
+
+/**
+ * Retrieves the email address of a post's author based on the post ID.
+ *
+ * This function first retrieves the post data to find the author's ID.
+ * It then uses that ID to fetch the author's user email from the user metadata.
+ *
+ * @param int $post_id The ID of the post for which to find the author's email.
+ * @return string|false The author's email address on success, or false if the post is not found.
+ */
+function get_post_author_email_by_id($post_id)
+{
+    // Get the post object using the provided post ID.
+    $post = get_post($post_id);
+
+    // Check if a valid post was found. If not, return false.
+    if (! $post) {
+        return false;
+    }
+
+    // The 'post_author' property of the post object contains the author's user ID.
+    $author_id = $post->post_author;
+
+    // Use the author's ID to retrieve the 'user_email' metadata.
+    $author_email = get_the_author_meta('user_email', $author_id);
+
+    // Return the retrieved email address.
+    return $author_email;
+}
 
 /*end of post listing*/
