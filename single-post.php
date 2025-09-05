@@ -61,9 +61,8 @@
 
                     <?php if (is_user_logged_in()) { ?>
                         <small class="meta__info">
-                            <img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" />
+                            <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
                             <span>
-                                by
                                 <?= get__user_company(get_the_author_meta('ID'), true) ?>
                             </span>
                         </small>
