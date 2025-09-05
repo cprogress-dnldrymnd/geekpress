@@ -1495,6 +1495,7 @@ function display_listing_status_column_content($column_name, $post_id)
             border-radius: 4px;
             font-weight: bold;
         }
+
         .status-Pending {
             background-color: #f0ad4e;
             color: white;
@@ -1524,6 +1525,10 @@ function display_listing_status_column_content($column_name, $post_id)
         }
 
         echo '<span class="listing-status status-' . $status . '">' . $status . '</span>';
+
+        if ($status === 'Pending') {
+            echo '<br><a href="' . admin_url('post.php?post=' . $post_id . '&action=edit') . '">Review</a>';
+        }
     }
 }
 add_action('manage_posts_custom_column', 'display_listing_status_column_content', 10, 2);
