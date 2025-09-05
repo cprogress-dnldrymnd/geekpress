@@ -1608,48 +1608,53 @@ function update_acf_on_post_edit_with_url_param()
         // 'sanitize_text_field' is a good general-purpose function.
         // For other data types, consider using functions like 'absint' for integers
         // or 'sanitize_email' for emails.
+        $current_value = get_field($acf_field_name, $post_id);
         $status_value = sanitize_text_field($_GET[$url_parameter]);
 
-        // Update the ACF field with the sanitized value.
-        // The `update_field()` function is the recommended way to update ACF fields.
-        // It requires the field name (or key), the new value, and the post ID.
-        update_field($acf_field_name, $status_value, $post_id);
+        if ($current_value != $status_value) {
 
-        if ($status_value === 'approve') {
-            // Set the post status to 'publish' if approved
-            wp_update_post(array(
-                'ID' => $post_id,
-                'post_status' => 'publish'
-            ));
-        } elseif ($status_value === 'reject') {
-            // Set the post status to 'draft' if rejected
-            wp_update_post(array(
-                'ID' => $post_id,
-                'post_status' => 'pending'
-            ));
+            // Update the ACF field with the sanitized value.
+            // The `update_field()` function is the recommended way to update ACF fields.
+            // It requires the field name (or key), the new value, and the post ID.
+            update_field($acf_field_name, $status_value, $post_id);
 
-            $to = get_post_author_email_by_id($post_id);
-            $subject = 'Geekpress rejected your submission';
-            $message = email__template('Submission Rejected', 'We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you. ');
+            if ($status_value === 'approve') {
+                // Set the post status to 'publish' if approved
+                wp_update_post(array(
+                    'ID' => $post_id,
+                    'post_status' => 'publish'
+                ));
+            } elseif ($status_value === 'reject') {
+                // Set the post status to 'draft' if rejected
+                wp_update_post(array(
+                    'ID' => $post_id,
+                    'post_status' => 'pending'
+                ));
 
-            wp_mail($to, $subject, $message);
-        }
+                $to = get_post_author_email_by_id($post_id);
+                $subject = 'Geekpress rejected your submission';
+                $message = email__template('Submission Rejected', 'We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you. ');
+
+                wp_mail($to, $subject, $message);
+            }
     ?>
-        <script>
-            jQuery(document).ready(function() {
-                jQuery('.acf-field[data-name="listing_status"] select').val('<?php echo esc_js($status_value); ?>').trigger('change');
-                <?php if ($status_value === 'approve') { ?>
-                    jQuery('.editor-post-publish-button__button').click();
-                <?php } ?>
-            });
-        </script>
+            <script>
+                jQuery(document).ready(function() {
+                    jQuery('.acf-field[data-name="listing_status"] select').val('<?php echo esc_js($status_value); ?>').trigger('change');
+                    <?php if ($status_value === 'approve') { ?>
+                        jQuery('.editor-post-publish-button__button').click();
+                    <?php } ?>
+                });
+            </script>
     <?php
+        }
     }
 }
-function wpse27856_set_content_type(){
+function wpse27856_set_content_type()
+{
     return "text/html";
 }
-add_filter( 'wp_mail_content_type','wpse27856_set_content_type' );
+add_filter('wp_mail_content_type', 'wpse27856_set_content_type');
 
 
 // Add the function to the 'save_post' action hook.
