@@ -1578,49 +1578,4 @@ function make_listing_status_column_sortable($columns)
 add_filter('manage_edit-post_sortable_columns', 'make_listing_status_column_sortable');
 
 
-/**
- * Update an ACF field on post save if a specific URL parameter is present.
- *
- * This function hooks into the 'save_post' action, which is triggered
- * whenever a post or page is created or updated. It checks for the
- * presence of a 'listing_status' URL parameter. If the parameter
- * exists, its value is sanitized and used to update a specified
- * ACF field for the post being saved.
- *
- * @param int $post_id The ID of the post being saved.
- */
-function update_acf_on_post_edit_with_url_param( $post_id ) {
-
-    // --- Configuration ---
-
-    // 1. Set the name of the URL parameter to check for.
-    $url_parameter = 'listing_status';
-
-    // 2. Set the name of the ACF field you want to update.
-    $acf_field_name = 'listing_status'; // 🚨 Replace with your actual ACF field name.
-
-
-    // ---  Execution ---
-
-    // Check if the URL parameter is set in the current request.
-    if ( isset( $_GET[ $url_parameter ] ) ) {
-
-        // Sanitize the input from the URL parameter to ensure security.
-        // 'sanitize_text_field' is a good general-purpose function.
-        // For other data types, consider using functions like 'absint' for integers
-        // or 'sanitize_email' for emails.
-        $status_value = sanitize_text_field( $_GET[ $url_parameter ] );
-
-        // Update the ACF field with the sanitized value.
-        // The `update_field()` function is the recommended way to update ACF fields.
-        // It requires the field name (or key), the new value, and the post ID.
-        update_field( $acf_field_name, $status_value, $post_id );
-    }
-}
-
-// Add the function to the 'save_post' action hook.
-add_action( 'save_post', 'update_acf_on_post_edit_with_url_param' );
-
-
-
 /*end of post listing*/
