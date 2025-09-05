@@ -296,8 +296,8 @@
                                 </p>
                                 <ul>
                                     <li>
-                                        <img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" />
-                                        <span>by <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+                                       <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
+                                        <span><?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                     <li>
                                         <span class="tag"><?php $categories = get_the_category();
