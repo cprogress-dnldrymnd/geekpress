@@ -1549,7 +1549,6 @@ function display_listing_status_column_content($column_name, $post_id)
             color: #d9534f
         }
     </style>
-    <?= get_country_code_by_name('Philippines') ?>
     <?php
     if ($column_name === 'listing_status') {
         // Get the value of the custom field
@@ -2171,7 +2170,7 @@ function get_country_code_by_name($country_name)
         'Uganda' => 'UG',
         'Ukraine' => 'UA',
         'United Arab Emirates' => 'AE',
-        'United Kingdom of Great Britain and Northern Ireland' => 'GB',
+        'United Kingdom' => 'GB',
         'United States of America' => 'US',
         'United States Minor Outlying Islands' => 'UM',
         'Uruguay' => 'UY',
