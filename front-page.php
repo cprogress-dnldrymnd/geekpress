@@ -280,7 +280,6 @@
 										<span><?php echo esc_html(get_the_date('F j, Y')); ?> at <?php echo esc_html(get_the_time('g:i A')); ?></span>
 									</div>
 									<div>
-										<img src="<?php echo get_theme_file_uri(); ?>/images/user.svg" alt="" />
 										<?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
 										<span>by <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
 									</div>
