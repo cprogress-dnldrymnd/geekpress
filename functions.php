@@ -1546,7 +1546,6 @@ function display_listing_status_column_content($column_name, $post_id)
         }
 
         echo "<div class='listing-status-wrapper'>";
-        echo get_post_author_email_by_id($post_id);
 
         echo '<span class="listing-status status-' . $status . '">' . $status . '</span>';
 
@@ -1630,10 +1629,9 @@ function update_acf_on_post_edit_with_url_param()
             ));
 
             $to = get_post_author_email_by_id($post_id);
-            $subject = '';
-            $headers = '';
-            $message = '';
-            $to = '';
+            $subject = 'Geekpress rejected your submission';
+            $headers[] = '';
+            $message = email__template('Submission Rejected', 'We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you. ');
 
             wp_mail($to, $subject, $message, $headers);
         }
@@ -1649,12 +1647,17 @@ function update_acf_on_post_edit_with_url_param()
     <?php
     }
 }
+function wpse27856_set_content_type(){
+    return "text/html";
+}
+add_filter( 'wp_mail_content_type','wpse27856_set_content_type' );
+
 
 // Add the function to the 'save_post' action hook.
 add_action('admin_footer', 'update_acf_on_post_edit_with_url_param');
 
 
-function html__template($headline, $content)
+function email__template($headline, $content)
 {
     ob_start();
     ?>
