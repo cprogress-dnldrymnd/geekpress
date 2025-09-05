@@ -1476,7 +1476,7 @@ function add_listing_status_column($columns)
     }
     return $new_columns;
 }
-add_filter('manage_posts_columns', 'add_listing_status_column');
+add_filter('manage_post_posts_columns', 'add_listing_status_column');
 
 
 /**
