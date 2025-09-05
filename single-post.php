@@ -255,8 +255,8 @@
                                         <span><?php echo get_the_date("M j, Y") ?></span>
                                     </li>
                                     <li>
-                                        <img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" />
-                                        <span>by: <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+                                        <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
+                                        <span><?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                 </ul>
 
