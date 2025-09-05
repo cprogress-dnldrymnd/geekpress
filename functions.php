@@ -1488,6 +1488,29 @@ add_filter('manage_posts_columns', 'add_listing_status_column');
  */
 function display_listing_status_column_content($column_name, $post_id)
 {
+?>
+    <style>
+        .listing-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .status-Pending {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .status-Approved {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .status-Rejected {
+            background-color: #d9534f;
+            color: white;
+        }
+    </style>
+<?php
     if ($column_name === 'listing_status') {
         // Get the value of the custom field
         $status = get_post_meta($post_id, 'listing_status', true);
@@ -1500,7 +1523,7 @@ function display_listing_status_column_content($column_name, $post_id)
             $status = 'Pending';
         }
 
-        echo '<span class="status-' . $status . '">' . $status . '</span>';
+        echo '<span class="listing-status status-' . $status . '">' . $status . '</span>';
     }
 }
 add_action('manage_posts_custom_column', 'display_listing_status_column_content', 10, 2);
