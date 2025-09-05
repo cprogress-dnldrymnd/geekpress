@@ -2153,7 +2153,7 @@ function get_country_code_by_name($country_name)
         'Sweden' => 'SE',
         'Switzerland' => 'CH',
         'Syrian Arab Republic' => 'SY',
-        'Taiwan, Province of China' => 'TW',
+        'Taiwan' => 'TW',
         'Tajikistan' => 'TJ',
         'Tanzania, United Republic of' => 'TZ',
         'Thailand' => 'TH',
