@@ -1262,8 +1262,8 @@ function get_custom_post_id_by_title($post_title, $post_type)
 /*custom functions*/
 function get__user_company($user_id, $link = true, $id_only = false)
 {
-    $company = get_user_meta($user_id, 'company');
-    $company_id = $company[0];
+    $company_id = get__user_company_id($user_id);
+
     if ($id_only == true) {
         return $company_id;
     } else {
@@ -1279,6 +1279,14 @@ function get__user_company($user_id, $link = true, $id_only = false)
         }
         return $html;
     }
+}
+
+function get__user_company_id($user_id)
+{
+    $company = get_user_meta($user_id, 'company');
+    $company_id = $company[0];
+
+    return $company_id;
 }
 
 function get__company_contacts($ids_only = true)
@@ -1332,11 +1340,11 @@ function get__company_contacts($ids_only = true)
         return false;
     }
 }
-function get__company_country()
+function get__company_country($post_Id)
 {
-    $country = get_field('country');
+    $country = get_field('country', $post_Id);
     $country_code = get_country_code_by_name($country);
-    return '<div class="flag">' . $country . ' </div>';
+    return '<div class="flag">' . $country_code . ' </div>';
 }
 function get__company_posts()
 {
