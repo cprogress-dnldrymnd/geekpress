@@ -281,7 +281,7 @@
 									</div>
 									<div>
 										<?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
-										<span>by <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+										<span> <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
 									</div>
 								</div>
 								<h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
