@@ -281,6 +281,7 @@
 									</div>
 									<div>
 										<img src="<?php echo get_theme_file_uri(); ?>/images/user.svg" alt="" />
+										<?= get__company_country() ?>
 										<span>by <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
 									</div>
 								</div>
