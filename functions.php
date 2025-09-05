@@ -1346,7 +1346,7 @@ function get__user_company_flag($author_id)
 
     $country = get_field('country', $company_id);
     $country_code = get_country_code_by_name($country);
-    return '<div class="flag">' . $country_code . ' </div>';
+    return '<div class="flag">' . get__svg($country_code) . ' </div>';
 }
 function get__company_posts()
 {
@@ -2194,6 +2194,17 @@ function get_country_code_by_name($country_name)
     }
 
     return false;
+}
+
+function get__svg($name)
+{
+    $svgPath = get_stylesheet_directory() . '/images/flags/' . DIRECTORY_SEPARATOR . $name . '.svg';
+
+    if (file_exists($svgPath)) {
+        return file_get_contents($svgPath);
+    } else {
+        throw new Exception("SVG not found: {$name}");
+    }
 }
 
 /*end of post listing*/
