@@ -1589,7 +1589,8 @@ add_filter('manage_edit-post_sortable_columns', 'make_listing_status_column_sort
  *
  * @param int $post_id The ID of the post being saved.
  */
-function update_acf_on_post_edit_with_url_param( $post_id ) {
+function update_acf_on_post_edit_with_url_param(  ) {
+
 
     // --- Configuration ---
 
@@ -1614,7 +1615,7 @@ function update_acf_on_post_edit_with_url_param( $post_id ) {
         // Update the ACF field with the sanitized value.
         // The `update_field()` function is the recommended way to update ACF fields.
         // It requires the field name (or key), the new value, and the post ID.
-        update_field( $acf_field_name, $status_value, $post_id );
+        update_field( $acf_field_name, $status_value, $_GET['post'] );
     }
 }
 
