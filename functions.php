@@ -1346,7 +1346,7 @@ function get__user_company_flag($author_id)
 
     $country = get_field('country', $company_id);
     $country_code = get_country_code_by_name($country);
-    return '<div class="flag">' . $company_id . ' </div>';
+    return '<div class="flag">' . $country . ' </div>';
 }
 function get__company_posts()
 {
