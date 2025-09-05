@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.min.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__logo">
+          <ul class="header__social">
+            <li>
+              <a href="#">
+                <img src="./images/linkedin.svg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="./images/x.svg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a href="#"><img src="./images/instagram.svg" alt="" /></a>
+            </li>
+            <li>
+              <a href="#"><img src="./images/bluesky-1.svg" alt="" /></a>
+            </li>
+          </ul>
+
+          <a href="#" class="header__brand"
+            ><img src="./images/logo.JPG" alt=""
+          /></a>
+
+          <div class="signup header__signup">
+            <img src="./images/user.svg" alt="" />
+            <ul>
+              <li><a href="#">Login</a></li>
+              <li>/</li>
+              <li><a href="#">Register</a></li>
+            </ul>
+
+            <a href="#" class="btn btn--outline">Submit News</a>
+          </div>
+        </div>
+
+        <div class="header__main">
+          <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <button class="hamburger mobile__hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <nav>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">FAQ'S</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+
+            <ul class="mobile__social">
+              <li>
+                <a href="#">
+                  <img src="./images/linkedin.svg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img src="./images/x.svg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a href="#"><img src="./images/instagram.svg" alt="" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="./images/bluesky-1.svg" alt="" /></a>
+              </li>
+            </ul>
+
+            <div class="signup mobile__signup">
+              <img src="./images/user.svg" alt="" />
+              <ul>
+                <li><a href="#">Login</a></li>
+                <li>/</li>
+                <li><a href="#">Register</a></li>
+              </ul>
+
+              <a href="#" class="btn btn--outline">Submit News</a>
+            </div>
+          </nav>
+
+          <form action="" class="header__search">
+            <div class="input__wrap">
+              <input type="text" placeholder="Search" />
+              <img src="./images/search.svg" alt="" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <section class="banner">
+      <div class="container">
+        <div class="banner__content">
+          <h1>
+            <span>GeekPress</span>: The only newswire dedicated to geek culture.
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <main class="homepage">
+      <div class="container">
+        <div class="homepage__wrapper">
+          <aside class="filter">
+            <h2 class="block__header">Filter By</h2>
+            <div class="filter__block">
+              <div class="filter__header">
+                <h4>Categories</h4>
+                <img src="./images/chevron-right.svg" alt="" />
+              </div>
+
+              <form action="">
+                <ul>
+                  <li>
+                    <label for="today">
+                      <input type="checkbox" id="today" />Today
+                    </label>
+                  </li>
+
+                  <li>
+                    <label for="Anime and Manga">
+                      <input type="checkbox" id="Anime and Manga" />Anime and
+                      Manga
+                    </label>
+                  </li>
+
+                  <li>
+                    <label for="Events">
+                      <input type="checkbox" id="Events" />Events
+                    </label>
+                  </li>
+
+                  <li>
+                    <label for="Tabletop/Board Games">
+                      <input
+                        type="checkbox"
+                        id="Tabletop/Board Games"
+                      />Tabletop/Board Games
+                    </label>
+                  </li>
+
+                  <li>
+                    <label for="Cosplay">
+                      <input type="checkbox" id="Cosplay" />Cosplay
+                    </label>
+                  </li>
+                </ul>
+              </form>
+
+              <a href="#">+ More</a>
+            </div>
+
+            <div class="filter__block">
+              <div class="filter__header">
+                <h4>Issue Date</h4>
+                <img src="./images/chevron-right.svg" alt="" />
+              </div>
+
+              <form action="">
+                <ul>
+                  <li>
+                    <label for="Yesterday">
+                      <input type="checkbox" id="Yesterday" />Yesterday
+                    </label>
+                  </li>
+
+                  <li>
+                    <label for="This Week">
+                      <input type="checkbox" id="This Week" />This Week
+                    </label>
+                  </li>
+
+                  <li>
+                    <label for="Last Week">
+                      <input type="checkbox" id="Last Week" />Last Week
+                    </label>
+                  </li>
+
+                  <li>
+                    <label for="This Week">
+                      <input type="checkbox" id="This Week" />This Week
+                    </label>
+                  </li>
+                </ul>
+              </form>
+
+              <a href="#">+ More</a>
+            </div>
+          </aside>
+          <div class="press">
+            <h2 class="block__header">Press Release</h2>
+            <div class="press__item">
+              <div class="press__item__image">
+                <img src="./images/press-release.jpg" alt="" />
+                <div class="tag">Anime & Manga</div>
+              </div>
+              <div class="press__item__content">
+                <div class="meta">
+                  <div>
+                    <img src="./images/clock.svg" alt="" />
+                    <span>April 17, 2025</span>
+                  </div>
+                  <div>
+                    <img src="./images/user.svg" alt="" />
+                    <span>by GeekPress</span>
+                  </div>
+                </div>
+                <h5>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+                  architecto in!
+                </h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+
+            <div class="press__item">
+              <div class="press__item__image">
+                <img src="./images/press-release.jpg" alt="" />
+                <div class="tag">Anime & Manga</div>
+              </div>
+              <div class="press__item__content">
+                <div class="meta">
+                  <div>
+                    <img src="./images/clock.svg" alt="" />
+                    <span>April 17, 2025</span>
+                  </div>
+                  <div>
+                    <img src="./images/user.svg" alt="" />
+                    <span>by GeekPress</span>
+                  </div>
+                </div>
+                <h5>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+                  architecto in!
+                </h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+
+            <div class="press__item">
+              <div class="press__item__image">
+                <img src="./images/press-release.jpg" alt="" />
+                <div class="tag">Anime & Manga</div>
+              </div>
+              <div class="press__item__content">
+                <div class="meta">
+                  <div>
+                    <img src="./images/clock.svg" alt="" />
+                    <span>April 17, 2025</span>
+                  </div>
+                  <div>
+                    <img src="./images/user.svg" alt="" />
+                    <span>by GeekPress</span>
+                  </div>
+                </div>
+                <h5>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+                  architecto in!
+                </h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+
+            <div class="press__item">
+              <div class="press__item__image">
+                <img src="./images/press-release.jpg" alt="" />
+                <div class="tag">Anime & Manga</div>
+              </div>
+              <div class="press__item__content">
+                <div class="meta">
+                  <div>
+                    <img src="./images/clock.svg" alt="" />
+                    <span>April 17, 2025</span>
+                  </div>
+                  <div>
+                    <img src="./images/user.svg" alt="" />
+                    <span>by GeekPress</span>
+                  </div>
+                </div>
+                <h5>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+                  architecto in!
+                </h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+
+            <div class="press__item">
+              <div class="press__item__image">
+                <img src="./images/press-release.jpg" alt="" />
+                <div class="tag">Anime & Manga</div>
+              </div>
+              <div class="press__item__content">
+                <div class="meta">
+                  <div>
+                    <img src="./images/clock.svg" alt="" />
+                    <span>April 17, 2025</span>
+                  </div>
+                  <div>
+                    <img src="./images/user.svg" alt="" />
+                    <span>by GeekPress</span>
+                  </div>
+                </div>
+                <h5>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+                  architecto in!
+                </h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+
+            <div class="press__item">
+              <div class="press__item__image">
+                <img src="./images/press-release.jpg" alt="" />
+                <div class="tag">Anime & Manga</div>
+              </div>
+              <div class="press__item__content">
+                <div class="meta">
+                  <div>
+                    <img src="./images/clock.svg" alt="" />
+                    <span>April 17, 2025</span>
+                  </div>
+                  <div>
+                    <img src="./images/user.svg" alt="" />
+                    <span>by GeekPress</span>
+                  </div>
+                </div>
+                <h5>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+                  architecto in!
+                </h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+
+            <div class="press__item">
+              <div class="press__item__image">
+                <img src="./images/press-release.jpg" alt="" />
+                <div class="tag">Anime & Manga</div>
+              </div>
+              <div class="press__item__content">
+                <div class="meta">
+                  <div>
+                    <img src="./images/clock.svg" alt="" />
+                    <span>April 17, 2025</span>
+                  </div>
+                  <div>
+                    <img src="./images/user.svg" alt="" />
+                    <span>by GeekPress</span>
+                  </div>
+                </div>
+                <h5>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+                  architecto in!
+                </h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+          </div>
+          <aside class="viewed">
+            <div class="full__access">
+              <h2>Get Full Access</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Mollitia ullam esse poribus vero illo, .
+              </p>
+              <a href="#" class="btn">LOG IN</a>
+            </div>
+
+            <div class="block__header">Most Viewed</div>
+
+            <div class="viewed__item__content">
+              <small>
+                <img src="./images/clock.svg" alt="" /><span>
+                  April 17, 2025</span
+                ></small
+              >
+
+              <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                reprehenderit iure cumque.
+              </p>
+
+              <div class="info">
+                <small>
+                  <img src="./images/user.svg" alt="" /> Bt GeekPress</small
+                >
+
+                <span>Anime & Manga</span>
+              </div>
+            </div>
+
+            <div class="viewed__item__content">
+              <small>
+                <img src="./images/clock.svg" alt="" /><span>
+                  April 17, 2025</span
+                ></small
+              >
+
+              <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                reprehenderit iure cumque.
+              </p>
+
+              <div class="info">
+                <small>
+                  <img src="./images/user.svg" alt="" /> Bt GeekPress</small
+                >
+
+                <span>Anime & Manga</span>
+              </div>
+            </div>
+
+            <div class="viewed__item__content">
+              <small>
+                <img src="./images/clock.svg" alt="" /><span>
+                  April 17, 2025</span
+                ></small
+              >
+
+              <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                reprehenderit iure cumque.
+              </p>
+
+              <div class="info">
+                <small>
+                  <img src="./images/user.svg" alt="" /> Bt GeekPress</small
+                >
+
+                <span>Anime & Manga</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <section class="subscriber">
+      <div class="container">
+        <div class="subscriber__wrapper">
+          <div class="subscriber__header">
+            <img src="images/mail.svg" alt="" />
+            <h3>
+              Subscribe to our mailing list
+              <span>Get the news right in your inbox</span>
+            </h3>
+          </div>
+
+          <form action="" class="subscriber__form">
+            <div class="input__wrap">
+              <input type="text" placeholder="Enter email address" />
+              <button class="btn">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__wrapper">
+          <div class="footer__box information">
+            <img src="https://placehold.co/140x70" alt="" />
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum
+              veniam expedita rem quaerat
+            </p>
+            <ul>
+              <li>Phone: 01244 556 555</li>
+              <li>Email: contact@geekpress.co.uk</li>
+            </ul>
+          </div>
+          <div class="footer__box">
+            <h3>GeekPress</h3>
+
+            <ul class="links">
+              <li><img src="./images/chevron-right.svg" alt="" /> About Us</li>
+              <li><img src="./images/chevron-right.svg" alt="" /> FAQ's</li>
+              <li><img src="./images/chevron-right.svg" alt="" /> Contact</li>
+            </ul>
+          </div>
+
+          <div class="footer__box">
+            <h3>Lastest Posts</h3>
+            <div class="item__card">
+              <img src="./images/footer-latest-post.jpg" alt="" />
+              <div>
+                <small
+                  ><img src="./images/clock.svg" alt="" /> April 17, 2025</small
+                >
+                <h5>How to choose the right equipment</h5>
+              </div>
+            </div>
+
+            <div class="item__card">
+              <img src="./images/footer-latest-post.jpg" alt="" />
+              <div>
+                <small
+                  ><img src="./images/clock.svg" alt="" /> April 17, 2025</small
+                >
+                <h5>How to choose the right equipment</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer__box">
+            <h3>Follow Us</h3>
+
+            <ul class="social__links">
+              <li>
+                <a href="#"><img src="./images/linkedin.svg" alt="" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="./images/x.svg" alt="" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="./images/instagram.svg" alt="" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="./images/bluesky-1.svg" alt="" /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="copyright">
+          <small>&copy; 2025 GeekPress. All Rights Reserved</small>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./js/app.js"></script>
+  </body>
+</html>

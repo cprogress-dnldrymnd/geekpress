@@ -1,0 +1,105 @@
+@use "../abstract/" as *;
+
+.footer {
+    background: $dark;
+    color: $light;
+    padding: 10rem 0 0;
+    &__wrapper {
+        @include gridCustom(1.5fr 1fr 1.5fr 1fr, 5rem);
+        @include mediaQuery($tablet) {
+            @include gridCustom( 1fr 1fr, 5rem);
+        }
+
+       @include mediaQuery($mobile) {
+            @include gridCustom( 1fr , 5rem);
+        }
+    }
+
+    .footer__box > img {
+        margin-bottom: 2rem;
+    }
+
+    .footer__box h3 {
+        margin-bottom: 4rem;
+    }
+
+    .footer__box .links li{
+   
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #2a243e;
+        a {
+                 display: flex;
+        gap: 1rem;
+            color: $light;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .footer__box {
+        ul {
+            list-style: none;
+        }
+        .item__card {
+            display:flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            & > img {
+                border-radius: 1rem;
+                @include imageCover(8rem, 8rem);
+            }
+
+            small {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            h5 {
+                max-width: 20rem;
+                width: 100%;
+
+                a {
+                    color: $light;
+                }
+            }
+        }
+    }
+    .social__links {
+        display: flex;
+        gap: 2rem;
+        img {
+            width: 1.4rem;
+            height: 1.4rem;
+        }
+    }
+
+    .copyright {
+        @include flexBetween;
+        margin-top: 5rem;
+        padding-bottom: 2rem;
+
+         @include mediaQuery($mobile) {
+           flex-direction: column;
+           gap: 2rem;
+        }
+        ul {
+            display: flex;
+            gap: 2rem;
+            font-size: 1.2rem;
+            list-style: none;
+            a {
+                color:$light
+            }
+        }
+    }
+
+    .information {
+        font-size: 1.4rem;
+        p {
+            margin-bottom: 3rem;
+        }
+    }
+} 

@@ -1,0 +1,45 @@
+@mixin grid($cols: 1, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: $gap;
+}
+
+@mixin gridCustom($cols: 1fr, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: $cols;
+  gap: $gap;
+}
+
+@mixin centerAll($ht: 1rem) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: $ht;
+}
+
+@mixin flexBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin imageCover($wd: 1px, $ht: 1px) {
+  height: $ht;
+  width: $wd;
+  object-fit: cover;
+}
+
+@mixin backgroundImage($url: "") {
+  background: {
+    image: url($url);
+    size: cover;
+    repeat: no-repeat;
+    position: center center;
+  }
+}
+
+@mixin mediaQuery($width) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}

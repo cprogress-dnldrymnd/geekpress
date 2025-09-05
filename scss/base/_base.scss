@@ -1,0 +1,9 @@
+@use "../abstract" as *;
+
+body {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  font-family: "roboto-regular", sans-serif;
+  color: $light;
+  background: $dark;
+}

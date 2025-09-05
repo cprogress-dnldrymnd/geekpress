@@ -1,0 +1,227 @@
+@use '../abstract/' as *;
+
+.single {
+    &__wrapper {
+       @include gridCustom(3fr 1fr, 5rem);
+       @include mediaQuery($tablet) {
+        @include gridCustom( 1fr, 5rem);
+       }
+    }
+
+    &__main__image {
+        position: relative;
+        img {
+            @include imageCover(100%, 50rem);
+            border-radius: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        span {
+            position: absolute;
+            top: 3rem;
+            left: 3rem;
+        }
+    }
+
+    &__main__content {
+        h1 {
+            font-size: clamp(1.8rem, calc(2rem + 2vw), 3rem);
+            margin-bottom: 1rem;
+        }
+
+        small {
+            margin-bottom: .5rem;
+        }
+
+      
+        h3 {
+            font-size: clamp(1.6rem, calc(1.8rem + 2vw), 2.2rem);
+            margin-bottom: 2rem;
+        }
+
+        p {
+            font-size: 1.4rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            line-height: 1.6
+
+        }
+
+        & > img {
+            @include imageCover(100%, 400px);
+            margin-bottom: 3rem;
+        }
+    }
+
+   
+}
+
+
+.assets {
+    margin: 5rem 0;
+    padding: 3rem;
+    border: 1px solid $light;
+    border-radius: 1rem;
+    &__header {
+        @include flexBetween;
+        margin-bottom: 3rem;
+        h2 {
+            margin-bottom: 0;
+             font-size: clamp(1.6rem, calc(1.8rem + 2vw), 2.2rem);
+        }
+        .btn {
+            gap: 1rem;
+        }
+    }
+
+    &__wrapper {
+        @include grid(4, 2rem);
+       @include mediaQuery($tablet) {
+        @include gridCustom( 1fr 1fr, 5rem);
+       }
+
+       @include mediaQuery($mobile) {
+        @include gridCustom( 1fr , 5rem);
+       }
+    }
+
+    &__card {
+        padding: .5rem;
+        border: 1px solid rgba($light, 0.5);
+        border-radius: 1rem;
+        h4 {
+            margin-bottom: 0;
+             font-size: clamp(1.2rem, calc(1.4rem + 2vw), 1.6rem);
+        }
+        & > img {
+            border-radius: .5rem;
+            @include imageCover(190px, auto);
+            @include mediaQuery($tablet) {
+            @include imageCover(100%, auto);
+            }
+        }
+
+        ul {
+            @include flexBetween;
+            li {
+                font-size: 1rem;
+            }
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+        }
+    }
+}
+
+.author {
+    padding: 3rem;
+    margin-bottom: 5rem;
+    background: #0b0522;
+    @include gridCustom(150px 1fr, 2rem);
+      @include mediaQuery($tablet) {
+        @include gridCustom( 1fr, 5rem);
+       }
+    & > img {
+        border-radius:50%
+    }
+
+    h4 {
+        margin-bottom: 1rem;
+    }
+
+    & > img {
+        width: 14rem;
+        height: 14rem;
+        object-fit: cover;
+        border-radius: 50%
+
+    }
+
+    &__header {
+        @include flexBetween;
+        margin-bottom: 2rem;
+        small {
+            margin-bottom: 0;
+        }
+        ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        img {
+            width: 1.4rem;
+            height: 1.4rem;
+        }
+    }
+}
+
+.popular {
+    &__post {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba($light, 0.2);
+    }
+    &__post__image {
+        position: relative;
+        img {
+            @include imageCover(100%, 200px);
+            border-radius: 1rem
+        }
+        .tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+        }
+    }
+
+    ul {
+        @include flexBetween;
+        margin: 1rem 0;
+        li {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.2rem;
+        }
+    }
+
+    &__card {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba($light, 0.2);
+        small span {
+            opacity:0.5 ;
+        }
+    }
+
+ 
+}
+
+.single__aside {
+    h4 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+        opacity: 0.8;
+    }
+
+    small {
+        display: flex;
+        gap:1rem
+    }
+
+    ul {
+        li {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.4rem;
+            img + span {
+                opacity: 0.5;
+            }
+        }
+    }
+}

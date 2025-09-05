@@ -1,0 +1,104 @@
+@use "../abstract/" as *;
+
+.author__banner {
+    min-height: 50rem;
+   background: {
+    image:url('../images/author-banner.jpg');
+    size: cover;
+    position: center ;
+   };
+   mask: linear-gradient(to bottom, rgba(0,0,0,1) 50%, transparent);
+   &__content {
+    margin-left: calc((100vw - $container-width) / 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 50rem;
+    z-index:50;
+   }
+
+   .breadcrumb {
+    display: flex;
+    gap: 1rem;
+   }
+}
+
+.release {
+
+   
+    &__wrapper {
+        @include gridCustom(3fr 1fr, 5rem);
+          @include mediaQuery($mobile) {
+        @include gridCustom( 1fr , 5rem);
+       }
+    }
+    &__card {
+        margin-bottom: 4rem;
+        display: flex;
+        gap: 2rem;
+           @include mediaQuery($mobile) {
+        flex-direction: column;
+       }
+         & > img {
+            @include imageCover(200px, auto);
+               @include mediaQuery($mobile) {
+                @include imageCover(100%, 250px);
+            }
+        }
+    }
+    &__card__content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+       
+        small {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: auto;
+            flex: 0 1 0;
+            @include mediaQuery($mobile) {
+                margin-top: 3rem;
+            }
+        }
+    }
+}
+
+.release__author {
+
+   
+    &__info {
+        text-align: center;
+        background: #0b0522;
+        padding:3rem 1rem;
+        border-radius: 1rem;
+        & > img {
+            border-radius: 50%;
+            margin-inline:  auto ;
+        }
+        h3 {
+            margin-block: 2rem;
+        }
+
+        small {
+            display: flex ;
+            text-align: center;
+            justify-content: center;
+            margin: 1rem 0;
+            gap: 1rem
+        }
+
+        p {
+            margin-bottom: 3rem;
+            font-size: 1.4rem;
+        }
+    }
+}

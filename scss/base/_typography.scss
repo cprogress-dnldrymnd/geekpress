@@ -1,0 +1,54 @@
+@use '../abstract' as *;
+
+@font-face {
+  font-family: "roboto-regular";
+  src: url(../fonts/Roboto-Regular.woff2), url(../fonts/Roboto-Regular.woff);
+}
+
+@font-face {
+  font-family: "roboto-medium";
+  src: url(../fonts/Roboto-Medium.woff2), url(../fonts/Roboto-Medium.woff);
+}
+
+@font-face {
+  font-family: "roboto-bold";
+  src: url(../fonts/Roboto-Bold.woff2), url(../fonts/Roboto-Bold.woff);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-bold;
+}
+
+h1 {
+  font-size: clamp(3.5rem, calc(3.5rem + 2vw), 5rem);
+  line-height: 1.3;
+  margin-bottom: 4rem;
+}
+
+h2 {
+  font-size: clamp(3rem, calc(3rem + 2vw), 4.5rem);
+  line-height: 1.3;
+  margin-bottom: 4rem;
+}
+
+h3 {
+  font-size: clamp(1.4rem, calc(1.6rem + 1vw), 1.8rem);
+  line-height: 1.5;
+
+}
+
+h4 {
+  font-size: clamp(1.6rem, calc(1.6rem + 1vw), 2rem);
+  line-height: 1.5;
+  margin-bottom: 4rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
