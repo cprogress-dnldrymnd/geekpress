@@ -1617,6 +1617,20 @@ function update_acf_on_post_edit_with_url_param()
         // The `update_field()` function is the recommended way to update ACF fields.
         // It requires the field name (or key), the new value, and the post ID.
         update_field($acf_field_name, $status_value, $_GET['post']);
+
+        if ($status_value === 'approve') {
+            // Set the post status to 'publish' if approved
+            wp_update_post(array(
+                'ID' => $_GET['post'],
+                'post_status' => 'publish'
+            ));
+        } elseif ($status_value === 'reject') {
+            // Set the post status to 'draft' if rejected
+            wp_update_post(array(
+                'ID' => $_GET['post'],
+                'post_status' => 'pending'
+            ));
+        }
     ?>
         <script>
             jQuery(document).ready(function() {
