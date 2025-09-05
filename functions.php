@@ -1532,7 +1532,7 @@ function display_listing_status_column_content($column_name, $post_id)
             color: #d9534f
         }
     </style>
-<?php
+    <?php
     if ($column_name === 'listing_status') {
         // Get the value of the custom field
         $status = get_post_meta($post_id, 'listing_status', true);
@@ -1589,7 +1589,8 @@ add_filter('manage_edit-post_sortable_columns', 'make_listing_status_column_sort
  *
  * @param int $post_id The ID of the post being saved.
  */
-function update_acf_on_post_edit_with_url_param(  ) {
+function update_acf_on_post_edit_with_url_param()
+{
 
 
     // --- Configuration ---
@@ -1604,23 +1605,30 @@ function update_acf_on_post_edit_with_url_param(  ) {
     // ---  Execution ---
 
     // Check if the URL parameter is set in the current request.
-    if ( isset( $_GET[ $url_parameter ] ) ) {
+    if (isset($_GET[$url_parameter])) {
 
         // Sanitize the input from the URL parameter to ensure security.
         // 'sanitize_text_field' is a good general-purpose function.
         // For other data types, consider using functions like 'absint' for integers
         // or 'sanitize_email' for emails.
-        $status_value = sanitize_text_field( $_GET[ $url_parameter ] );
+        $status_value = sanitize_text_field($_GET[$url_parameter]);
 
         // Update the ACF field with the sanitized value.
         // The `update_field()` function is the recommended way to update ACF fields.
         // It requires the field name (or key), the new value, and the post ID.
-        update_field( $acf_field_name, $status_value, $_GET['post'] );
+        update_field($acf_field_name, $status_value, $_GET['post']);
+    ?>
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('.acf-field[data-name="listing_status"] select').val('<?php echo esc_js($status_value); ?>').trigger('change');
+            });
+        </script>
+<?php
     }
 }
 
 // Add the function to the 'save_post' action hook.
-add_action( 'admin_footer', 'update_acf_on_post_edit_with_url_param' );
+add_action('admin_footer', 'update_acf_on_post_edit_with_url_param');
 
 
 
