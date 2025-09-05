@@ -1621,6 +1621,9 @@ function update_acf_on_post_edit_with_url_param()
         <script>
             jQuery(document).ready(function() {
                 jQuery('.acf-field[data-name="listing_status"] select').val('<?php echo esc_js($status_value); ?>').trigger('change');
+                <?php if ($status_value === 'approve') { ?>
+                    jQuery('.editor-post-publish-panel__toggle').click();
+                <?php } ?>
             });
         </script>
 <?php
