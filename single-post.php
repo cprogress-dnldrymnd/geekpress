@@ -34,14 +34,7 @@
                         if (has_post_thumbnail()) : the_post_thumbnail();
                         endif;
                     ?>
-                    <ul class="single__category__list">
-                        <?php $categories = get_the_category();
-                        foreach ($categories as $category) {  ?>
-                            <span>
-                                <?php print_r($category->name); ?>
-                            </span>
-                        <?php } ?>
-                    </ul>
+                   
                 </div>
 
                 <div class="single__main__content">
@@ -80,16 +73,6 @@
 
                     </div>
 
-                    <!-- <h5><?php echo get_post_meta(get_the_ID(), 'popular_posts', true) ?></h5> -->
-                    <ul class="tag__wrap">
-                        <?php $categories = get_the_category();
-                        foreach ($categories as $category) {  ?>
-                            <span class="tag">
-                                <?php print_r($category->name); ?>
-                            </span>
-                        <?php } ?>
-
-                    </ul>
 
                     <?php if (is_user_logged_in()) { ?>
                         <div class="assets">
