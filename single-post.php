@@ -53,7 +53,7 @@
 
 
                     <div class="single__main__content__article">
-                        <?php echo apply_filters('the_content', get_post_field('post_content', $post_id)); ?>
+                        <?php echo apply_filters('the_content', get_post_field('post_content', get_the_ID())); ?>
                         <?php
                         $external_links = get_field('external_links');
 
