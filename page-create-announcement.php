@@ -322,10 +322,11 @@ get_header() ?>
             preview.innerHTML += `
                 <div class="preview">
                     <img src="${fileUrl}" alt="${file.name}"/>
+                    <button class="remove-button" type="button" onclick="removeFile(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
                     <h5>${file.name}</h5>
                     <ul>
                         <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
-                        <li> <button type="button" onclick="removeFile(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></li>
+                        
                     </ul>
                 </div>
             `;
@@ -370,10 +371,10 @@ get_header() ?>
             fileFeatPreview.innerHTML = `
                 <div class="preview">
                     <img src="${fileUrlFeat}" alt="${file.name}"/>
+                    <button type="button" class="remove-button" onclick="removeFeaturedFile(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
                     <h5>${file.name}</h5>
                     <ul>
                         <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
-                        <li> <button type="button" onclick="removeFeaturedFile(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></li>
                     </ul>
                 </div>
             `;
