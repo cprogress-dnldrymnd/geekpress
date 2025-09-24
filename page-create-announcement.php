@@ -378,6 +378,8 @@ get_header() ?>
                     </ul>
                 </div>
             `;
+
+            jQuery('.feat__preview__wrapper').hide();
         });
     }
     
