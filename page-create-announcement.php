@@ -292,20 +292,20 @@ get_header() ?>
     </div>
 </section>
 
-
 <script>
+    // --- Gallery Image Uploader ---
     const fileInput = document.getElementById("file");
     const preview = document.getElementById("previewContainer");
     let filesArray = [];
-
 
     fileInput.addEventListener("change", (e) => {
         const newFiles = Array.from(e.target.files);
 
         newFiles.forEach((file) => {
             if (file.size > 5 * 1024 * 1024) {
-                errorContainer.innerHTML = `${file.name} exceeds 5MB and will be ignored.`;
-
+                // Assuming you have an element with id="errorContainer"
+                // errorContainer.innerHTML = `${file.name} exceeds 5MB and will be ignored.`;
+                alert(`${file.name} exceeds 5MB and will be ignored.`);
             } else {
                 filesArray.push(file);
             }
@@ -318,31 +318,25 @@ get_header() ?>
     function renderPreviews() {
         preview.innerHTML = "";
         filesArray.forEach((file, index) => {
-            if (file.size > 5 * 1024 * 1024) {
-                alert(file.name + " exceeds 5MB and will be ignored.");
-                filesArray.splice(index, 1);
-                return;
-            }
             const fileUrl = URL.createObjectURL(file);
             preview.innerHTML += `
                 <div class="preview">
-               <img src="${fileUrl}" alt="${file.name}"/>
-                <h5>${file.name}</h5>
-                <ul>
-                    <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
-                    <li> <button type="button" onclick="removeFile(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></li>
-                </ul>
-                <div>
+                    <img src="${fileUrl}" alt="${file.name}"/>
+                    <h5>${file.name}</h5>
+                    <ul>
+                        <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
+                        <li> <button type="button" onclick="removeFile(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></li>
+                    </ul>
+                </div>
             `;
         });
-        syncInputFiles();
     }
+
     window.removeFile = function(index) {
         filesArray.splice(index, 1);
         renderPreviews();
+        syncInputFiles(); // Re-sync after removal
     }
-
-
 
     function syncInputFiles() {
         const dataTransfer = new DataTransfer();
@@ -350,46 +344,60 @@ get_header() ?>
         fileInput.files = dataTransfer.files;
     }
 
-
-
+    // --- Featured Image Uploader ---
     const fileFeatInput = document.querySelector('#feat-file');
     const fileFeatPreview = document.querySelector('#feat__preview');
     let filesFeatArray = [];
 
-    function renderFeaturePreview(e) {
-        fileFeatPreview.innerHTML = "";
-        filesFeatArray.forEach((file, index) => {
-            if (file.size > 5 * 1024 * 1024) {
-                errorContainerFeature.innerHTML = `${file.name} exceeds 5MB and will be ignored.`;
-                return;
-            }
-            const fileUrlFeat = URL.createObjectURL(file);
-            fileFeatPreview.innerHTML = `
-        <div class="preview">
-            <img src="${fileUrlFeat}" alt="${file.name}"/>
-            <h5>${file.name}</h5>
-            <ul>
-                <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
-                  <li> <button type="button" onclick="removefilesFeat(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></li>
-            </ul>
-        <div>
-    `;
-        });
-    }
-
-    window.removefilesFeat = function(index) {
-        filesArray.splice(index, 1);
-        renderPreviews();
-    }
     fileFeatInput.addEventListener("change", (e) => {
         filesFeatArray = Array.from(e.target.files);
         renderFeaturePreview();
+        syncFeatInputFiles(); // Sync on initial selection
     });
 
+    function renderFeaturePreview() {
+        fileFeatPreview.innerHTML = "";
+        filesFeatArray.forEach((file, index) => {
+            if (file.size > 5 * 1024 * 1024) {
+                 // Assuming you have an element with id="errorContainerFeature"
+                // errorContainerFeature.innerHTML = `${file.name} exceeds 5MB and will be ignored.`;
+                alert(`${file.name} exceeds 5MB and will be ignored.`);
+                filesFeatArray.splice(index, 1); // Remove the oversized file
+                return;
+            }
+            const fileUrlFeat = URL.createObjectURL(file);
+            // Use '=' instead of '+=' since it's a single featured image
+            fileFeatPreview.innerHTML = `
+                <div class="preview">
+                    <img src="${fileUrlFeat}" alt="${file.name}"/>
+                    <h5>${file.name}</h5>
+                    <ul>
+                        <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
+                        <li> <button type="button" onclick="removeFeaturedFile(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></li>
+                    </ul>
+                </div>
+            `;
+        });
+    }
+    
+    // **FIXED FUNCTION**
+    window.removeFeaturedFile = function(index) {
+        // 1. Target the correct array: filesFeatArray
+        filesFeatArray.splice(index, 1);
+        // 2. Call the correct render function: renderFeaturePreview
+        renderFeaturePreview();
+        // 3. Call the correct sync function
+        syncFeatInputFiles();
+    }
+    
+    // **NEW SYNC FUNCTION FOR FEATURED IMAGE**
+    function syncFeatInputFiles() {
+        const dataTransfer = new DataTransfer();
+        filesFeatArray.forEach((file) => dataTransfer.items.add(file));
+        fileFeatInput.files = dataTransfer.files;
+    }
 
-
-
-
+    // --- External Links ---
     function addMoreLinks() {
         const wrapper = document.getElementById("external-links-wrapper");
         const input = document.createElement("input");
