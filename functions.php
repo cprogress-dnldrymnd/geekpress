@@ -1344,9 +1344,11 @@ function get__user_company_flag($author_id)
 {
     $company_id = get__user_company_id($author_id);
 
-    $country = get_field('country', $company_id);
-    $country_code = get_country_code_by_name($country);
-    return '<div class="flag">' . get__svg($country_code) . ' </div>';
+    if ($company_id) {
+        $country = get_field('country', $company_id);
+        $country_code = get_country_code_by_name($country);
+        return '<div class="flag">' . get__svg($country_code) . ' </div>';
+    }
 }
 function get__company_posts()
 {
