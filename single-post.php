@@ -34,7 +34,7 @@
                         if (has_post_thumbnail()) : the_post_thumbnail();
                         endif;
                     ?>
-                   
+
                 </div>
 
                 <div class="single__main__content">
@@ -61,8 +61,12 @@
                             echo '<div class="external-links">';
                             foreach ($external_links as $external_link) {
                                 echo '<div class="external-link">';
-                                echo getLinkType($external_link['external_link']);
-                                echo '<iframe src="' . getYoutubeEmbedUrl($external_link['external_link']) . '"></iframe>';
+                                $link_type = getLinkType($external_link['external_link']);
+                                if ($link_type == 'YouTube') {
+                                    echo '<iframe src="' . getYoutubeEmbedUrl($external_link['external_link']) . '"></iframe>';
+                                } else if ($link_type == 'Image') {
+                                    echo '<img src="' . $external_link['external_link'] . '"/>';
+                                }
                                 echo '</div>';
                             }
                             echo '</div>';
