@@ -1429,6 +1429,46 @@ add_filter('wp_prepare_themes_for_js', function ($themes) {
     return $themes;
 });
 
+/**
+ * Detects if a given URL is a YouTube video, an image, or something else.
+ *
+ * This function checks the URL against common YouTube URL patterns and
+ * common image file extensions.
+ *
+ * @param string $url The URL to check.
+ * @return string Returns 'YouTube', 'Image', or 'Unknown'.
+ */
+function getLinkType($url)
+{
+    // --- YouTube URL Detection ---
+    // This regex looks for common YouTube URL patterns, including:
+    // - youtube.com/watch?v=...
+    // - youtu.be/...
+    // - youtube.com/embed/...
+    // - youtube.com/v/...
+    $youtubeRegex = '/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/';
+    if (preg_match($youtubeRegex, $url)) {
+        return 'YouTube';
+    }
+
+    // --- Image URL Detection ---
+    // We parse the URL and check the file extension of the path.
+    $path = parse_url($url, PHP_URL_PATH);
+    if ($path) {
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg', 'ico'];
+
+        if (in_array($extension, $imageExtensions)) {
+            return 'Image';
+        }
+    }
+
+
+    // --- Default Case ---
+    // If it's neither a YouTube link nor a recognized image format.
+    return 'Unknown';
+}
+
 
 function getYoutubeEmbedUrl($url)
 {

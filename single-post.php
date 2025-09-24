@@ -61,6 +61,7 @@
                             echo '<div class="external-links">';
                             foreach ($external_links as $external_link) {
                                 echo '<div class="external-link">';
+                                echo getLinkType($external_link['external_link']);
                                 echo '<iframe src="' . getYoutubeEmbedUrl($external_link['external_link']) . '"></iframe>';
                                 echo '</div>';
                             }
