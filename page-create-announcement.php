@@ -177,7 +177,7 @@ get_header() ?>
                     <div class="input__wrapper">
                         <label for="">Body</label>
                         <?php
-                        
+
                         wp_editor(
                             isset($_POST['post_content']) ? $_POST['post_content'] : '',
                             'post_content',
@@ -187,7 +187,7 @@ get_header() ?>
                                 'media_buttons' => false,
                             ]
                         );
-                        
+
                         ?>
                     </div>
 
@@ -360,7 +360,7 @@ get_header() ?>
         fileFeatPreview.innerHTML = "";
         filesFeatArray.forEach((file, index) => {
             if (file.size > 5 * 1024 * 1024) {
-                 // Assuming you have an element with id="errorContainerFeature"
+                // Assuming you have an element with id="errorContainerFeature"
                 // errorContainerFeature.innerHTML = `${file.name} exceeds 5MB and will be ignored.`;
                 alert(`${file.name} exceeds 5MB and will be ignored.`);
                 filesFeatArray.splice(index, 1); // Remove the oversized file
@@ -382,7 +382,7 @@ get_header() ?>
             jQuery('.feat__preview__wrapper').hide();
         });
     }
-    
+
     // **FIXED FUNCTION**
     window.removeFeaturedFile = function(index) {
         // 1. Target the correct array: filesFeatArray
@@ -391,8 +391,10 @@ get_header() ?>
         renderFeaturePreview();
         // 3. Call the correct sync function
         syncFeatInputFiles();
+        jQuery('.feat__preview__wrapper').show();
+
     }
-    
+
     // **NEW SYNC FUNCTION FOR FEATURED IMAGE**
     function syncFeatInputFiles() {
         const dataTransfer = new DataTransfer();
