@@ -107,6 +107,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         $company_bio   = sanitize_textarea_field($_POST['company_bio'] ?? '');
         $company_country   = sanitize_textarea_field($_POST['company_country'] ?? '');
 
+        echo $banner_id;
 
         if (empty($company_name)) {
             $errors[] = 'Company Name is required.';
