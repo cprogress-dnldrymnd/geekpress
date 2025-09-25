@@ -173,7 +173,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
     $company_logo_id = get_post_thumbnail_id($company_id);
     $company_banner_id = get_field('banner', $company_id);
     $company_country_val = get_field('country', $company_id);
-    $company_bio = get_the_content(NULL, FALSE, $company_id);
+    $company_bio = wp_strip_all_tags(get_the_content(NULL, FALSE, $company_id));
 ?>
 
 
