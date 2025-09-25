@@ -278,7 +278,7 @@
                                 </p>
                                 <ul>
                                     <li>
-                                        <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
+                                        <?= get__user_company_flag(get_the_author_meta('ID')) ?>
                                         <span><?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                     <li>
