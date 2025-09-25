@@ -61,9 +61,11 @@ get_header();
         font-size: 1rem;
     }
 
-    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_profile_wrapper {
+    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_profile_wrapper, .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_banner_wrapper {
         display: none !important;
     }
+
+    
 </style>
 <?php
 $current_user = wp_get_current_user();
@@ -277,7 +279,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         }
 
         function removeBanner() {
-
+            jQuery('#company_logo').remove();
         }
     </script>
     <script>
