@@ -279,7 +279,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         }
 
         function removeBanner() {
-            jQuery('#company_logo').remove();
+            jQuery('#banner__thumbnail').remove();
         }
     </script>
     <script>
