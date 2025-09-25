@@ -323,6 +323,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         `;
 
                 jQuery('.preview_banner_wrapper').hide();
+                jQuery('#remove_company_banner').val('no');
             });
         }
 
@@ -358,6 +359,8 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
             });
 
             jQuery('.preview_profile_wrapper').hide();
+            jQuery('#remove_company_logo').val('no');
+
 
         }
 
