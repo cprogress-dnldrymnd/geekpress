@@ -66,9 +66,14 @@ $current_user = wp_get_current_user();
 $user_id = $current_user->ID;
 
 $company_id = get__user_company($user_id, false, true);
+$company_manager = get_field('company_manager', $company_id);
 echo '<pre>';
-var_dump(get_field('company_manager', $company_id));
+var_dump($company_manager);
 echo '</pre>';
+
+if(in_array($user_id, $company_manager)) {
+    echo 'test';
+}
 
 if (!$company_id) {
 ?>
