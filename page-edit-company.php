@@ -286,7 +286,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                     </div>
                 </div>
 
-                <input type="submit" value="Update Profile" class="btn-custom btn-inverse">
+                <input type="submit" value="Update Company" class="btn-custom btn-inverse">
             </form>
         </div>
     </section>
