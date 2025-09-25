@@ -135,7 +135,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 'post_title'   => $company_name,
                 'post_content' => $company_bio,
                 'meta_input' => array(
-                    'company_country' => $company_country,
+                    'country' => $company_country,
                 )
             );
 
