@@ -16,6 +16,10 @@ $user_id = $current_user->ID;
 
 $company_id = get__user_company($user_id, false, true);
 
+if(!$company_id) {
+    wp_die("You don't have enough permission to access this page.");
+}
+
 $errors = [];
 $success = '';
 
