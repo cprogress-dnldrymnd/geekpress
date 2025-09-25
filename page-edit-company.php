@@ -132,34 +132,6 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
             update_user_meta($user_id, 'company_bio', $company_bio);
 
 
-            $social_fields = [
-                'linkedin'  => 'https://www.linkedin.com/in/',
-                'x'         => 'https://twitter.com/',
-                'instagram' => 'https://instagram.com/',
-                'bluesky'   => 'https://bsky.app/profile/',
-                // Add more if needed
-            ];
-
-            foreach ($social_fields as $field => $base_url) {
-                if (isset($_POST[$field])) {
-                    $username = trim($_POST[$field]);
-
-                    if (!empty($username)) {
-                        // Remove @ if user accidentally added it
-                        $username = ltrim($username, '@');
-
-                        // Build full URL
-                        $full_url = $base_url . $username;
-
-                        // Save the full URL in the user meta via ACF
-                        update_field($field, esc_url_raw($full_url), 'user_' . $user_id);
-                    } else {
-                        // If empty, clear the field
-                        update_field($field, '', 'user_' . $user_id);
-                    }
-                }
-            }
-
             if (!empty($new_password) && empty($errors)) {
                 wp_set_password($new_password, $user_id);
                 wp_set_current_user($user_id); // keep user logged in
@@ -198,9 +170,10 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         }
     }
 
-    $company_logo_id = get_user_meta($user_id, 'company_logo', true);
-    $company_banner_id = get_user_meta($user_id, 'page_banner', true);
-    $company_bio = get_user_meta($user_id, 'company_bio', true);
+    $company_logo_id = get_post_thumbnail_id($company_id);
+    $company_banner_id = get_field('banner', $company_id);
+    $company_country_val = get_field('country', $company_id);
+    $company_bio = get_the_content(NULL, FALSE, $company_id);
 ?>
 
 
@@ -251,7 +224,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                         <select name="company_country">
                             <option value="">Select your company_country</option>
                             <?php foreach ($company_country_list as $company_country): ?>
-                                <option value="<?php echo esc_attr($company_country); ?>"><?php echo esc_html($company_country); ?></option>
+                                <option <?= $company_country == $company_country_val ? 'seleted' : '' ?> value="<?php echo esc_attr($company_country); ?>"><?php echo esc_html($company_country); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
