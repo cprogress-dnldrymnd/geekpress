@@ -653,9 +653,16 @@ function user_icon()
             <?php } ?>
 
             <?php if (is_user_logged_in()) { ?>
+                <?php
+                $user_id = get_current_user_id();
+                $company_id = get__user_company($user_id, false, true);
+                $company_manager = get_field('company_manager', $company_id);
+                ?>
                 <div class="dropdown__menu">
                     <ul>
-                        <li><a href="<?php echo esc_url(get_author_posts_url($current_user->ID)); ?>">Profile</a></li>
+                        <?php if ($company_id) { ?>
+                            <li><a href="<?php echo esc_url(get_the_permalink($company_id)); ?>">Company Profile</a></li>
+                        <?php } ?>
                         <li><a href="<?php echo esc_url(site_url('/edit-profile')); ?>">Edit Profile</a></li>
                         <li><a href="<?php echo wp_logout_url(home_url()); ?>">Logout</a></li>
                     </ul>
