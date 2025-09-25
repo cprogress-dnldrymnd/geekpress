@@ -71,9 +71,7 @@ echo '<pre>';
 var_dump($company_manager);
 echo '</pre>';
 
-if (in_array($user_id, $company_manager)) {
-    echo 'test';
-}
+
 
 if (!in_array($user_id, $company_manager) || !$company_id) {
 ?>
