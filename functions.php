@@ -1340,18 +1340,19 @@ function get__company_contacts($ids_only = true)
         return false;
     }
 }
-function get__user_company_flag($author_id)
+function get__user_company_flag($author_id, $country_name = false)
 {
     $company_id = get__user_company_id($author_id);
 
     if ($company_id) {
         $country = get_field('country', $company_id);
         $country_code = get_country_code_by_name($country);
-        return '<div class="flag">' . get__svg($country_code) . ' </div>';
+        return '<div class="flag">' . get__svg($country_code) . ' ' . ($country_name == true ? $country : '') . ' </div>';
     }
 }
 
-function get__user_company_flag_sc() {
+function get__user_company_flag_sc()
+{
     return get__user_company_flag(get_the_author_meta('ID'), true);
 }
 add_shortcode('get__user_company_flag_sc', 'get__user_company_flag_sc');
