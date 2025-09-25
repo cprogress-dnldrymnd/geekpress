@@ -60,7 +60,8 @@ get_header();
         padding: 0.5rem;
         font-size: 1rem;
     }
-    .upload_thumbnail:not([style="display: none;"]) + .asset__upload__wrapper .preview_profile_wrapper {
+
+    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_profile_wrapper {
         display: none !important;
     }
 </style>
@@ -202,7 +203,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                         <label for="company_logo">Company Logo</label>
                         <div class="flex">
                             <?php if ($company_logo_id): ?>
-                                <div class="upload_thumbnail" id="profile_thumbnail"><img src="<?php echo esc_url(wp_get_attachment_url($company_logo_id)); ?>">
+                                <div class="upload_thumbnail" id="company_logo"><img src="<?php echo esc_url(wp_get_attachment_url($company_logo_id)); ?>">
                                     <button class="remove-button" type="button" onclick="removeLogo()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
                                             <path d="M18 6 6 18" />
                                             <path d="m6 6 12 12" />
@@ -272,7 +273,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
     </section>
     <script>
         function removeLogo() {
-
+            jQuery('#company_logo').remove();
         }
 
         function removeBanner() {
@@ -314,7 +315,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
 
         const company_logo_input = document.querySelector('#company_logo_input');
         const preview_profile = document.querySelector('#preview_profile');
-        const profile__thumbnail = document.querySelector('#profile_thumbnail');
+        const profile__thumbnail = document.querySelector('#company_logo');
         let profileArray = [];
 
         function renderLogo() {
