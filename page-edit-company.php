@@ -199,7 +199,8 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                             <?php endforeach; ?>
                         </select>
                     </div>
-
+                    <input type="hidden" name="remove_company_logo" id="remove_company_logo" value="no">
+                    <input type="hidden" name="remove_company_banner" id="remove_company_banner" value="no">
                     <div class="input__wrapper">
                         <label for="company_logo">Company Logo</label>
                         <div class="flex">
@@ -275,20 +276,25 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
     <script>
         function removeLogo() {
             jQuery('#company_logo').remove();
+            jQuery('#remove_company_logo').val('yes');
         }
 
         function removeLogoUpload() {
             jQuery('#preview_profile .preview').remove();
             jQuery('.preview_profile_wrapper').show();
+            jQuery('#remove_company_logo').val('yes');
+
         }
 
         function removeBanner() {
             jQuery('#banner__thumbnail').remove();
+            jQuery('#remove_company_banner').val('yes');
         }
 
         function removeBannerUpload() {
             jQuery('#preview_banner .preview').remove();
             jQuery('.preview_banner_wrapper').show();
+            jQuery('#remove_company_banner').val('yes');
         }
     </script>
     <script>
