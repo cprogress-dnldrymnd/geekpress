@@ -71,11 +71,11 @@ echo '<pre>';
 var_dump($company_manager);
 echo '</pre>';
 
-if(in_array($user_id, $company_manager)) {
+if (in_array($user_id, $company_manager)) {
     echo 'test';
 }
 
-if (!$company_id) {
+if (!in_array($user_id, $company_manager) || !$company_id) {
 ?>
     <section class="edit__profile">
         <div class="container">
