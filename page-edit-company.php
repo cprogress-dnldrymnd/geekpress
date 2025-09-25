@@ -61,11 +61,10 @@ get_header();
         font-size: 1rem;
     }
 
-    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_profile_wrapper, .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_banner_wrapper {
+    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_profile_wrapper,
+    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_banner_wrapper {
         display: none !important;
     }
-
-    
 </style>
 <?php
 $current_user = wp_get_current_user();
@@ -276,7 +275,11 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
     <script>
         function removeLogo() {
             jQuery('#company_logo').remove();
+        }
+
+        function removeLogoUpload() {
             jQuery('#preview_profile .preview').remove();
+            jQuery('.preview_profile_wrapper').show();
         }
 
         function removeBanner() {
@@ -335,7 +338,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 preview_profile.innerHTML = `
             <div class="preview">
                 <img src="${fileUrlProfile}" alt="${file.name}"/>
-                 <button class="remove-button" type="button" onclick="removeLogo()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                 <button class="remove-button" type="button" onclick="removeLogoUpload()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
                                             <path d="M18 6 6 18" />
                                             <path d="m6 6 12 12" />
                                         </svg></button>
