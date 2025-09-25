@@ -2,7 +2,7 @@
 if ( ! is_user_logged_in() ) {
     wp_redirect(home_url('/login') );
     add_action('template_redirect', function() {
-        wp_redirect(home_url('/create-announcement/'));
+        wp_redirect(home_url(''));
         exit;
 });
 
