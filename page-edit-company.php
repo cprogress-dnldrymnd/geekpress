@@ -170,6 +170,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         }
     }
 
+    $company_name = get_the_title($company_id);
     $company_logo_id = get_post_thumbnail_id($company_id);
     $company_banner_id = get_field('banner', $company_id);
     $company_country_val = get_field('country', $company_id);
@@ -210,7 +211,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 <div class="register__block dark">
                     <div class="input__wrapper">
                         <label for="company_name">Company Name</label>
-                        <input type="text" name="company_name" value="<?php echo esc_attr($_POST['company_name'] ?? $current_user->company_name); ?>" required>
+                        <input type="text" name="company_name" value="<?php echo esc_attr($_POST['company_name'] ?? $company_name); ?>" required>
                     </div>
 
                     <div class="input__wrapper">
