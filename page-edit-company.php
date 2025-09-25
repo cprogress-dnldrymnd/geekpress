@@ -189,7 +189,7 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
 </style>
 
 <?php
-
+acf_form_head();
 acf_form(array(
     'field_groups' => array(1038), // Replace with your Field Group ID
     'post_id' => 'new',
