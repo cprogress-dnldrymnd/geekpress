@@ -106,15 +106,14 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 $banner_id = media_handle_upload('company_banner', 0);
                 update_field('banner', $banner_id, $company_id);
             }
-        } 
+        }
 
         if ($_POST['remove_company_logo'] == 'yes') {
-                delete_post_thumbnail($company_id);
-            }
+            delete_post_thumbnail($company_id);
+        }
 
-            if ($_POST['remove_company_banner'] == 'yes') {
-                update_field('banner', '', $company_id);
-            }
+        if ($_POST['remove_company_banner'] == 'yes') {
+            update_field('banner', '', $company_id);
         }
 
         $company_name = sanitize_text_field($_POST['company_name'] ?? '');
