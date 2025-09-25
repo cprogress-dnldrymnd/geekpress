@@ -66,6 +66,9 @@ $current_user = wp_get_current_user();
 $user_id = $current_user->ID;
 
 $company_id = get__user_company($user_id, false, true);
+echo '<pre>';
+var_dump(get_field('company_manager', $company_id));
+echo '</pre>';
 
 if (!$company_id) {
 ?>
