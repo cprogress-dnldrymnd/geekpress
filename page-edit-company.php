@@ -286,6 +286,11 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         function removeBanner() {
             jQuery('#banner__thumbnail').remove();
         }
+
+        function removeBannerUpload() {
+            jQuery('#preview_banner .preview').remove();
+            jQuery('.preview_banner_wrapper').show();
+        }
     </script>
     <script>
         const company_banner_input = document.querySelector('#company_banner_input');
@@ -305,7 +310,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 preview_banner.innerHTML = `
             <div class="preview">
                 <img src="${fileUrlBanner}" alt="${file.name}"/>
-                 <button class="remove-button" type="button" onclick="removeBanner()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                 <button class="remove-button" type="button" onclick="removeBannerUpload()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
                                             <path d="M18 6 6 18" />
                                             <path d="m6 6 12 12" />
                                         </svg></button>
