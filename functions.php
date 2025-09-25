@@ -664,7 +664,7 @@ function user_icon()
                             <li><a href="<?php echo esc_url(get_the_permalink($company_id)); ?>">Company Profile</a></li>
                         <?php } ?>
                         <?php if (in_array($user_id, $company_manager) && $company_id) { ?>
-                            <li><a href="<?php echo esc_url(get_the_permalink(1061)); ?>">Edit Company</a></li>
+                            <li><a href="<?php echo esc_url(get_the_permalink(1330)); ?>">Edit Company</a></li>
                         <?php } ?>
                         <li><a href="<?php echo wp_logout_url(home_url()); ?>">Logout</a></li>
                     </ul>
