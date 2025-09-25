@@ -99,6 +99,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
             // Banner Image
             if (!empty($_FILES['company_banner']['name'])) {
                 $banner_id = media_handle_upload('company_banner', 0);
+                update_field('banner', $banner_id, $company_id);
             }
         }
 
@@ -107,7 +108,6 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         $company_bio   = sanitize_textarea_field($_POST['company_bio'] ?? '');
         $company_country   = sanitize_textarea_field($_POST['company_country'] ?? '');
 
-        echo $banner_id;
 
         if (empty($company_name)) {
             $errors[] = 'Company Name is required.';
@@ -124,7 +124,6 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 'post_content' => $company_bio,
                 'meta_input' => array(
                     'company_country' => $company_country,
-                    'banner' => $banner_id
                 )
             );
 
@@ -207,7 +206,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                                 <div id="preview_profile" class="preview_profile__container"></div>
                                 <div class="preview_profile_wrapper">
                                     <div class="upload__image">
-                                        <input type="file" id="company_logo_input" value="<?= $company_logo_id ?>" name="company_logo" accept="image/*">
+                                        <input type="file" id="company_logo_input" name="company_logo" accept="image/*">
                                         <label for="company_logo_input">
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M12 15V3" />
@@ -235,7 +234,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                                 <div id="preview_banner" class="preview_banner__container"></div>
                                 <div class="preview_banner_wrapper">
                                     <div class="upload__image">
-                                        <input type="file" id="company_banner_input" value="<?= $company_banner_id ?>" name="company_banner" accept="image/*">
+                                        <input type="file" id="company_banner_input" name="company_banner" accept="image/*">
                                         <label for="company_banner_input">
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M12 15V3" />
