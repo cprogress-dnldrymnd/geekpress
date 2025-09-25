@@ -60,6 +60,9 @@ get_header();
         padding: 0.5rem;
         font-size: 1rem;
     }
+    .upload_thumbnail:not([style="display: none;"]) + .asset__upload__wrapper .preview_profile_wrapper {
+        display: none !important;
+    }
 </style>
 <?php
 $current_user = wp_get_current_user();
@@ -200,7 +203,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                         <div class="flex">
                             <?php if ($company_logo_id): ?>
                                 <div class="upload_thumbnail" id="profile_thumbnail"><img src="<?php echo esc_url(wp_get_attachment_url($company_logo_id)); ?>">
-                                    <button class="remove-button" type="button" onclick="removeLogo(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                                    <button class="remove-button" type="button" onclick="removeLogo()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
                                             <path d="M18 6 6 18" />
                                             <path d="m6 6 12 12" />
                                         </svg></button>
@@ -234,7 +237,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                         <div class="flex">
                             <?php if ($company_banner_id): ?>
                                 <div class="upload_thumbnail" id="banner__thumbnail"><img src="<?php echo esc_url(wp_get_attachment_url($company_banner_id)); ?>" width="200">
-                                    <button class="remove-button" type="button" onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                                    <button class="remove-button" type="button" onclick="removeBanner()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
                                             <path d="M18 6 6 18" />
                                             <path d="m6 6 12 12" />
                                         </svg></button>
@@ -267,7 +270,15 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
             </form>
         </div>
     </section>
+    <script>
+        function removeLogo() {
 
+        }
+
+        function removeBanner() {
+
+        }
+    </script>
     <script>
         const company_banner_input = document.querySelector('#company_banner_input');
         const preview_banner = document.querySelector('#preview_banner');
@@ -286,6 +297,10 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 preview_banner.innerHTML = `
             <div class="preview">
                 <img src="${fileUrlBanner}" alt="${file.name}"/>
+                 <button class="remove-button" type="button" onclick="removeBanner()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                                            <path d="M18 6 6 18" />
+                                            <path d="m6 6 12 12" />
+                                        </svg></button>
             </div>
         `;
             });
@@ -302,7 +317,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         const profile__thumbnail = document.querySelector('#profile_thumbnail');
         let profileArray = [];
 
-        function renderProfilePreview() {
+        function renderLogo() {
             preview_profile.innerHTML = "";
             error_company_logo.innerHTML = "";
             profileArray.forEach((file) => {
@@ -314,6 +329,10 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 preview_profile.innerHTML = `
             <div class="preview">
                 <img src="${fileUrlProfile}" alt="${file.name}"/>
+                 <button class="remove-button" type="button" onclick="removeLogo()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                                            <path d="M18 6 6 18" />
+                                            <path d="m6 6 12 12" />
+                                        </svg></button>
             </div>
         `;
             });
@@ -321,7 +340,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
 
         company_logo_input.addEventListener("change", (e) => {
             profileArray = Array.from(e.target.files);
-            renderProfilePreview();
+            renderLogo();
             if (profile__thumbnail) profile__thumbnail.style.display = "none";
         });
 
@@ -339,16 +358,6 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                 }
             });
         });
-
-
-        
-    window.removeLogo = function(index) {
-        // 1. Target the correct array: filesFeatArray
-        filesFeatArray.splice(index, 1);
-        // 2. Call the correct render function: renderFeaturePreview
-        renderProfilePreview();
-
-    }
     </script>
 <?php } ?>
 <?php get_footer(); ?>
