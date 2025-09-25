@@ -13,7 +13,7 @@ get_header();
 ?>
 
 <style>
-    .company_preview__container .preview img {
+    .preview_profile__container .preview img {
         object-fit: contain !important;
     }
 
@@ -61,7 +61,7 @@ get_header();
         font-size: 1rem;
     }
 
-    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .company_preview_wrapper, .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_banner_wrapper {
+    .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_profile_wrapper, .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_banner_wrapper {
         display: none !important;
     }
 
@@ -214,8 +214,8 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                             <?php endif; ?>
 
                             <div class="asset__upload__wrapper">
-                                <div id="company_preview" class="company_preview__container"></div>
-                                <div class="company_preview_wrapper">
+                                <div id="preview_profile" class="preview_profile__container"></div>
+                                <div class="preview_profile_wrapper">
                                     <div class="upload__image">
                                         <input type="file" id="company_logo_input" name="company_logo" accept="image/*">
 
@@ -276,7 +276,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
     <script>
         function removeLogo() {
             jQuery('#company_logo').remove();
-            jQuery('#company_preview .preview'),remove();
+            jQuery('#preview_profile .preview').remove();
         }
 
         function removeBanner() {
@@ -319,12 +319,12 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         });
 
         const company_logo_input = document.querySelector('#company_logo_input');
-        const company_preview = document.querySelector('#company_preview');
+        const preview_profile = document.querySelector('#preview_profile');
         const profile__thumbnail = document.querySelector('#company_logo');
         let profileArray = [];
 
         function renderLogo() {
-            company_preview.innerHTML = "";
+            preview_profile.innerHTML = "";
             error_company_logo.innerHTML = "";
             profileArray.forEach((file) => {
                 if (file.size > 5 * 1024 * 1024) {
@@ -332,7 +332,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                     return;
                 }
                 const fileUrlProfile = URL.createObjectURL(file);
-                company_preview.innerHTML = `
+                preview_profile.innerHTML = `
             <div class="preview">
                 <img src="${fileUrlProfile}" alt="${file.name}"/>
                  <button class="remove-button" type="button" onclick="removeLogo()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
@@ -343,7 +343,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
         `;
             });
 
-            jQuery('.company_preview_wrapper').hide();
+            jQuery('.preview_profile_wrapper').hide();
 
         }
 
