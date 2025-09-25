@@ -96,15 +96,23 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
             require_once ABSPATH . 'wp-admin/includes/image.php';
 
             // Profile Image
-            if (!empty($_FILES['company_logo']['name'])) {
-                $company_logo = media_handle_upload('company_logo', 0);
-                set_post_thumbnail($company_id, $company_logo);
+            if ($_POST['remove_company_logo'] == 'no') {
+                if (!empty($_FILES['company_logo']['name'])) {
+                    $company_logo = media_handle_upload('company_logo', 0);
+                    set_post_thumbnail($company_id, $company_logo);
+                }
+            } else {
+                delete_post_thumbnail($company_id);
             }
+            if ($_POST['remove_company_banner'] == 'no') {
 
-            // Banner Image
-            if (!empty($_FILES['company_banner']['name'])) {
-                $banner_id = media_handle_upload('company_banner', 0);
-                update_field('banner', $banner_id, $company_id);
+                // Banner Image
+                if (!empty($_FILES['company_banner']['name'])) {
+                    $banner_id = media_handle_upload('company_banner', 0);
+                    update_field('banner', $banner_id, $company_id);
+                }
+            } else {
+                update_field('banner', '', $company_id);
             }
         }
 
