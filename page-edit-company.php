@@ -275,7 +275,6 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
     <script>
         function removeLogo() {
             jQuery('#company_logo').remove();
-            jQuery('#company_logo_input').val(0);
         }
 
         function removeLogoUpload() {
