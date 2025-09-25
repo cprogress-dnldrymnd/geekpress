@@ -304,6 +304,8 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                                         </svg></button>
             </div>
         `;
+
+                jQuery('.preview_banner_wrapper').hide();
             });
         }
 
@@ -337,6 +339,9 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
             </div>
         `;
             });
+
+            jQuery('.preview_profile_wrapper').hide();
+
         }
 
         company_logo_input.addEventListener("change", (e) => {
