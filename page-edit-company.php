@@ -185,7 +185,7 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
 <section class="edit__profile">
     <div class="container">
         <div class="edit__profile__wrapper">
-            <h2>Edit Profile</h2>
+            <h2>Edit Company</h2>
         </div>
 
         <?php if ( !empty($errors) ): ?>
