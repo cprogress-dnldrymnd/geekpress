@@ -199,7 +199,12 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                         <label for="company_logo">Company Logo</label>
                         <div class="flex">
                             <?php if ($company_logo_id): ?>
-                                <div class="upload_thumbnail" id="profile_thumbnail"><img src="<?php echo esc_url(wp_get_attachment_url($company_logo_id)); ?>"></div>
+                                <div class="upload_thumbnail" id="profile_thumbnail"><img src="<?php echo esc_url(wp_get_attachment_url($company_logo_id)); ?>">
+                                    <button class="remove-button" type="button" onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                                            <path d="M18 6 6 18" />
+                                            <path d="m6 6 12 12" />
+                                        </svg></button>
+                                </div>
                             <?php endif; ?>
 
                             <div class="asset__upload__wrapper">
@@ -207,6 +212,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                                 <div class="preview_profile_wrapper">
                                     <div class="upload__image">
                                         <input type="file" id="company_logo_input" name="company_logo" accept="image/*">
+
                                         <label for="company_logo_input">
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M12 15V3" />
@@ -227,7 +233,12 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                         <label for="company_banner">Company Banner</label>
                         <div class="flex">
                             <?php if ($company_banner_id): ?>
-                                <div class="upload_thumbnail" id="banner__thumbnail"><img src="<?php echo esc_url(wp_get_attachment_url($company_banner_id)); ?>" width="200"></div>
+                                <div class="upload_thumbnail" id="banner__thumbnail"><img src="<?php echo esc_url(wp_get_attachment_url($company_banner_id)); ?>" width="200">
+                                    <button class="remove-button" type="button" onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+                                            <path d="M18 6 6 18" />
+                                            <path d="m6 6 12 12" />
+                                        </svg></button>
+                                </div>
                             <?php endif; ?>
 
                             <div class="asset__upload__wrapper">
