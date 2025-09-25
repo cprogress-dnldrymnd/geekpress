@@ -67,9 +67,7 @@ get_header();
     }
 </style>
 <?php
-$current_user = wp_get_current_user();
-$user_id = $current_user->ID;
-
+$user_id = get_current_user_id();
 $company_id = get__user_company($user_id, false, true);
 $company_manager = get_field('company_manager', $company_id);
 
