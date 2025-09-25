@@ -222,9 +222,9 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
                     <div class="input__wrapper">
                         <label for="company_country">company_country</label>
                         <select name="company_country">
-                            <option value="">Select your company_country</option>
+                            <option value="">Select your country</option>
                             <?php foreach ($company_country_list as $company_country): ?>
-                                <option <?= $company_country == $company_country_val ? 'seleted' : '' ?> value="<?php echo esc_attr($company_country); ?>"><?php echo esc_html($company_country); ?></option>
+                                <option <?= $company_country == $company_country_val ? 'selected' : '' ?> value="<?php echo esc_attr($company_country); ?>"><?php echo esc_html($company_country); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
