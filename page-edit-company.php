@@ -160,7 +160,7 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
     <section class="edit__profile">
         <div class="container">
             <div class="edit__profile__wrapper">
-                <h2>Edit Company <?= $company_id ?></h2>
+                <h2>Edit Company Profile</h2>
             </div>
 
             <?php if (!empty($errors)): ?>
