@@ -84,89 +84,54 @@ if (!in_array($user_id, $company_manager) || !$company_id) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce']) && wp_verify_nonce($_POST['edit_profile_nonce'], 'edit_profile_action')) {
 
+        // Handle profile image & banner image upload
+        if (!empty($_FILES['company_logo']['name']) || !empty($_FILES['company_banner']['name'])) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/media.php';
+            require_once ABSPATH . 'wp-admin/includes/image.php';
+
+            // Profile Image
+            if (!empty($_FILES['company_logo']['name'])) {
+                $company_logo = media_handle_upload('company_logo', 0);
+                set_post_thumbnail($company_id, $company_logo);
+            }
+
+            // Banner Image
+            if (!empty($_FILES['company_banner']['name'])) {
+                $banner_id = media_handle_upload('company_banner', 0);
+            }
+        }
+
+
         $company_name = sanitize_text_field($_POST['company_name'] ?? '');
         $company_bio   = sanitize_textarea_field($_POST['company_bio'] ?? '');
-        $new_email    = sanitize_email($_POST['email'] ?? '');
+        $company_country   = sanitize_textarea_field($_POST['company_country'] ?? '');
 
-
-
-        // ----------------------Email Change-----------
-        if (empty($new_email) || !is_email($new_email)) {
-            $errors['email'] = 'Please enter a valid email address.';
-        } elseif (email_exists($new_email) && $new_email !== $current_user->user_email) {
-            $errors['email'] = 'This email is already in use by another account.';
-        }
 
         if (empty($company_name)) {
             $errors[] = 'Company Name is required.';
         }
 
-        // 	------------Passowrd Change----------
-        $current_password = $_POST['current_password'] ?? '';
-        $new_password = $_POST['new_password'] ?? '';
-        $confirm_password = $_POST['confirm_password'] ?? '';
-
-        if (!empty($current_password) || !empty($new_password) || !empty($confirm_password)) {
-            if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
-                $errors[] = 'Please fill in all password fields.';
-            } else {
-                if (!wp_check_password($current_password, $current_user->user_pass, $user_id)) {
-                    $errors[] = 'Current password is incorrect.';
-                } elseif ($new_password !== $confirm_password) {
-                    $errors[] = 'New passwords do not match.';
-                } elseif (strlen($new_password) < 6) {
-                    $errors[] = 'New password must be at least 6 characters.';
-                }
-            }
+        if (empty($company_country)) {
+            $errors[] = 'Company Country is required.';
         }
 
-
         if (empty($errors)) {
-            // Update Company Name
-            wp_update_user([
-                'ID' => $user_id,
-                'company_name' => $company_name,
-                'user_email'   => $new_email
-            ]);
+            $my_post = array(
+                'ID'           => $company_id,
+                'post_title'   => $company_name,
+                'post_content' => $company_bio,
+                'meta_input' => array(
+                    'company_country' => $company_country,
+                    'banner' => $banner_id
+                )
+            );
 
-            update_user_meta($user_id, 'company_bio', $company_bio);
+            // Update the post into the database
+            wp_update_post($my_post);
 
 
-            if (!empty($new_password) && empty($errors)) {
-                wp_set_password($new_password, $user_id);
-                wp_set_current_user($user_id); // keep user logged in
-                wp_set_auth_cookie($user_id);
-            }
-
-            // Refresh user data after update
-            wp_cache_delete($user_id, 'users');
-            wp_cache_delete($current_user->user_login, 'userlogins');
-            $current_user = get_userdata($user_id);
-
-            // Handle profile image & banner image upload
-            if (!empty($_FILES['company_logo']['name']) || !empty($_FILES['company_banner']['name'])) {
-                require_once ABSPATH . 'wp-admin/includes/file.php';
-                require_once ABSPATH . 'wp-admin/includes/media.php';
-                require_once ABSPATH . 'wp-admin/includes/image.php';
-
-                // Profile Image
-                if (!empty($_FILES['company_logo']['name'])) {
-                    $profile_id = media_handle_upload('company_logo', 0);
-                    if (!is_wp_error($profile_id)) {
-                        update_user_meta($user_id, 'company_logo', $profile_id);
-                    }
-                }
-
-                // Banner Image
-                if (!empty($_FILES['company_banner']['name'])) {
-                    $banner_id = media_handle_upload('company_banner', 0);
-                    if (!is_wp_error($banner_id)) {
-                        update_user_meta($user_id, 'page_banner', $banner_id);
-                    }
-                }
-            }
-
-            $success = 'Profile updated successfully!';
+            $success = 'Company Profile updated successfully!';
         }
     }
 
