@@ -10,18 +10,74 @@ if (! is_user_logged_in()) {
 }
 
 get_header();
+?>
 
+<style>
+    .preview_profile__container .preview img {
+        object-fit: contain !important;
+    }
+
+    .upload_thumbnail img {
+        object-fit: contain !important;
+    }
+
+    textarea::placeholder {
+        text-transform: initial !important;
+    }
+
+    @media screen and (max-width:720px) {
+        .asset__upload__wrapper {
+            flex-direction: column;
+        }
+    }
+
+    .error-field {
+        border: 2px solid red !important;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .input-group .prefix {
+        background: #f4f4f4;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        color: #555;
+        border-right: 1px solid #ccc;
+    }
+
+    .input-group input {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+</style>
+<?php
 $current_user = wp_get_current_user();
 $user_id = $current_user->ID;
 
 $company_id = get__user_company($user_id, false, true);
 
 if (!$company_id) {
-    echo "You don't have enough permission to access this page.";
+?>
+    <section class="edit__profile">
+        <div class="container">
+            <div class="edit__profile__wrapper">
+                <h2>You don't have enough permission to access this page.</h2>
+            </div>
+        </div>
+    </section>
+<?php
 } else {
-
-
-
     $errors = [];
     $success = '';
 
@@ -146,55 +202,6 @@ if (!$company_id) {
     $company_bio = get_user_meta($user_id, 'company_bio', true);
 ?>
 
-    <style>
-        .preview_profile__container .preview img {
-            object-fit: contain !important;
-        }
-
-        .upload_thumbnail img {
-            object-fit: contain !important;
-        }
-
-        textarea::placeholder {
-            text-transform: initial !important;
-        }
-
-        @media screen and (max-width:720px) {
-            .asset__upload__wrapper {
-                flex-direction: column;
-            }
-        }
-
-        .error-field {
-            border: 2px solid red !important;
-        }
-
-        .input-group {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            overflow: hidden;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .input-group .prefix {
-            background: #f4f4f4;
-            padding: 0.5rem 0.75rem;
-            font-size: 1rem;
-            color: #555;
-            border-right: 1px solid #ccc;
-        }
-
-        .input-group input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 0.5rem;
-            font-size: 1rem;
-        }
-    </style>
 
 
     <section class="edit__profile">
