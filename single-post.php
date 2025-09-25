@@ -21,6 +21,10 @@
     .full__access p a:hover {
         color: #f3ff49;
     }
+    .flag {
+        display: flex;
+        gap: ;
+    }
 </style>
 <section class="single">
     <div class="container">
