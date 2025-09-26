@@ -2267,9 +2267,16 @@ function get__svg($name)
 
 /*end of post listing*/
 
-function add_featured_image_to_rss_feed($content) {
+function add_featured_image_to_rss_feed($content)
+{
     global $post;
-    if ( has_post_thumbnail($post->ID) ) {
+
+
+    $content = '<h2 style="margin-bottom: 15px;">';
+    $content .= get_the_title($post->ID);
+    $content .= '</h2>';
+
+    if (has_post_thumbnail($post->ID)) {
         // Get the featured image HTML.
         // You can change 'medium' to 'thumbnail', 'large', etc.
         $featured_image = '<div style="margin-bottom: 15px;">';
