@@ -2272,7 +2272,7 @@ function add_featured_image_to_rss_feed($content) {
     if ( has_post_thumbnail($post->ID) ) {
         // Get the featured image HTML.
         // You can change 'medium' to 'thumbnail', 'large', etc.
-        $featured_image = get_the_post_thumbnail($post->ID, 'medium', array('style' => 'margin-bottom:15px;'));
+        $featured_image = get_the_post_thumbnail($post->ID, 'large', array('style' => 'margin-bottom:15px;'));
 
         // Prepend the image to the content (which is the excerpt in this case).
         $content = $featured_image . $content;
