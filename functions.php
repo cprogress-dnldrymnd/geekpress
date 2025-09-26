@@ -2291,7 +2291,7 @@ function add_featured_image_to_rss_feed($content)
         $featured_image .= '</div>';
 
         // Prepend the image to the content (which is the excerpt in this case).
-        $content = $h2 . $featured_image . $date . $content;
+        $content =   $featured_image . $h2 . $date . $content;
     } else {
         $content = $h2 . $date . $content;
     }
