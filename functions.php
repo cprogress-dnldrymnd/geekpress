@@ -2266,6 +2266,7 @@ function get__svg($name)
 }
 
 /*end of post listing*/
+add_filter('the_excerpt_rss', '__return_empty_string');
 
 function add_featured_image_to_rss_feed($content)
 {
