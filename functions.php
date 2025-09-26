@@ -2272,21 +2272,25 @@ function add_featured_image_to_rss_feed($content)
     global $post;
 
 
-    $content .= '<h2 style="margin-bottom: 15px;">';
-    $content .= get_the_title($post->ID);
-    $content .= '</h2>';
+    $h2 = '<h2 style="margin-bottom: 15px;">';
+    $h2 .= '<a href="'.get_the_permalink($post->ID).'">';
+    $h2 .= get_the_title($post->ID);
+    $h2 .= '</a>';
+    $h2 .= '</h2>';
 
     if (has_post_thumbnail($post->ID)) {
         // Get the featured image HTML.
         // You can change 'medium' to 'thumbnail', 'large', etc.
         $featured_image = '<div style="margin-bottom: 15px;">';
+        $featured_image .= '<a href="'.get_the_permalink($post->ID).'">';
         $featured_image .= get_the_post_thumbnail($post->ID, 'large');
+        $featured_image .= '</a>';
         $featured_image .= '</div>';
 
         // Prepend the image to the content (which is the excerpt in this case).
         $content = $featured_image . $content;
     }
-    return $content;
+    return $h2. $content;
 }
 
 // Add the function to the RSS EXCERPT filter.
