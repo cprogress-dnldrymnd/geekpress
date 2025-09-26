@@ -399,6 +399,7 @@ add_filter('authenticate', 'restrict_login_based_on_account_status', 30, 3);
 //     $phpmailer->FromName   = 'GEEKPRESS';
 // });
 
+/*
 add_action('admin_menu', function () {
     add_options_page(
         'Email Settings',
@@ -500,7 +501,7 @@ add_action('phpmailer_init', function ($phpmailer) {
         }
     }
 });
-
+*/
 
 // -----------------------------------
 
