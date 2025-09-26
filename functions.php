@@ -2271,6 +2271,9 @@ function add_featured_image_to_rss_feed($content)
 {
     global $post;
 
+    $date = '<em>';
+    $date .= get_the_date('', $post->ID);
+    $date .= '</em>';
 
     $h2 = '<h2 style="margin-bottom: 15px;">';
     $h2 .= '<a href="' . get_the_permalink($post->ID) . '">';
@@ -2288,9 +2291,9 @@ function add_featured_image_to_rss_feed($content)
         $featured_image .= '</div>';
 
         // Prepend the image to the content (which is the excerpt in this case).
-        $content = $h2 . $featured_image . $content;
+        $content = $h2 . $featured_image . $date . $content;
     } else {
-        $content = $h2 . $content;
+        $content = $h2 . $date . $content;
     }
     return $content;
 }
