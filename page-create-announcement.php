@@ -195,7 +195,7 @@ get_header() ?>
                         ?>
                     </div>
                     <div class="input__wrapper">
-                        <label for="preview_title">Site Homepage Headline (Maximum of 30 Char.)</label>
+                        <label for="preview_title">Site Homepage Headline (Maximum of 50 Char.)</label>
                         <input type="text" id="preview_title" name="preview_title" placeholder="Enter Site Homepage Headline" value="<?php echo esc_attr($_POST['preview_title'] ?? ''); ?>" maxlength="50">
                         <div class="help-text">
                             This is a shorter version of your headline for us to show on the front of the site. We recommend just putting the name of your product or service here.
