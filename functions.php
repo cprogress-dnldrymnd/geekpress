@@ -2271,9 +2271,9 @@ function add_featured_image_to_rss_feed($content)
 {
     global $post;
 
-    $date = '<em>';
+    $date = '<div style="margin-bottom: 10px;"><em>Posted: ';
     $date .= get_the_date('', $post->ID);
-    $date .= '</em>';
+    $date .= '</em></div>';
 
     $h2 = '<h2 style="margin-bottom: 15px;">';
     $h2 .= '<a href="' . get_the_permalink($post->ID) . '">';
