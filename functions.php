@@ -2272,7 +2272,7 @@ function add_featured_image_to_rss_feed($content)
     global $post;
 
 
-    $content = '<h2 style="margin-bottom: 15px;">';
+    $content .= '<h2 style="margin-bottom: 15px;">';
     $content .= get_the_title($post->ID);
     $content .= '</h2>';
 
