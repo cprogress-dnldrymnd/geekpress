@@ -190,6 +190,14 @@ get_header() ?>
 
                         ?>
                     </div>
+                        <div class="input__wrapper">
+                        <label for="preview_title">Site Homepage Headline</label>
+                        <input type="text" id="preview_title" name="preview_title" placeholder="Site Homepage Headline" value="<?php echo esc_attr($_POST['preview_title'] ?? ''); ?>">
+                        <div class="help-text">
+                            This is a shorter version of your headline for us to show on the front of the site. We recommend just putting the name of your product or service here.
+                        </div>
+                    </div>
+
 
                     <div class="input__wrapper mb-4">
                         <label>Please select a category (max 2)</label><br>
