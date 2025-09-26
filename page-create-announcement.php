@@ -54,6 +54,7 @@ get_header() ?>
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_post_nonce']) && wp_verify_nonce($_POST['custom_post_nonce'], 'create_custom_post')) {
             $title = sanitize_text_field($_POST['post_title']);
             $subheading  = sanitize_text_field($_POST['subheading']);
+            $preview_title  = sanitize_text_field($_POST['preview_title']);
             $content = wp_kses_post($_POST['post_content']);
             $categories = array_map('intval', $_POST['post_categories'] ?? []);
 
@@ -80,6 +81,9 @@ get_header() ?>
                     'post_status'  => 'draft',
                     'post_category' => $categories,
                     'post_author'  => get_current_user_id(),
+                    'meta_input'   => array(
+                        'preview_title' => $preview_title,
+                    ),
                 ]);
 
                 $assets = [];
@@ -190,7 +194,7 @@ get_header() ?>
 
                         ?>
                     </div>
-                        <div class="input__wrapper">
+                    <div class="input__wrapper">
                         <label for="preview_title">Site Homepage Headline</label>
                         <input type="text" id="preview_title" name="preview_title" placeholder="Site Homepage Headline" value="<?php echo esc_attr($_POST['preview_title'] ?? ''); ?>">
                         <div class="help-text">
