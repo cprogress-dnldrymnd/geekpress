@@ -284,7 +284,15 @@
 										<span> <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
 									</div>
 								</div>
-								<h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+								<?php
+								$preview_title = get_field('preview_title');
+								if ($preview_title) {
+									$title = $preview_title;
+								} else {
+									$title =  get_the_title();
+								}
+								?>
+								<h5><a href="<?php the_permalink(); ?>"><?= $title ?></a></h5>
 								<p><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
 							</div>
 						</div>
