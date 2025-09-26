@@ -23,7 +23,7 @@
     }
     .flag {
         display: flex;
-        gap: ;
+        gap: 10px;
     }
 </style>
 <section class="single">
@@ -46,7 +46,7 @@
                         <small class="meta__info"><img src="<?php echo get_theme_file_uri() ?>/images/clock.svg" alt="" />
                             <span><?php echo get_the_date('F j, Y') ?> </span></small>
                         <div>
-                            <?= get__user_company_flag(get_the_author_meta('ID'), true) ?>
+                            <?= get__user_company_flag(get_the_author_meta('ID')) ?>
                             <span><?= get__user_company(get_the_author_meta('ID'), true) ?></span>
                         </div>
                     </div>
