@@ -61,7 +61,7 @@
                         <?php
                         $external_links = get_field('external_links');
 
-                        if ($external_links) {
+                        if ($external_links && is_user_logged_in()) {
                             echo '<div class="external-links">';
                             foreach ($external_links as $external_link) {
                                 echo '<div class="external-link">';
