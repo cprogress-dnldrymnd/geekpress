@@ -227,7 +227,7 @@ get_header() ?>
                         <div class="feat__preview__wrapper">
                             <div class="file-input">
                                 <input type="file" id="feat-file" class="file" name="featured_image" accept="image/*">
-                                <label for="feat-file"><svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <label for="feat-file"><svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M12 15V3" />
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                         <path d="m7 10 5 5 5-5" />
@@ -251,7 +251,7 @@ get_header() ?>
                         <div class="assets__wrapper dark">
                             <div class="file-input">
                                 <input type="file" id="file" class="file" name="assets[]" multiple accept="image/*, .pdf">
-                                <label for="file"><svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <label for="file"><svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M12 15V3" />
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                         <path d="m7 10 5 5 5-5" />
