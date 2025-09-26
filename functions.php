@@ -2302,6 +2302,6 @@ function add_featured_image_to_rss_feed($content)
 add_filter('the_excerpt_rss', 'add_featured_image_to_rss_feed');
 
 function remove_excerpt_more_string( $more ) {
-    return '';
+    return '...';
 }
 add_filter( 'excerpt_more', 'remove_excerpt_more_string' );
