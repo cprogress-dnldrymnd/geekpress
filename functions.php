@@ -2267,7 +2267,7 @@ function get__svg($name)
 
 /*end of post listing*/
 
-function add_featured_image_to_rss_feed($title) {
+function add_featured_image_to_rss_feed($content) {
     global $post;
     if ( has_post_thumbnail($post->ID) ) {
         // Get the featured image HTML.
@@ -2277,10 +2277,10 @@ function add_featured_image_to_rss_feed($title) {
         $featured_image .= '</div>';
 
         // Prepend the image to the content (which is the excerpt in this case).
-        $title = $featured_image . $title;
+        $content = $featured_image . $content;
     }
-    return $title;
+    return $content;
 }
 
 // Add the function to the RSS EXCERPT filter.
-add_filter('the_title_rss', 'add_featured_image_to_rss_feed');
+add_filter('the_excerpt_rss', 'add_featured_image_to_rss_feed');
