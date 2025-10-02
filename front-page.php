@@ -150,208 +150,217 @@
 <main class="homepage">
 	<div class="container">
 		<div class="homepage__wrapper">
-			<aside class="filter">
-				<form id="filter-form">
-					<h2 class="block__header block__header--filter">
-						Filter By
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-							<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-						</svg>
-					</h2>
-					<div class="filter__block active">
-						<div class="filter__header  collapsible-trigger">
-							<h4>Categories</h4>
-							<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
-						</div>
-						<div class="collapsible-content">
+			<div class="row">
+				<div class="col-lg-3">
+					<aside class="filter">
+						<form id="filter-form">
+							<h2 class="block__header block__header--filter">
+								Filter By
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+								</svg>
+							</h2>
+							<div class="filter__block active">
+								<div class="filter__header  collapsible-trigger">
+									<h4>Categories</h4>
+									<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
+								</div>
+								<div class="collapsible-content">
 
-							<ul class="category-list">
-								<?php
-								$categories = get_categories([
-									'taxonomy'   => 'category',
-									'hide_empty' => false,
-								]);
+									<ul class="category-list">
+										<?php
+										$categories = get_categories([
+											'taxonomy'   => 'category',
+											'hide_empty' => false,
+										]);
 
-								if (!empty($categories)) {
-									foreach ($categories as $index => $category) {
-										$checked = isset($_GET['category']) && in_array($category->term_id, (array) $_GET['category']) ? 'checked' : '';
-										$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
-										echo "<li class=\"category-item\" {$is_hidden}>";
-										echo '<label>';
-										echo '<input type="checkbox" name="category[]" value="' . esc_attr($category->term_id) . '" ' . $checked . '> ';
-										echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5"/></svg></span>';
-										echo esc_html($category->name);
-										echo '</label>';
-										echo '</li>';
+										if (!empty($categories)) {
+											foreach ($categories as $index => $category) {
+												$checked = isset($_GET['category']) && in_array($category->term_id, (array) $_GET['category']) ? 'checked' : '';
+												$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
+												echo "<li class=\"category-item\" {$is_hidden}>";
+												echo '<label>';
+												echo '<input type="checkbox" name="category[]" value="' . esc_attr($category->term_id) . '" ' . $checked . '> ';
+												echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5"/></svg></span>';
+												echo esc_html($category->name);
+												echo '</label>';
+												echo '</li>';
+											}
+										}
+										?>
+									</ul>
+									<a href="#" id="load-more">+ More</a>
+								</div>
+							</div>
+
+							<div class="filter__block active">
+								<div class="filter__header collapsible-trigger">
+									<h4>Issue Date</h4>
+									<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
+								</div>
+
+								<div class="collapsible-content">
+									<ul class="date-filter-list">
+										<?php
+										// Define date filters dynamically
+										$date_filters = [
+											'today'       => 'Today',
+											'yesterday'   => 'Yesterday',
+											'monday'      => 'Monday',
+											'this_week'   => 'This Week',
+											'last_week'   => 'Last Week',
+											'this_month'  => 'This Month',
+											'last_month'  => 'Last Month',
+											'this_year'   => 'This Year',
+											'last_year'   => 'Last Year'
+										];
+
+										// Add last 3 years dynamically
+										$current_year = date('Y');
+										for ($i = 1; $i <= 3; $i++) {
+											$year = $current_year - $i;
+											$date_filters[$year] = $year; // key and label are the same
+										}
+
+										if (!empty($date_filters)) {
+											$selected_filters = isset($_GET['date_filter']) ? (array) $_GET['date_filter'] : [];
+
+											foreach ($date_filters as $key => $label) {
+												static $index = 0;
+												$checked = in_array($key, $selected_filters) ? 'checked' : '';
+												$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
+												echo "<li class=\"date-filter-item\" {$is_hidden}>";
+												echo '<label>';
+												echo '<input type="checkbox" name="date_filter[]" value="' . esc_attr($key) . '" ' . $checked . '> ';
+												echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>';
+												echo esc_html($label);
+												echo '</label>';
+												echo '</li>';
+												$index++;
+											}
+										}
+										?>
+									</ul>
+									<a href="#" id="load-more-dates">+ More</a>
+								</div>
+						</form>
+					</aside>
+				</div>
+				<div class="col-lg-6">
+					<div class="press">
+						<h2 class="block__header">Latest Releases</h2>
+
+						<div id="post-results" class="post-container">
+							<?php
+							$press = new WP_Query([
+								'post_type' => 'post',
+								'posts_per_page' => 10,
+								'orderby' => 'date',
+								'order' => 'DESC',
+								'paged' => 1,
+							]);
+
+							if ($press->have_posts()) :
+								$last_date = ''; // Track the previous post date
+
+								while ($press->have_posts()) : $press->the_post();
+									$current_date = get_the_date('l j F Y'); // Format: June 20, 2025
+
+									// If the date is different, display the date heading
+									if ($current_date !== $last_date) {
+										echo '<h3 class="post-date-heading">' . esc_html($current_date) . '</h3>';
+										$last_date = $current_date;
 									}
-								}
-								?>
-							</ul>
-							<a href="#" id="load-more">+ More</a>
+							?>
+									<div class="press__item">
+										<div class="press__item__image">
+											<a href="<?php the_permalink(); ?>">
+												<?php if (has_post_thumbnail()) {
+													the_post_thumbnail();
+												} ?>
+											</a>
+											<div class="tag"><?php echo esc_html(get_the_category()[0]->name); ?></div>
+										</div>
+										<div class="press__item__content">
+											<div class="meta">
+												<div>
+													<img src="<?php echo get_theme_file_uri(); ?>/images/clock.svg" alt="" />
+													<span><?php echo esc_html(get_the_date('F j, Y')); ?> at <?php echo esc_html(get_the_time('g:i A')); ?></span>
+												</div>
+												<div>
+													<?= get__user_company_flag(get_the_author_meta('ID')) ?>
+													<span> <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+												</div>
+											</div>
+											<?php
+											echo preview__title();
+											?>
+											<h5><a href="<?php the_permalink(); ?>"><?= $title ?></a></h5>
+											<p><?php echo wp_trim_words(get_the_excerpt(), 25); ?></p>
+										</div>
+									</div>
+							<?php endwhile;
+							else :
+								echo "No posts found.";
+							endif;
+							wp_reset_postdata();
+							?>
+
 						</div>
+						<button id="loadmore-post" data-page="1" class="btn-loadmore">Load More</button>
 					</div>
 
-					<div class="filter__block active">
-						<div class="filter__header collapsible-trigger">
-							<h4>Issue Date</h4>
-							<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
-						</div>
 
-						<div class="collapsible-content">
-							<ul class="date-filter-list">
-								<?php
-								// Define date filters dynamically
-								$date_filters = [
-									'today'       => 'Today',
-									'yesterday'   => 'Yesterday',
-									'monday'      => 'Monday',
-									'this_week'   => 'This Week',
-									'last_week'   => 'Last Week',
-									'this_month'  => 'This Month',
-									'last_month'  => 'Last Month',
-									'this_year'   => 'This Year',
-									'last_year'   => 'Last Year'
-								];
+				</div>
+				<div class="col-lg-3">
+					<aside class="viewed">
 
-								// Add last 3 years dynamically
-								$current_year = date('Y');
-								for ($i = 1; $i <= 3; $i++) {
-									$year = $current_year - $i;
-									$date_filters[$year] = $year; // key and label are the same
-								}
+						<?= do_shortcode('[elementor-template id="840"]') ?>
 
-								if (!empty($date_filters)) {
-									$selected_filters = isset($_GET['date_filter']) ? (array) $_GET['date_filter'] : [];
 
-									foreach ($date_filters as $key => $label) {
-										static $index = 0;
-										$checked = in_array($key, $selected_filters) ? 'checked' : '';
-										$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
-										echo "<li class=\"date-filter-item\" {$is_hidden}>";
-										echo '<label>';
-										echo '<input type="checkbox" name="date_filter[]" value="' . esc_attr($key) . '" ' . $checked . '> ';
-										echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>';
-										echo esc_html($label);
-										echo '</label>';
-										echo '</li>';
-										$index++;
-									}
-								}
-								?>
-							</ul>
-							<a href="#" id="load-more-dates">+ More</a>
-						</div>
-				</form>
-		</div>
-		</aside>
-		<div class="press">
-			<h2 class="block__header">Latest Releases</h2>
+						<div class="block__header">Most Viewed</div>
 
-			<div id="post-results" class="post-container">
-				<?php
-				$press = new WP_Query([
-					'post_type' => 'post',
-					'posts_per_page' => 10,
-					'orderby' => 'date',
-					'order' => 'DESC',
-					'paged' => 1,
-				]);
 
-				if ($press->have_posts()) :
-					$last_date = ''; // Track the previous post date
+						<?php
+						$viewed = new WP_Query(array(
+							'post_type' => 'post',
+							'posts_per_page' => 4,
+							'meta_key' => 'post_views_count',
+							'orderby' => 'meta_value_num',
+							'order' => 'DESC'
 
-					while ($press->have_posts()) : $press->the_post();
-						$current_date = get_the_date('l j F Y'); // Format: June 20, 2025
+						));
+						if ($viewed->have_posts()) : while ($viewed->have_posts()) : $viewed->the_post() ?>
+								<div class="viewed__item__content">
+									<small>
+										<img src="<?php echo get_theme_file_uri() ?>/images/clock.svg" alt="" /><span>
+											<?php echo get_the_date('F j, Y') ?> at <?php echo esc_html(get_the_time('g:i A')); ?> </span></small>
 
-						// If the date is different, display the date heading
-						if ($current_date !== $last_date) {
-							echo '<h3 class="post-date-heading">' . esc_html($current_date) . '</h3>';
-							$last_date = $current_date;
-						}
-				?>
-						<div class="press__item">
-							<div class="press__item__image">
-								<a href="<?php the_permalink(); ?>">
-									<?php if (has_post_thumbnail()) {
-										the_post_thumbnail();
-									} ?>
-								</a>
-								<div class="tag"><?php echo esc_html(get_the_category()[0]->name); ?></div>
-							</div>
-							<div class="press__item__content">
-								<div class="meta">
-									<div>
-										<img src="<?php echo get_theme_file_uri(); ?>/images/clock.svg" alt="" />
-										<span><?php echo esc_html(get_the_date('F j, Y')); ?> at <?php echo esc_html(get_the_time('g:i A')); ?></span>
-									</div>
-									<div>
-										<?= get__user_company_flag(get_the_author_meta('ID')) ?>
-										<span> <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+									<h4><a href="<?php the_permalink(); ?>"> <?php echo get_the_title() ?></a></h4>
+									<p>
+										<?php echo wp_trim_words(get_the_excerpt(), 15) ?>
+									</p>
+
+									<div class="info">
+										<small>
+											<?= get__user_company_flag(get_the_author_meta('ID')) ?>
+											<?= get__user_company(get_the_author_meta('ID'), true) ?>
+										</small>
+										<span><?php print_r(get_the_category(get_the_ID())[0]->name) ?></span>
 									</div>
 								</div>
-								<?php
-								echo preview__title();
-								?>
-								<h5><a href="<?php the_permalink(); ?>"><?= $title ?></a></h5>
-								<p><?php echo wp_trim_words(get_the_excerpt(), 25); ?></p>
-							</div>
-						</div>
-				<?php endwhile;
-				else :
-					echo "No posts found.";
-				endif;
-				wp_reset_postdata();
-				?>
+						<?php endwhile;
+						else :
+							echo "no post";
+						endif;
+						wp_reset_postdata();
+						?>
 
+					</aside>
+				</div>
 			</div>
-			<button id="loadmore-post" data-page="1" class="btn-loadmore">Load More</button>
+
 		</div>
-
-		<aside class="viewed">
-
-			<?= do_shortcode('[elementor-template id="840"]') ?>
-
-
-			<div class="block__header">Most Viewed</div>
-
-
-			<?php
-			$viewed = new WP_Query(array(
-				'post_type' => 'post',
-				'posts_per_page' => 4,
-				'meta_key' => 'post_views_count',
-				'orderby' => 'meta_value_num',
-				'order' => 'DESC'
-
-			));
-			if ($viewed->have_posts()) : while ($viewed->have_posts()) : $viewed->the_post() ?>
-					<div class="viewed__item__content">
-						<small>
-							<img src="<?php echo get_theme_file_uri() ?>/images/clock.svg" alt="" /><span>
-								<?php echo get_the_date('F j, Y') ?> at <?php echo esc_html(get_the_time('g:i A')); ?> </span></small>
-
-						<h4><a href="<?php the_permalink(); ?>"> <?php echo get_the_title() ?></a></h4>
-						<p>
-							<?php echo wp_trim_words(get_the_excerpt(), 15) ?>
-						</p>
-
-						<div class="info">
-							<small>
-								<?= get__user_company_flag(get_the_author_meta('ID')) ?>
-								<?= get__user_company(get_the_author_meta('ID'), true) ?>
-							</small>
-							<span><?php print_r(get_the_category(get_the_ID())[0]->name) ?></span>
-						</div>
-					</div>
-			<?php endwhile;
-			else :
-				echo "no post";
-			endif;
-			wp_reset_postdata();
-			?>
-
-		</aside>
-	</div>
 	</div>
 </main>
 
