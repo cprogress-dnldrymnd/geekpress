@@ -160,40 +160,42 @@
 									<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
 								</svg>
 							</h2>
-							<div class="filter__block active">
-								<div class="filter__header  collapsible-trigger">
-									<h4>Categories</h4>
-									<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
-								</div>
-								<div class="collapsible-content">
+							<div class="filter-block-parent">
+								<div class="filter__block active">
+									<div class="filter__header  collapsible-trigger">
+										<h4>Categories</h4>
+										<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
+									</div>
+									<div class="collapsible-content">
 
-									<ul class="category-list">
-										<?php
-										$categories = get_categories([
-											'taxonomy'   => 'category',
-											'hide_empty' => false,
-										]);
+										<ul class="category-list">
+											<?php
+											$categories = get_categories([
+												'taxonomy'   => 'category',
+												'hide_empty' => false,
+											]);
 
-										if (!empty($categories)) {
-											foreach ($categories as $index => $category) {
-												$checked = isset($_GET['category']) && in_array($category->term_id, (array) $_GET['category']) ? 'checked' : '';
-												$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
-												echo "<li class=\"category-item\" {$is_hidden}>";
-												echo '<label>';
-												echo '<input type="checkbox" name="category[]" value="' . esc_attr($category->term_id) . '" ' . $checked . '> ';
-												echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5"/></svg></span>';
-												echo esc_html($category->name);
-												echo '</label>';
-												echo '</li>';
+											if (!empty($categories)) {
+												foreach ($categories as $index => $category) {
+													$checked = isset($_GET['category']) && in_array($category->term_id, (array) $_GET['category']) ? 'checked' : '';
+													$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
+													echo "<li class=\"category-item\" {$is_hidden}>";
+													echo '<label>';
+													echo '<input type="checkbox" name="category[]" value="' . esc_attr($category->term_id) . '" ' . $checked . '> ';
+													echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5"/></svg></span>';
+													echo esc_html($category->name);
+													echo '</label>';
+													echo '</li>';
+												}
 											}
-										}
-										?>
-									</ul>
-									<a href="#" id="load-more">+ More</a>
+											?>
+										</ul>
+										<a href="#" id="load-more">+ More</a>
+									</div>
 								</div>
-							</div>
 
-							<div class="filter__block active">
+								<div class="filter__block active">
+								</div>
 								<div class="filter__header collapsible-trigger">
 									<h4>Issue Date</h4>
 									<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
