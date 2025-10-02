@@ -288,7 +288,7 @@
 								echo preview__title();
 								?>
 								<h5><a href="<?php the_permalink(); ?>"><?= $title ?></a></h5>
-								<p><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
+								<p><?php echo wp_trim_words(get_the_excerpt(), 25); ?></p>
 							</div>
 						</div>
 				<?php endwhile;
