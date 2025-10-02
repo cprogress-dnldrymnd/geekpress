@@ -152,7 +152,7 @@
 		<div class="homepage__wrapper">
 			<aside class="filter">
 				<form id="filter-form">
-					<h2 class="block__header">Filter By</h2>
+					<h2 class="block__header block__header--filter">Filter By</h2>
 					<div class="filter__block active">
 						<div class="filter__header  collapsible-trigger">
 							<h4>Categories</h4>
