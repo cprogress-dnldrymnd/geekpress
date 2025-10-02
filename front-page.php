@@ -246,7 +246,7 @@
 				<?php
 				$press = new WP_Query([
 					'post_type' => 'post',
-					'posts_per_page' => 5,
+					'posts_per_page' => 10,
 					'orderby' => 'date',
 					'order' => 'DESC',
 					'paged' => 1,
