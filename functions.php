@@ -2302,7 +2302,22 @@ function add_featured_image_to_rss_feed($content)
 // Add the function to the RSS EXCERPT filter.
 add_filter('the_excerpt_rss', 'add_featured_image_to_rss_feed');
 
-function remove_excerpt_more_string( $more ) {
+function remove_excerpt_more_string($more)
+{
     return '...';
 }
-add_filter( 'excerpt_more', 'remove_excerpt_more_string' );
+add_filter('excerpt_more', 'remove_excerpt_more_string');
+
+
+function preview__title()
+{
+    $preview_title = get_field('preview_title');
+    if ($preview_title) {
+        $title = $preview_title;
+    } else {
+        $title =  get_the_title();
+    }
+    return $title;
+}
+
+add_shortcode('preview__title', 'preview__title');

@@ -285,12 +285,7 @@
 									</div>
 								</div>
 								<?php
-								$preview_title = get_field('preview_title');
-								if ($preview_title) {
-									$title = $preview_title;
-								} else {
-									$title =  get_the_title();
-								}
+								echo preview__title();
 								?>
 								<h5><a href="<?php the_permalink(); ?>"><?= $title ?></a></h5>
 								<p><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
