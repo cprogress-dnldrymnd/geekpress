@@ -2293,7 +2293,7 @@ function add_featured_image_to_rss_feed($content)
     if (has_post_thumbnail($post->ID)) {
         $content_html .= '<td style="width: 110px; padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgray">';
         $content_html .= '<a href="' . get_the_permalink($post->ID) . '">';
-        $content_html .= get_the_post_thumbnail($post->ID, 'large');
+        $content_html .= get_the_post_thumbnail($post->ID, 'thumbnail');
         $content_html .= '</a>';
         $content_html .= '</td>';
     }
