@@ -2299,14 +2299,19 @@ function add_featured_image_to_rss_feed($content)
     }
 
     $content_html .= '<td style="padding-left: 20px; font-family: Helvetica">';
+    $content_html .= '<div>';
     $content_html .= '<h2 style="margin-bottom: 0; display: inline">';
     $content_html .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
     $content_html .= $title;
     $content_html .= '</a>';
     $content_html .= '</h2>';
+    $content_html .= '<span style="margin-top: 0; font-size: 12px; margin-left: 10px;">';
+    $content_html .= 'by ' . get__user_company(get_the_author_meta('ID'), false);
+    $content_html .= '</span>';
+    $content_html .= '</div>';
 
     $categories = get_the_category();
-    $content_html .= '<p style="margin-top: 0; margin-left: 20px; font-size: 12px;">';
+    $content_html .= '<p style="margin-top: 0;  font-size: 12px;">';
     if (! empty($categories)) {
         foreach ($categories as $cat) {
             $content_html .= $cat->name . ' ';
@@ -2315,9 +2320,7 @@ function add_featured_image_to_rss_feed($content)
     $content_html .= '</p>';
 
 
-    $content_html .= '<p style="margin-top: 0; font-size: 12px;">';
-    $content_html .= 'by ' . get__user_company(get_the_author_meta('ID'), false);
-    $content_html .= '</p>';
+
 
     $content_html .= $content;
     $content_html .= '</td>';
