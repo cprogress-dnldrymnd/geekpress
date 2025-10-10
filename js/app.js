@@ -5,9 +5,12 @@ jQuery(document).ready(function () {
 function filter() {
   if (window.innerWidth < 992) {
     $height = jQuery('.filter-block-inner').outerHeight();
-    jQuery('.filter-block-inner').parent().css('--height', $height + 'px');
+    jQuery('.filter-block-inner').parent().css('--max-height', $height + 'px');
     jQuery('.block__header--filter').click(function (e) {
       jQuery(this).toggleClass('active');
+      setTimeout(function () {
+        jQuery('.filter-block-parent').addClass('remove-max-height');
+      }, 300);
       e.preventDefault();
     });
   }
