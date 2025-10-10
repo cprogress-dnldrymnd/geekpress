@@ -2282,6 +2282,7 @@ function add_featured_image_to_rss_feed($content)
     $h2 .= '</a>';
     $h2 .= '</h2>';
 
+    $content_html = '<table>';
     $content_html = '<tr>';
 
     if (has_post_thumbnail($post->ID)) {
@@ -2308,6 +2309,7 @@ function add_featured_image_to_rss_feed($content)
         $content_html = $h2 . $date . $content;
     }
     $content_html .= '</tr>';
+    $content_html .= '</table>';
 
     return $content_html;
 }
