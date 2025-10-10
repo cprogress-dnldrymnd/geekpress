@@ -2299,6 +2299,7 @@ function add_featured_image_to_rss_feed($content)
 
         $content_html .= '<td style="padding-left: 10px;">';
         $content_html .= $h2;
+        $content_html .= $content;
         $content_html .= '</td>';
 
 
