@@ -2272,13 +2272,20 @@ function add_featured_image_to_rss_feed($content)
 {
     global $post;
 
+    $preview_title = get_field('preview_title', $post->ID);
+    if($preview_title) {
+        $title = $preview_title;
+    } else {
+        $title = get_the_title($post->ID);
+    }
+
     $date = '<div style="margin-bottom: 10px;"><em>Posted: ';
     $date .= get_the_date('', $post->ID);
     $date .= '</em></div>';
 
     $h2 = '<h2 style="margin-bottom: 15px;">';
     $h2 .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
-    $h2 .= get_the_title($post->ID);
+    $h2 .= $title;
     $h2 .= '</a>';
     $h2 .= '</h2>';
 
