@@ -3,8 +3,12 @@ jQuery(document).ready(function () {
 });
 
 function filter() {
-  jQuery('.block__header--filter').click(function (e) {
-    jQuery(this).toggleClass('active');
-    e.preventDefault();
-  });
+  if (window.innerWidth < 992) {
+    $height = jQuery('.filter-block-inner').outerHeight();
+    jQuery('.filter-block-inner').parent().css('--height', $height + 'px');
+    jQuery('.block__header--filter').click(function (e) {
+      jQuery(this).toggleClass('active');
+      e.preventDefault();
+    });
+  }
 }
