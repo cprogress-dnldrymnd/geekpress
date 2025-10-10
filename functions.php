@@ -2288,16 +2288,16 @@ function add_featured_image_to_rss_feed($content)
         // Get the featured image HTML.
         // You can change 'medium' to 'thumbnail', 'large', etc.
         $featured_image = '<div style="margin-bottom: 15px;">';
-        $featured_image .= '<a href="' . get_the_permalink($post->ID) . '">';
+        $featured_image .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none;">';
         $featured_image .= get_the_post_thumbnail($post->ID, 'large');
         $featured_image .= '</a>';
         $featured_image .= '</div>';
 
-        $content_html .= '<td>';
+        $content_html .= '<td style="width: 110px">';
         $content_html .= $featured_image;
         $content_html .= '</td>';
 
-        $content_html .= '<td>';
+        $content_html .= '<td style="padding-left: 10px;">';
         $content_html .= $h2;
         $content_html .= $content;
         $content_html .= '</td>';
