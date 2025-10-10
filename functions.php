@@ -2305,7 +2305,7 @@ function add_featured_image_to_rss_feed($content)
     $content_html .= $title;
     $content_html .= '</a>';
     $content_html .= '</h2>';
-    $content_html .= '<span style="margin-top: 0; font-size: 12px; margin-left: 10px;">';
+    $content_html .= '<span style="margin-top: 0; font-size: 12px; margin-left: 10px;     float: right;">';
     $content_html .= 'by ' . get__user_company(get_the_author_meta('ID'), false);
     $content_html .= '</span>';
     $content_html .= '</div>';
