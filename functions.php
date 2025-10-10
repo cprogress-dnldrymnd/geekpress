@@ -2306,13 +2306,13 @@ function add_featured_image_to_rss_feed($content)
     $content_html .= '</a>';
     $content_html .= '</h2>';
     $categories = get_the_category();
-    $content_html .= '<p style="margin-top: 0; font-size: 12px;">';
+    $content_html .= '<span style="margin-top: 0; margin-left: 20px; font-size: 12px;">';
     if (! empty($categories)) {
         foreach ($categories as $cat) {
             $content_html .= $cat->name . ' ';
         }
     }
-    $content_html .= '</p>';
+    $content_html .= '</span>';
 
     $content_html .= '</div>';
 
