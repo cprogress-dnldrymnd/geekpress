@@ -1,7 +1,3 @@
-const choices = new Choices("#category-select", {
-  removeItemButton: true,
-});
-
 jQuery(document).ready(function () {
   filter();
 });
