@@ -161,88 +161,90 @@
 								</svg>
 							</h2>
 							<div class="filter-block-parent">
-								<div class="filter__block active">
-									<div class="filter__header  collapsible-trigger">
-										<h4>Categories</h4>
-										<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
-									</div>
-									<div class="collapsible-content">
+								<div class="filter-block-inner">
+									<div class="filter__block active">
+										<div class="filter__header  collapsible-trigger">
+											<h4>Categories</h4>
+											<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
+										</div>
+										<div class="collapsible-content">
 
-										<ul class="category-list">
-											<?php
-											$categories = get_categories([
-												'taxonomy'   => 'category',
-												'hide_empty' => false,
-											]);
+											<ul class="category-list">
+												<?php
+												$categories = get_categories([
+													'taxonomy'   => 'category',
+													'hide_empty' => false,
+												]);
 
-											if (!empty($categories)) {
-												foreach ($categories as $index => $category) {
-													$checked = isset($_GET['category']) && in_array($category->term_id, (array) $_GET['category']) ? 'checked' : '';
-													$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
-													echo "<li class=\"category-item\" {$is_hidden}>";
-													echo '<label>';
-													echo '<input type="checkbox" name="category[]" value="' . esc_attr($category->term_id) . '" ' . $checked . '> ';
-													echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5"/></svg></span>';
-													echo esc_html($category->name);
-													echo '</label>';
-													echo '</li>';
+												if (!empty($categories)) {
+													foreach ($categories as $index => $category) {
+														$checked = isset($_GET['category']) && in_array($category->term_id, (array) $_GET['category']) ? 'checked' : '';
+														$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
+														echo "<li class=\"category-item\" {$is_hidden}>";
+														echo '<label>';
+														echo '<input type="checkbox" name="category[]" value="' . esc_attr($category->term_id) . '" ' . $checked . '> ';
+														echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5"/></svg></span>';
+														echo esc_html($category->name);
+														echo '</label>';
+														echo '</li>';
+													}
 												}
-											}
-											?>
-										</ul>
-										<a href="#" id="load-more">+ More</a>
-									</div>
-								</div>
-
-								<div class="filter__block active">
-									<div class="filter__header collapsible-trigger">
-										<h4>Issue Date</h4>
-										<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
+												?>
+											</ul>
+											<a href="#" id="load-more">+ More</a>
+										</div>
 									</div>
 
-									<div class="collapsible-content">
-										<ul class="date-filter-list">
-											<?php
-											// Define date filters dynamically
-											$date_filters = [
-												'today'       => 'Today',
-												'yesterday'   => 'Yesterday',
-												'monday'      => 'Monday',
-												'this_week'   => 'This Week',
-												'last_week'   => 'Last Week',
-												'this_month'  => 'This Month',
-												'last_month'  => 'Last Month',
-												'this_year'   => 'This Year',
-												'last_year'   => 'Last Year'
-											];
+									<div class="filter__block active">
+										<div class="filter__header collapsible-trigger">
+											<h4>Issue Date</h4>
+											<img src="<?php echo get_theme_file_uri() ?>/images/chevron-right.svg" alt="" />
+										</div>
 
-											// Add last 3 years dynamically
-											$current_year = date('Y');
-											for ($i = 1; $i <= 3; $i++) {
-												$year = $current_year - $i;
-												$date_filters[$year] = $year; // key and label are the same
-											}
+										<div class="collapsible-content">
+											<ul class="date-filter-list">
+												<?php
+												// Define date filters dynamically
+												$date_filters = [
+													'today'       => 'Today',
+													'yesterday'   => 'Yesterday',
+													'monday'      => 'Monday',
+													'this_week'   => 'This Week',
+													'last_week'   => 'Last Week',
+													'this_month'  => 'This Month',
+													'last_month'  => 'Last Month',
+													'this_year'   => 'This Year',
+													'last_year'   => 'Last Year'
+												];
 
-											if (!empty($date_filters)) {
-												$selected_filters = isset($_GET['date_filter']) ? (array) $_GET['date_filter'] : [];
-
-												foreach ($date_filters as $key => $label) {
-													static $index = 0;
-													$checked = in_array($key, $selected_filters) ? 'checked' : '';
-													$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
-													echo "<li class=\"date-filter-item\" {$is_hidden}>";
-													echo '<label>';
-													echo '<input type="checkbox" name="date_filter[]" value="' . esc_attr($key) . '" ' . $checked . '> ';
-													echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>';
-													echo esc_html($label);
-													echo '</label>';
-													echo '</li>';
-													$index++;
+												// Add last 3 years dynamically
+												$current_year = date('Y');
+												for ($i = 1; $i <= 3; $i++) {
+													$year = $current_year - $i;
+													$date_filters[$year] = $year; // key and label are the same
 												}
-											}
-											?>
-										</ul>
-										<a href="#" id="load-more-dates">+ More</a>
+
+												if (!empty($date_filters)) {
+													$selected_filters = isset($_GET['date_filter']) ? (array) $_GET['date_filter'] : [];
+
+													foreach ($date_filters as $key => $label) {
+														static $index = 0;
+														$checked = in_array($key, $selected_filters) ? 'checked' : '';
+														$is_hidden = ($index >= 5) ? 'style="display:none;"' : '';
+														echo "<li class=\"date-filter-item\" {$is_hidden}>";
+														echo '<label>';
+														echo '<input type="checkbox" name="date_filter[]" value="' . esc_attr($key) . '" ' . $checked . '> ';
+														echo '<span class="checkbox-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>';
+														echo esc_html($label);
+														echo '</label>';
+														echo '</li>';
+														$index++;
+													}
+												}
+												?>
+											</ul>
+											<a href="#" id="load-more-dates">+ More</a>
+										</div>
 									</div>
 								</div>
 							</div>
