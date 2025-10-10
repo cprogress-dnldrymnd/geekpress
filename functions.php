@@ -2309,7 +2309,7 @@ function add_featured_image_to_rss_feed($content)
         $categories = get_the_category();
         if (! empty($categories)) {
             foreach ($categories as $cat) {
-                $content_html = $cat->name . ' ';
+                $content_html .= $cat->name . ' ';
             }
         }
         $content_html .= '</div>';
