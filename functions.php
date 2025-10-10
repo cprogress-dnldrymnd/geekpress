@@ -2299,13 +2299,12 @@ function add_featured_image_to_rss_feed($content)
 
         $content_html .= '<td style="padding-left: 10px;">';
         $content_html .= $h2;
-        $content_html .= $content;
         $content_html .= '</td>';
 
 
         // Prepend the image to the content (which is the excerpt in this case).
     } else {
-        $content = $h2 . $date . $content;
+        $content_html = $h2 . $date . $content;
     }
     $content_html .= '</tr>';
 
