@@ -2300,7 +2300,7 @@ function add_featured_image_to_rss_feed($content)
         $content_html .= '</td>';
 
         $content_html .= '<td style="padding-left: 20px; font-family: Helvetica">';
-        $content_html = '<h2 style="margin-bottom: 15px;">';
+        $content_html .= '<h2 style="margin-bottom: 15px;">';
         $content_html .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
         $content_html .= $title;
         $content_html .= '</a>';
