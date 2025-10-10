@@ -2282,6 +2282,8 @@ function add_featured_image_to_rss_feed($content)
     $h2 .= '</a>';
     $h2 .= '</h2>';
 
+    $content_html = '<tr>';
+
     if (has_post_thumbnail($post->ID)) {
         // Get the featured image HTML.
         // You can change 'medium' to 'thumbnail', 'large', etc.
@@ -2291,12 +2293,23 @@ function add_featured_image_to_rss_feed($content)
         $featured_image .= '</a>';
         $featured_image .= '</div>';
 
+        $content_html .= '<td>';
+        $content_html .= $featured_image;
+        $content_html .= '</td>';
+
+        $content_html .= '<td>';
+        $content_html .= $h2;
+        $content_html .= $content;
+        $content_html .= '</td>';
+
+
         // Prepend the image to the content (which is the excerpt in this case).
-        $content =   $featured_image . $h2 . $date . $content;
     } else {
         $content = $h2 . $date . $content;
     }
-    return $content;
+    $content_html .= '</tr>';
+
+    return $content_html;
 }
 
 // Add the function to the RSS EXCERPT filter.
