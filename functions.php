@@ -2291,21 +2291,21 @@ function add_featured_image_to_rss_feed($content)
 
 
     if (has_post_thumbnail($post->ID)) {
-        $content_html .= '<td style="width: 110px; ">';
+        $content_html .= '<td style="width: 110px; padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgray">';
         $content_html .= '<a href="' . get_the_permalink($post->ID) . '">';
         $content_html .= get_the_post_thumbnail($post->ID, 'large');
         $content_html .= '</a>';
         $content_html .= '</td>';
     }
 
-    $content_html .= '<td style="padding-left: 20px; font-family: Helvetica; padding-top: 10px; padding-bottom: 10px;">';
+    $content_html .= '<td style="padding-left: 20px; font-family: Helvetica; padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgray">';
     $content_html .= '<div>';
     $content_html .= '<h2 style="margin-bottom: 0; display: inline">';
     $content_html .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
     $content_html .= $title;
     $content_html .= '</a>';
     $content_html .= '</h2>';
-    $content_html .= '<span style="margin-top: 0; font-size: 12px; margin-left: 10px;     float: right;">';
+    $content_html .= '<span style="margin-top: 0; font-size: 12px; margin-left: 10px; float: right; ">';
     $content_html .= 'by ' . get__user_company(get_the_author_meta('ID'), false);
     $content_html .= '</span>';
     $content_html .= '</div>';
