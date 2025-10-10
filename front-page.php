@@ -279,7 +279,7 @@
 										<div class="press__item__image">
 											<a href="<?php the_permalink(); ?>">
 												<?php if (has_post_thumbnail()) {
-													the_post_thumbnail();
+													the_post_thumbnail('medium');
 												} ?>
 											</a>
 											<div class="tag"><?php echo esc_html(get_the_category()[0]->name); ?></div>
