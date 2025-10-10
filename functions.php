@@ -2288,50 +2288,45 @@ function add_featured_image_to_rss_feed($content)
     $content_html = '<table style="margin-bottom: 30px">';
     $content_html = '<tr>';
 
+
+
     if (has_post_thumbnail($post->ID)) {
-        // Get the featured image HTML.
-        // You can change 'medium' to 'thumbnail', 'large', etc.
-        $featured_image = '<a href="' . get_the_permalink($post->ID) . '">';
-        $featured_image .= get_the_post_thumbnail($post->ID, 'large');
-        $featured_image .= '</a>';
-
         $content_html .= '<td style="width: 110px">';
-        $content_html .= $featured_image;
-        $content_html .= '</td>';
-
-        $content_html .= '<td style="padding-left: 20px; font-family: Helvetica">';
-        $content_html .= '<div>';
-        $content_html .= '<h2 style="margin-bottom: 0; display: inline">';
-        $content_html .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
-        $content_html .= $title;
+        $content_html .= '<a href="' . get_the_permalink($post->ID) . '">';
+        $content_html .= get_the_post_thumbnail($post->ID, 'large');
         $content_html .= '</a>';
-        $content_html .= '</h2>';
-        $categories = get_the_category();
-        $content_html .= '<p style="margin-top: 0; font-size: 12px;">';
-        if (! empty($categories)) {
-            foreach ($categories as $cat) {
-                $content_html .= $cat->name . ' ';
-            }
-        }
-        $content_html .= '</p>';
-
-        $content_html .= '</div>';
-
-
-
-
-        $content_html .= '<p style="margin-top: 0; font-size: 12px;">';
-        $content_html .= 'by ' . get__user_company(get_the_author_meta('ID'), false);
-        $content_html .= '</p>';
-
-        $content_html .= $content;
         $content_html .= '</td>';
-
-
-        // Prepend the image to the content (which is the excerpt in this case).
-    } else {
-        $content_html = $h2 . $date . $content;
     }
+
+    $content_html .= '<td style="padding-left: 20px; font-family: Helvetica">';
+    $content_html .= '<div>';
+    $content_html .= '<h2 style="margin-bottom: 0; display: inline">';
+    $content_html .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
+    $content_html .= $title;
+    $content_html .= '</a>';
+    $content_html .= '</h2>';
+    $categories = get_the_category();
+    $content_html .= '<p style="margin-top: 0; font-size: 12px;">';
+    if (! empty($categories)) {
+        foreach ($categories as $cat) {
+            $content_html .= $cat->name . ' ';
+        }
+    }
+    $content_html .= '</p>';
+
+    $content_html .= '</div>';
+
+
+
+
+    $content_html .= '<p style="margin-top: 0; font-size: 12px;">';
+    $content_html .= 'by ' . get__user_company(get_the_author_meta('ID'), false);
+    $content_html .= '</p>';
+
+    $content_html .= $content;
+    $content_html .= '</td>';
+
+
     $content_html .= '</tr>';
     $content_html .= '</table>';
 
