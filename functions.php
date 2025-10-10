@@ -2303,7 +2303,7 @@ function add_featured_image_to_rss_feed($content)
         $content_html .= $featured_image;
         $content_html .= '</td>';
 
-        $content_html .= '<td style="padding-left: 10px; font-family: Helvetica">';
+        $content_html .= '<td style="padding-left: 20px; font-family: Helvetica">';
         $content_html .= $h2;
         $content_html .= $content;
         $content_html .= '</td>';
