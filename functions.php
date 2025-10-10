@@ -2305,7 +2305,7 @@ function add_featured_image_to_rss_feed($content)
         $content_html .= $title;
         $content_html .= '</a>';
         $content_html .= '</h2>';
-        $content_html .= '</p>';
+        $content_html .= '<p>';
         $content_html .= get__user_company(get_the_author_meta('ID'), false);
         $content_html .= '</p>';
 
