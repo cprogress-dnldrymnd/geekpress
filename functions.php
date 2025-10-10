@@ -2300,12 +2300,12 @@ function add_featured_image_to_rss_feed($content)
         $content_html .= '</td>';
 
         $content_html .= '<td style="padding-left: 20px; font-family: Helvetica">';
-        $content_html .= '<h2 style="margin-bottom: 10px;">';
+        $content_html .= '<h2 style="margin-bottom: 0;">';
         $content_html .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
         $content_html .= $title;
         $content_html .= '</a>';
         $content_html .= '</h2>';
-        $content_html .= '<p>';
+        $content_html .= '<p style="margin-top: 0; font-size: 12px;">';
         $content_html .= 'by '. get__user_company(get_the_author_meta('ID'), false);
         $content_html .= '</p>';
 
