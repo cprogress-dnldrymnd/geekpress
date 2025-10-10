@@ -2273,7 +2273,7 @@ function add_featured_image_to_rss_feed($content)
     global $post;
 
     $preview_title = get_field('preview_title', $post->ID);
-    if($preview_title) {
+    if ($preview_title) {
         $title = $preview_title;
     } else {
         $title = get_the_title($post->ID);
@@ -2283,11 +2283,7 @@ function add_featured_image_to_rss_feed($content)
     $date .= get_the_date('', $post->ID);
     $date .= '</em></div>';
 
-    $h2 = '<h2 style="margin-bottom: 15px;">';
-    $h2 .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
-    $h2 .= $title;
-    $h2 .= '</a>';
-    $h2 .= '</h2>';
+
 
     $content_html = '<table style="margin-bottom: 30px">';
     $content_html = '<tr>';
@@ -2304,7 +2300,13 @@ function add_featured_image_to_rss_feed($content)
         $content_html .= '</td>';
 
         $content_html .= '<td style="padding-left: 20px; font-family: Helvetica">';
-        $content_html .= $h2;
+        $content_html = '<h2 style="margin-bottom: 15px;">';
+        $content_html .= '<a href="' . get_the_permalink($post->ID) . '" style="font-size: 18px; text-decoration: none; color: #110835">';
+        $content_html .= $title;
+        $content_html .= '</a>';
+        $content_html .= '</h2>';
+        $content_html .= get__user_company(get_the_author_meta('ID'), true);
+
         $content_html .= $content;
         $content_html .= '</td>';
 
