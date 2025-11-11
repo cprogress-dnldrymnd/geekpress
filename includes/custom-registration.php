@@ -274,14 +274,6 @@ echo 'xxsdsd';
             </div>
 
 
-            <div class="register__block d-none">
-                <h4>Profile Details</h4>
-                <div class="input__wrapper" style="margin-bottom:3rem">
-                    <label for="display_name">Display Name*</label>
-                    <input type="text" placeholder="Enter Name" name="display_name" value="<?php echo esc_attr($_POST['display_name'] ?? ''); ?>" required>
-                </div>
-
-            </div>
 
 
             <div class="register__block">
