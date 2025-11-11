@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                             </div>
 
                             <div class="input__wrapper checkbox p-0">
-                                <label >
+                                <label>
                                     <input type="checkbox" name="company_post_admin[]">
                                     <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M20 6 9 17l-5-5"></path>
@@ -305,12 +305,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
             <div class="register__block">
                 <h4>Log In Details</h4>
-
-                <div class="register__grid">
+                <div class="register__grid d-flex">
                     <div class="input__wrapper">
                         <label for="username">Username*</label>
                         <input type="text" id="username" placeholder="Enter Username" name="username" value="<?php echo esc_attr($_POST['username'] ?? ''); ?>" required>
                     </div>
+                </div>
+                <div class="register__grid">
 
                     <div class="input__wrapper">
                         <label for="password">Password*</label>
