@@ -207,13 +207,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
             ?>
             <div class="register__block">
-                <h4>Company Details</h4>
-
+                <h4>Company Details *</h4>
                 <div class="register__flex d-flex flex-column gap-3">
                     <div class="input__wrapper--company-fields d-flex flex-column gap-3">
                         <div class="input__wrapper--company-field d-flex flex-column gap-3">
                             <div class="input__wrapper">
-                                <label for="company">Company*</label>
+                                <label for="company">Company</label>
                                 <input list="company_post" placeholder="Enter Company" name="company_post[]" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
 
                                 <datalist id="company_post">
@@ -235,8 +234,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         </div>
 
                     </div>
-
-
                     <div class="add-company-holder w-100">
                         <div class="btn-custom btn-add-company btn-outline mb-5"> Add another company </div>
                     </div>
