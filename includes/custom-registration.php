@@ -224,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                             </div>
 
                             <div class="input__wrapper checkbox p-0">
-                                <label for="optin">
+                                <label >
                                     <input type="checkbox" name="company_post_admin[]">
                                     <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M20 6 9 17l-5-5"></path>
