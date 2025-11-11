@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                     <div class="input__wrapper--company-fields d-flex flex-column gap-3">
                         <div class="input__wrapper--company-field d-flex flex-column gap-3">
                             <div class="input__wrapper">
-                                <label for="company">Company</label>
+                                <label for="company">Company Name</label>
                                 <input list="company_post" placeholder="Enter Company" name="company_post[]" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
 
                                 <datalist id="company_post">
