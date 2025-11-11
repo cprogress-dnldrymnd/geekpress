@@ -744,7 +744,7 @@ add_action('wp_head', 'login_page_redirect');
 function custom_registration()
 {
     ob_start();
-    include get_template_directory() . '/includes/custom-registration.php';
+    include get_stylesheet_directory_uri() . '/includes/custom-registration.php';
     return ob_get_clean();
 }
 add_shortcode('custom_registration', 'custom_registration');
