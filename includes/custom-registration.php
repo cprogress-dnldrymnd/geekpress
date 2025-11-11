@@ -211,16 +211,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
                 <div class="register__flex d-flex flex-column gap-3">
                     <div class="input__wrapper--company-fields d-flex flex-column gap-3">
-                        <div class="input__wrapper input__wrapper--company-field">
-                            <label for="company">Company*</label>
-                            <input list="company_post" placeholder="Enter Company" name="company_post[]" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
+                        <div class="input__wrapper--company-field d-flex flex-column gap-3">
+                            <div class="input__wrapper">
+                                <label for="company">Company*</label>
+                                <input list="company_post" placeholder="Enter Company" name="company_post[]" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
 
-                            <datalist id="company_post">
-                                <?php foreach ($companies as $company) { ?>
-                                    <option value="<?= $company->post_title ?>">
-                                    <?php } ?>
-                            </datalist>
+                                <datalist id="company_post">
+                                    <?php foreach ($companies as $company) { ?>
+                                        <option value="<?= $company->post_title ?>">
+                                        <?php } ?>
+                                </datalist>
+                            </div>
+
+                            <div class="input__wrapper checkbox p-0">
+                                <label for="optin">
+                                    <input type="checkbox" name="company_post_admin[]">
+                                    <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 6 9 17l-5-5"></path>
+                                        </svg></span>
+                                    Request to be company admin
+                                </label>
+                            </div>
                         </div>
+
                     </div>
 
 
