@@ -249,20 +249,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 <div class="register__grid opt">
                     <div class="input__wrapper checkbox p-0">
                         <label for="optin">
-                            <input type="checkbox" id="optin" name="email_pref" value="optin" <?php checked($_POST['email_pref'] ?? '', 'optin'); ?>>
-                            <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20 6 9 17l-5-5" />
-                                </svg></span>
+                            <input type="radio" id="optin" name="email_pref" value="optin" <?php checked($_POST['email_pref'] ?? '', 'optin'); ?>>
                             OPT IN
                         </label>
                     </div>
 
                     <div class="input__wrapper checkbox p-0">
                         <label for="optout">
-                            <input type="checkbox" id="optout" name="email_pref" value="optout" <?php checked($_POST['email_pref'] ?? '', 'optout'); ?>>
-                            <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20 6 9 17l-5-5" />
-                                </svg></span>
+                            <input type="radio" id="optout" name="email_pref" value="optout" <?php checked($_POST['email_pref'] ?? '', 'optout'); ?>>
                             OPT OUT
                         </label>
                     </div>
