@@ -1,5 +1,9 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'get' && isset($_POST['custom_register'])) {
+    echo '<pre>';
+    var_dump($_GET['company_post']);
+    echo '</pre>';
+echo 'xxsdsd';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
     $email = sanitize_email($_POST['email']);
     $password = $_POST['password'];
