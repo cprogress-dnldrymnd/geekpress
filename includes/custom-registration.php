@@ -247,14 +247,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 <p>If you’d like to be kept up to date with the latest news in geek culture, then simply tick ‘Opt in’ below. You can unsubscribe at any time.</p>
 
                 <div class="register__grid opt">
-                    <div class="input__wrapper checkbox p-0">
+                    <div class="input__wrapper radio p-0">
                         <label for="optin">
                             <input type="radio" id="optin" name="email_pref" value="optin" <?php checked($_POST['email_pref'] ?? '', 'optin'); ?>>
                             OPT IN
                         </label>
                     </div>
 
-                    <div class="input__wrapper checkbox p-0">
+                    <div class="input__wrapper radio p-0">
                         <label for="optout">
                             <input type="radio" id="optout" name="email_pref" value="optout" <?php checked($_POST['email_pref'] ?? '', 'optout'); ?>>
                             OPT OUT
