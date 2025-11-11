@@ -1,255 +1,380 @@
-<?php 
-//Deprecated
-function custom_user_extra_fields($user) { 
-    
-        $current_job = get_user_meta($user->ID, 'job', true);
-        $current_country = get_user_meta($user->ID, 'country', true);
-        
-        $job_list = ['Developer', 'Designer', 'Manager', 'Writer', 'Marketer'];
-        $country_list = ['Country A', 'Country B', 'Country C', 'Country D', 'Country E'];
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
+    $username = sanitize_user($_POST['username']);
+    $email = sanitize_email($_POST['email']);
+    $password = $_POST['password'];
 
-        $current_day = get_user_meta($user->ID, 'dobday', true);
-        $current_month = get_user_meta($user->ID, 'dobmonth', true);
-        $current_year = get_user_meta($user->ID, 'dobyear', true);
-        $show_name = get_user_meta($user->ID, 'show_name', true);
-    ?>
-
-    
-
-    <h3>Custom User Info</h3>
-    <table class="form-table">
- 
-        <tr>
-            <th><label>Outlet</label></th>
-            <td><input type="text" name="outlet" value="<?php echo esc_attr(get_user_meta($user->ID, 'outlet', true)); ?>"></td>
-        </tr> 
-        <tr>
-            <th><label>Company</label></th>
-            <td><input type="text" name="company" value="<?php echo esc_attr(get_user_meta($user->ID, 'company', true)); ?>"></td>
-        </tr>
-        <tr>
-            <th><label>Website</label></th>
-            <td><input type="text" name="website" value="<?php echo esc_attr(get_user_meta($user->ID, 'website', true)); ?>"></td>
-        </tr>
-
-        <tr>
-            <th><label>Job</label></th>
-        <td>
-                <select name="job" id="job">
-                    <option value="">Select Job</option>
-                    <?php foreach ($job_list as $job): ?>
-                        <option value="<?php echo esc_attr($job); ?>" <?php selected($current_job, $job); ?>>
-                            <?php echo esc_html($job); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <p class="description">The user's job title.</p>
-            </td>
-        </tr>
-
-        <tr>
-            <th><label>Day</label></th>
-            <td>
-                <select name="dobday" >
-                        <option value="" hidden="">Day</option>
-                        <option value="01" <?php selected($current_day, '01'); ?> >01</option>
-                        <option value="02" <?php selected($current_day, '02'); ?> >02</option>
-                        <option value="03" <?php selected($current_day, '03'); ?> >03</option>
-                        <option value="04" <?php selected($current_day, '04'); ?> >04</option>
-                        <option value="05" <?php selected($current_day, '05'); ?> >05</option>
-                        <option value="06" <?php selected($current_day, '06'); ?> >06</option>
-                        <option value="07" <?php selected($current_day, '07'); ?> >07</option>
-                        <option value="08" <?php selected($current_day, '08'); ?> >08</option>
-                        <option value="09" <?php selected($current_day, '09'); ?> >09</option>
-                        <option value="10" <?php selected($current_day, '10'); ?> >10</option>
-                        <option value="11" <?php selected($current_day, '11'); ?> >11</option>
-                        <option value="12" <?php selected($current_day, '12'); ?> >12</option>
-                        <option value="13" <?php selected($current_day, '13'); ?> >13</option>
-                        <option value="14" <?php selected($current_day, '14'); ?> >14</option>
-                        <option value="15" <?php selected($current_day, '15'); ?> >15</option>
-                        <option value="16" <?php selected($current_day, '16'); ?> >16</option>
-                        <option value="17" <?php selected($current_day, '17'); ?> >17</option>
-                        <option value="18" <?php selected($current_day, '18'); ?> >18</option>
-                        <option value="19" <?php selected($current_day, '19'); ?> >19</option>
-                        <option value="20" <?php selected($current_day, '20'); ?> >20</option>
-                        <option value="21" <?php selected($current_day, '21'); ?> >21</option>
-                        <option value="22" <?php selected($current_day, '22'); ?> >22</option>
-                        <option value="23" <?php selected($current_day, '23'); ?> >23</option>
-                        <option value="24" <?php selected($current_day, '24'); ?> >24</option>
-                        <option value="25" <?php selected($current_day, '25'); ?> >25</option>
-                        <option value="26" <?php selected($current_day, '26'); ?> >26</option>
-                        <option value="27" <?php selected($current_day, '27'); ?> >27</option>
-                        <option value="28" <?php selected($current_day, '28'); ?> >28</option>
-                        <option value="29" <?php selected($current_day, '29'); ?> >29</option>
-                        <option value="30" <?php selected($current_day, '30'); ?> >30</option>
-                        <option value="31" <?php selected($current_day, '31'); ?> >31</option>
-                </select>
-            </td>
-        </tr>
-
-        <tr>
-            <th><label>Month</label></th>
-            <td>
-               <select name="dobmonth" >
-                 <option value="" hidden="">Month</option>
-                        <option value="01" <?php selected($current_month, '01'); ?> >01</option>
-                        <option value="02" <?php selected($current_month, '02'); ?> >02</option>
-                        <option value="03" <?php selected($current_month, '03'); ?> >03</option>
-                        <option value="04" <?php selected($current_month, '04'); ?> >04</option>
-                        <option value="05" <?php selected($current_month, '05'); ?> >05</option>
-                        <option value="06" <?php selected($current_month, '06'); ?> >06</option>
-                        <option value="07" <?php selected($current_month, '07'); ?> >07</option>
-                        <option value="08" <?php selected($current_month, '08'); ?> >08</option>
-                        <option value="09" <?php selected($current_month, '09'); ?> >09</option>
-                        <option value="10" <?php selected($current_month, '10'); ?> >10</option>
-                        <option value="11" <?php selected($current_month, '11'); ?> >11</option>
-                        <option value="12" <?php selected($current_month, '12'); ?> >12</option>
-                </select>  
-            </td>
-        </tr>
-
-                <tr>
-            <th><label>Year</label></th>
-            <td>
-                <select name="dobyear" >
-                    <option value="" hidden>Year</option>
-                    <?php for ($y = date('Y'); $y >= 1900; $y--): ?>
-                        <option value="<?php echo $y; ?>" <?php selected($current_year, $y); ?>><?php echo $y; ?></option>
-                    <?php endfor; ?>
-                </select>  
-            </td>
-        </tr>
+    $first_name = sanitize_user($_POST['first_name']);
+    $last_name = sanitize_user($_POST['last_name']);
 
 
-    <tr>
-            <th><label>Country</label></th>
-        <td> 
-            <select name="country" id="country">
-                    <option value="">Select Country</option>
-                    <?php foreach ($country_list as $country): ?>
-                        <option value="<?php echo esc_attr($country); ?>" <?php selected($current_country, $country); ?>>
-                            <?php echo esc_html($country); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <p class="description">The user's country title.</p></td>
-        </tr>
-
-        
-        <tr>
-            <th><label>Terms And Condition</label></th>
-            <td><input type="checkbox" name="toc" value="" <?php echo get_user_meta($user->ID)['toc'][0] == 1 ? "checked" : "" ?> ></td>
-        </tr>
-        <tr>
-           <th><label>Opt Out</label></th>
-            <td>
-                <input type="checkbox" name="optin" value="" <?php echo get_user_meta($user->ID)['optin'][0] == 1 ? "checked" : "" ?> > 
-               
-         </td>
-        </tr>
-        <tr>
-            <th><label>Display Name</label></th>
-            <td><input type="text" name="show_name" value="<?php echo esc_attr(get_user_meta($user->ID, 'show_name', true)); ?>"></td>
-        </tr>
-
-
-        <tr>
-           <th><label for="page_banner">Upload Banner</label></th>
-            <td>
-                <?php 
-                    $banner_id = get_user_meta($user->ID, 'page_banner', true);
-                    $image_url= wp_get_attachment_image_url($banner_id, 'full'); // or 'large'
-                ?>
-
-                <?php if ($image_url): ?>
-                <img src="<?php echo esc_url($image_url); ?>" style="max-width:300px; height: 300px; object-fit: cover; display:block; margin-bottom:10px;">
-                <?php endif; ?>
-                <input type="file" name="page_banner" id="page_banner" accept="image/*"><br>
-                <span class="description">Upload a page banner image for this user.</span>
-              
-            </td>
-        </tr>
-
-
-        <tr>
-           <th><label for="profile_image">Profile Image</label></th>
-            <td>
-                <?php 
-                 
-                    $profile_image_id = get_user_meta($user->ID, 'profile_image', true);
-                    $profile_image_url= wp_get_attachment_image_url($profile_image_id, 'full'); 
-                ?>
-
-                <?php if ($profile_image_url): ?>
-                <img src="<?php echo esc_url($profile_image_url); ?>" style="max-width:300px; display:block; margin-bottom:10px;">
-                <?php endif; ?>
-                <input type="file" name="profile_image" id="profile_image" accept="image/*"><br>
-                <span class="description">Upload a profile image for this user.</span>
-              
-            </td>
-        </tr>
-
-    </table>
-<?php }
-add_action('show_user_profile', 'custom_user_extra_fields');
-add_action('edit_user_profile', 'custom_user_extra_fields');
-
-function save_custom_user_extra_fields($user_id) {
-    if (!current_user_can('edit_user', $user_id)) return;
-    update_user_meta($user_id, 'first_name', sanitize_text_field($_POST['first_name']));
-    update_user_meta($user_id, 'last_name', sanitize_text_field($_POST['last_name']));
-
-    update_user_meta($user_id, 'outlet', sanitize_text_field($_POST['outlet']));
-
-    update_user_meta($user_id, 'company', sanitize_text_field($_POST['company']));
-    update_user_meta($user_id, 'website', sanitize_text_field($_POST['website']));
-
-    update_user_meta($user_id, 'job', sanitize_text_field($_POST['job']));
-    update_user_meta($user_id, 'country', sanitize_text_field($_POST['country']));
-
-    update_user_meta($user_id, 'dobday', sanitize_text_field($_POST['dobday']));
-    update_user_meta($user_id, 'dobmonth', sanitize_text_field($_POST['dobmonth']));
-    update_user_meta($user_id, 'dobyear', sanitize_text_field($_POST['dobyear']));
-    update_user_meta($user_id, 'show_name', sanitize_text_field($_POST['show_name']));
+    $outlet = sanitize_text_field($_POST['outlet']);
+    $company_post = sanitize_text_field($_POST['company_post']);
+    $company_bio = sanitize_text_field($_POST['company_bio']);
 
 
 
-    $toc_val = isset( $_POST['toc'] ) ? 1 : 0;
-    update_user_meta($user_id, 'toc', $toc_val);
+    $website = sanitize_text_field($_POST['website']);
+    $country = sanitize_text_field($_POST['country']);
+    $job = sanitize_text_field($_POST['job']);
 
-    $optin_val = isset( $_POST['optin'] ) ? 1 : 0;
-    update_user_meta($user_id, 'optin', $optin_val);
+    $email_pref = sanitize_text_field($_POST['email_pref'] ?? '');
 
-    
-    $optout_val = isset( $_POST['optout'] ) ? 1 : 0;
-    update_user_meta($user_id, 'optout', $optout_val);
+    $toc  = isset($_POST['toc']);
 
-    if (!empty($_FILES['page_banner']['name']) || !empty($_FILES['profile_image']['name'])) {
-        require_once ABSPATH . 'wp-admin/includes/file.php';
-        require_once ABSPATH . 'wp-admin/includes/media.php';
-        require_once ABSPATH . 'wp-admin/includes/image.php';
 
-        $attachment_id = media_handle_upload('page_banner', 0);
-        if (!is_wp_error($attachment_id)) {
-            update_user_meta($user_id, 'page_banner', $attachment_id);
-        }
+    $dobmonth = sanitize_text_field($_POST['dobmonth']);
+    $dobday = sanitize_text_field($_POST['dobday']);
+    $dobyear = sanitize_text_field($_POST['dobyear']);
 
-        $profile_image_id = media_handle_upload('profile_image', 0);
-        if (!is_wp_error($profile_image_id)) {
-            update_user_meta($user_id, 'profile_image', $profile_image_id);
-        }
+    $display_name = sanitize_text_field($_POST['display_name']);
+
+    $author_bio = sanitize_textarea_field($_POST['author_bio'] ?? '');
+
+
+
+    $errors = [];
+
+    if (empty($username) || empty($email) || empty($password)) {
+        $errors[] = 'All fields are required.';
+    } elseif (!is_email($email)) {
+        $errors[] = 'Invalid email.';
+    } elseif (username_exists($username) || email_exists($email)) {
+        $errors[] = 'Username or email already exists.';
+    } elseif (empty($display_name)) {
+        $errors[] = 'Display Name is required';
     }
 
+
+    // echo '<pre>'; print_r($_POST); echo '</pre>'; //check if 
+
+
+    if (empty($errors)) {
+        $user_id = wp_create_user($username, $password, $email);
+        if (!is_wp_error($user_id)) {
+            $company_exists = get_custom_post_id_by_title($company_post, 'company');
+            if ($company_exists != false) {
+                $company_id = $company_exists;
+            } else {
+                $my_post = array(
+                    'post_type' => 'company',
+                    'post_title'    => wp_strip_all_tags($company_post),
+                    'post_status'   => 'publish',
+                    'post_author'   => $user_id,
+                );
+                // Insert the post into the database
+                $company_id = wp_insert_post($my_post);
+            }
+
+
+            update_user_meta($user_id, 'first_name', $first_name);
+            update_user_meta($user_id, 'last_name', $last_name);
+            update_user_meta($user_id, 'outlet', $outlet);
+            update_user_meta($user_id, 'company', $company_id);
+            // update_user_meta($user_id, 'company_post', $company_post);
+            //update_user_meta($user_id, 'website', $website);
+            //update_user_meta($user_id, 'country', $country);
+            update_user_meta($user_id, 'job', $job);
+            update_user_meta($user_id, 'toc', $toc);
+            update_user_meta($user_id, 'email_pref', $email_pref);
+            update_user_meta($user_id, 'birthday', $dobday . '/' . $dobmonth . '/' . $dobyear);
+
+            // Prepare the user data to be updated.
+            $user_data = array(
+                'ID'           => $user_id,
+                'display_name' => sanitize_text_field($display_name),
+                'description'  => wp_kses_post($author_bio), // Use wp_kses_post for sanitizing the bio.
+            );
+
+            // Update the user. wp_update_user() returns a WP_Error object on failure.
+            wp_update_user($user_data);
+
+            update_user_meta($user_id, 'account_status', 'pending');
+
+            wp_mail(
+                get_option('admin_email'),
+                'New User Pending Approval',
+                'A new user has registered and is pending approval.' . "\n\nUsername: " . $username
+            );
+
+            wp_redirect(home_url('/registration-success'));
+        } else {
+            $errors[] = $user_id->get_error_message();
+        }
+    }
 }
-add_action('personal_options_update', 'save_custom_user_extra_fields');
-add_action('edit_user_profile_update', 'save_custom_user_extra_fields');
+?>
+
+
+<section class="register">
+    <div class="container">
+
+        <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" enctype="multipart/form-data">
+            <?php wp_nonce_field('custom_register', 'custom_register_nonce'); ?>
+
+            <div class="register__block">
+                <h4>Your Details</h4>
+
+                <div class="register__grid">
+                    <div class="input__wrapper">
+                        <label for="first_name">First Name*</label>
+                        <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo esc_attr($_POST['first_name'] ?? ''); ?>" required>
+                    </div>
+
+                    <div class="input__wrapper">
+                        <label for="last_name">Last Name*</label>
+                        <input type="text" placeholder="Enter Last Name" name="last_name" value="<?php echo esc_attr($_POST['last_name'] ?? ''); ?>" required>
+                    </div>
+
+                    <div class="input__wrapper">
+                        <label for="email">Email Address*</label>
+                        <input type="email" id="email" name="email" placeholder="Enter Email Address" value="<?php echo esc_attr($_POST['email'] ?? ''); ?>" required>
+                    </div>
+
+                    <div class="input__wrapper dob">
+                        <label for="">Date of Birth*</label>
+                        <div class="grid">
+                            <select name="dobday" required>
+                                <option value="" hidden style="opacity: 0.6">Day</option>
+                                <?php for ($d = 1; $d <= 31; $d++): ?>
+                                    <option value="<?php printf('%02d', $d); ?>"><?php printf('%02d', $d); ?></option>
+                                <?php endfor; ?>
+                            </select>
+
+                            <select name="dobmonth" required>
+                                <option value="" hidden>Month</option>
+                                <?php for ($m = 1; $m <= 12; $m++): ?>
+                                    <option value="<?php printf('%02d', $m); ?>"><?php printf('%02d', $m); ?></option>
+                                <?php endfor; ?>
+                            </select>
+
+                            <select name="dobyear" required>
+                                <option value="" hidden>Year</option>
+                                <?php for ($y = date('Y'); $y >= 1900; $y--): ?>
+                                    <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <p class="tip">Why do we need this? <img src="<?php echo get_theme_file_uri() ?>/images/info.svg" alt=""></p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="register__block">
+                <h4>What Do You Do?</h4>
+                <div class="register__grid">
+                    <?php $job_list = [
+                        'Analyst',
+                        'Distributor',
+                        'Developer/Designer',
+                        'Lifestyle/news website',
+                        'Media (Journalist/Content Creator)',
+                        'National newspaper',
+                        'Online retailer',
+                        'Outsourcing',
+                        'PR/Marketing agency',
+                        'PR/Marketing in-house',
+                        'Regional newspaper',
+                        'Retailer (Website)',
+                        'Retailer (Store)',
+                        'Television',
+                    ]; ?>
+
+                    <div class="input__wrapper">
+                        <label for="job">Job Type*</label>
+                        <select name="job" required>
+                            <option value="" style="opacity: 0.8">Select your job type</option>
+                            <?php foreach ($job_list as $job): ?>
+                                <option value="<?php echo esc_attr($job); ?>"><?php echo esc_html($job); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="input__wrapper media-outlet">
+                        <label for="outlet">Media Outlet</label>
+                        <input type="text" placeholder="Enter Outlet" name="outlet" value="<?php echo esc_attr($_POST['outlet'] ?? ''); ?>">
+                    </div>
+                </div>
+            </div>
+
+            <?php
+            $companies = get_posts(array(
+                'post_type' => 'company',
+                'numberposts' => -1,
+            ));
+
+            ?>
+            <div class="register__block">
+                <h4>Company Details</h4>
+                <div class="register__grid">
+                    <div class="input__wrapper">
+                        <label for="company">Company*</label>
+
+                        <input list="company_post" placeholder="Enter Company" name="company_post" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
+
+                        <datalist id="company_post">
+                            <?php foreach ($companies as $company) { ?>
+                                <option value="<?= $company->post_title ?>">
+                                <?php } ?>
+                        </datalist>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="register__block">
+                <h4>Email Preferences</h4>
+                <p>If you’d like to be kept up to date with the latest news in geek culture, then simply tick ‘Opt in’ below. You can unsubscribe at any time.</p>
+
+                <div class="register__grid opt">
+                    <div class="input__wrapper checkbox p-0">
+                        <label for="optin">
+                            <input type="checkbox" id="optin" name="email_pref" value="optin" <?php checked($_POST['email_pref'] ?? '', 'optin'); ?>>
+                            <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg></span>
+                            OPT IN
+                        </label>
+                    </div>
+
+                    <div class="input__wrapper checkbox p-0">
+                        <label for="optout">
+                            <input type="checkbox" id="optout" name="email_pref" value="optout" <?php checked($_POST['email_pref'] ?? '', 'optout'); ?>>
+                            <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg></span>
+                            OPT OUT
+                        </label>
+                    </div>
+                </div>
+            </div>
 
 
 
 
-add_action('admin_footer-user-edit.php', 'fix_user_edit_enctype');
-add_action('admin_footer-profile.php', 'fix_user_edit_enctype');
 
-function fix_user_edit_enctype() {
-    echo '<script>document.getElementById("your-profile").setAttribute("enctype", "multipart/form-data");</script>';
-}
+            <div class="register__block">
+                <h4>Profile Details</h4>
+                <p class="upload__label">Upload Cover Photo <span class="upload__error" id="error__banner"></span></p>
+                <div class="input__upload" style="gap: 0;">
+                    <div id="preview__banner" class=" preview__container"></div>
+                    <div class="input__wrapper upload__image">
+                        <input type="file" id="page_banner" name="page_banner" accept="image/*">
+                        <label for="page_banner" id="label__banner">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 15V3"></path>
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <path d="m7 10 5 5 5-5"></path>
+                            </svg>
+                            <span>Upload Cover</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input__wrapper" style="margin-bottom:3rem">
+                    <label for="display_name">Display Name*</label>
+                    <input type="text" placeholder="Enter Name" name="display_name" value="<?php echo esc_attr($_POST['display_name'] ?? ''); ?>" required>
+                </div>
+
+                <div class="input__wrapper">
+                    <label for="author_bio">Profile Bio*</label>
+                    <textarea name="author_bio" id="author_bio" rows="4" placeholder="Write a short bio..." style="width:100%;" required><?php echo esc_textarea($_POST['author_bio'] ?? ''); ?></textarea>
+                </div>
+            </div>
+
+
+            <div class="register__block">
+                <h4>Log In Details</h4>
+
+                <div class="register__grid">
+                    <div class="input__wrapper">
+                        <label for="username">Username*</label>
+                        <input type="text" id="username" placeholder="Enter Username" name="username" value="<?php echo esc_attr($_POST['username'] ?? ''); ?>" required>
+                    </div>
+
+                    <div class="input__wrapper">
+                        <label for="password">Password*</label>
+                        <input type="password" id="password" placeholder="Enter Password" name="password" value="<?php echo esc_attr($_POST['password'] ?? ''); ?>" required>
+                    </div>
+
+                    <div class="input__wrapper">
+                        <label for="confirm_password">Confirm Password*</label>
+                        <input type="password" id="confirm_password" placeholder="Enter Password" name="confirm_password" value="<?php echo esc_attr($_POST['confirm_password'] ?? ''); ?>" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input__wrapper toc checkbox p-0">
+                <label for="toc">
+                    <input type="checkbox" id="toc" name="toc" required <?php checked($_POST['toc'] ?? '', 1); ?>>
+                    <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6 9 17l-5-5" />
+                        </svg></span>
+                    I have read and agree to the <a href="https://geekpress.theprogressteam.com/terms-of-service/" target="_blank">Terms and Conditions</a> and <a href="https://geekpress.theprogressteam.com/privacy-policy/" target="_blank">Privacy Policy</a>.
+                </label>
+            </div>
+
+            <input type="submit" name="custom_register" value="Register" class="btn-custom btn-outline mb-5">
+
+            <?php
+
+            if (!empty($errors)) {
+                foreach ($errors as $error) {
+                    echo '<p style="color:red;">' . esc_html($error) . '</p>';
+                }
+            }
+
+
+            ?>
+        </form>
+    </div>
+</section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const jobSelect = document.querySelector('select[name="job"]');
+        const mediaOutletDiv = document.querySelector('.media-outlet');
+
+        // Hide initially
+        if (mediaOutletDiv) mediaOutletDiv.style.display = 'none';
+
+        // Watch for changes
+        if (jobSelect) {
+            jobSelect.addEventListener('change', function() {
+                if (this.value === 'Media (Journalist/Content Creator)') {
+                    mediaOutletDiv.style.display = 'block';
+                } else {
+                    mediaOutletDiv.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery('input[name="company_post"]').change(function(e) {
+            company_field(jQuery(this).val());
+            e.preventDefault();
+        });
+
+        jQuery('input[name="company_post"]').keyup(function(e) {
+            company_field(jQuery(this).val());
+            e.preventDefault();
+        });
+    });
+
+    function company_field(val) {
+        exists = jQuery('#company_post option[value="' + val + '"]').length;
+        if (exists == 1) {
+            jQuery('.input__wrapper--company-fields').hide().removeAttr('required');
+        } else {
+            jQuery('.input__wrapper--company-fields').show().attr('required');
+        }
+    }
+</script>
