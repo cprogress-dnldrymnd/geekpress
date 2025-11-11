@@ -209,10 +209,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             <div class="register__block">
                 <h4>Company Details</h4>
                 <div class="register__grid">
-                    <div class="input__wrapper">
+                    <div class="input__wrapper input__wrapper--company-fields">
                         <label for="company">Company*</label>
 
-                        <input list="company_post" placeholder="Enter Company" name="company_post" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
+                        <input list="company_post" placeholder="Enter Company" name="company_post[]" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
 
                         <datalist id="company_post">
                             <?php foreach ($companies as $company) { ?>
@@ -220,6 +220,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                                 <?php } ?>
                         </datalist>
                     </div>
+
+                    <div class="btn-custom btn-outline mb-5"> Add another company </div>
 
                 </div>
             </div>
