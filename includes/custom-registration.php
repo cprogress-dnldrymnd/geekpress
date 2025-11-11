@@ -374,7 +374,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             company_field(jQuery(this).val());
             e.preventDefault();
         });
+
+        add_company();
     });
+
+    function add_company() {
+        jQuery('.btn-add-company').click(function(e) {
+            jQuery('.input__wrapper--company-field:last-child').clone().appendTo('.input__wrapper--company-fields').find('input').val('');
+            e.preventDefault();
+        });
+    }
 
     function company_field(val) {
         exists = jQuery('#company_post option[value="' + val + '"]').length;
