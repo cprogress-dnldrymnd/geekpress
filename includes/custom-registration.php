@@ -306,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             <div class="register__block">
                 <h4>Log In Details</h4>
                 <div class="register__grid d-flex">
-                    <div class="input__wrapper">
+                    <div class="input__wrapper w-100">
                         <label for="username">Username*</label>
                         <input type="text" id="username" placeholder="Enter Username" name="username" value="<?php echo esc_attr($_POST['username'] ?? ''); ?>" required>
                     </div>
