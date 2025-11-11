@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
     $display_name = sanitize_text_field($_POST['display_name']);
 
-    $author_bio = sanitize_textarea_field($_POST['author_bio'] ?? '');
+
 
 
 
@@ -83,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             $user_data = array(
                 'ID'           => $user_id,
                 'display_name' => sanitize_text_field($display_name),
-                'description'  => wp_kses_post($author_bio), // Use wp_kses_post for sanitizing the bio.
             );
 
             // Update the user. wp_update_user() returns a WP_Error object on failure.
@@ -290,10 +289,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                     <input type="text" placeholder="Enter Name" name="display_name" value="<?php echo esc_attr($_POST['display_name'] ?? ''); ?>" required>
                 </div>
 
-                <div class="input__wrapper">
-                    <label for="author_bio">Profile Bio*</label>
-                    <textarea name="author_bio" id="author_bio" rows="4" placeholder="Write a short bio..." style="width:100%;" required><?php echo esc_textarea($_POST['author_bio'] ?? ''); ?></textarea>
-                </div>
             </div>
 
 
