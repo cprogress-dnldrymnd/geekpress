@@ -807,13 +807,7 @@ function custom_registration()
                         'post_title'    => wp_strip_all_tags($company_post),
                         'post_status'   => 'publish',
                         'post_author'   => $user_id,
-                        'post_content' => $company_bio,
-                        'meta_input'   => array(
-                            'website' => $website,
-                            'country'   => $country
-                        ),
                     );
-
                     // Insert the post into the database
                     $company_id = wp_insert_post($my_post);
                 }
@@ -830,13 +824,6 @@ function custom_registration()
                 update_user_meta($user_id, 'toc', $toc);
                 update_user_meta($user_id, 'email_pref', $email_pref);
                 update_user_meta($user_id, 'birthday', $dobday . '/' . $dobmonth . '/' . $dobyear);
-
-                //update_user_meta($user_id, 'dobmonth', $dobmonth);
-                // update_user_meta($user_id, 'dobday', $dobday);
-                //update_user_meta($user_id, 'dobyear', $dobyear);
-                //update_user_meta($user_id, 'display_name', $display_name);
-                //update_user_meta($user_id, 'author_bio', $author_bio);
-
 
                 // Prepare the user data to be updated.
                 $user_data = array(
