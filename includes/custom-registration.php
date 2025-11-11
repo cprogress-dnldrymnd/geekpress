@@ -1,5 +1,5 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'get' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
     $email = sanitize_email($_POST['email']);
     $password = $_POST['password'];
@@ -115,7 +115,7 @@ echo 'xxsdsd';
 <section class="register">
     <div class="container">
 
-        <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" enctype="multipart/form-data">
+        <form method="get" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" enctype="multipart/form-data">
             <?php wp_nonce_field('custom_register', 'custom_register_nonce'); ?>
 
             <div class="register__block">
