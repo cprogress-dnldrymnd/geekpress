@@ -268,22 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
             <div class="register__block">
                 <h4>Profile Details</h4>
-                <p class="upload__label">Upload Cover Photo <span class="upload__error" id="error__banner"></span></p>
-                <div class="input__upload" style="gap: 0;">
-                    <div id="preview__banner" class=" preview__container"></div>
-                    <div class="input__wrapper upload__image">
-                        <input type="file" id="page_banner" name="page_banner" accept="image/*">
-                        <label for="page_banner" id="label__banner">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 15V3"></path>
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <path d="m7 10 5 5 5-5"></path>
-                            </svg>
-                            <span>Upload Cover</span>
-                        </label>
-                    </div>
-                </div>
-
+              
                 <div class="input__wrapper" style="margin-bottom:3rem">
                     <label for="display_name">Display Name*</label>
                     <input type="text" placeholder="Enter Name" name="display_name" value="<?php echo esc_attr($_POST['display_name'] ?? ''); ?>" required>
