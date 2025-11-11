@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     echo '<pre>';
     var_dump($company_post);
     echo '</pre>';
-
+echo 'xxsdsd';
 
     $website = sanitize_text_field($_POST['website']);
     $country = sanitize_text_field($_POST['country']);
