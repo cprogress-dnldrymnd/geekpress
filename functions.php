@@ -312,22 +312,76 @@ add_action('personal_options_update', 'save_approval_user_meta');
 add_action('edit_user_profile_update', 'save_approval_user_meta');
 function save_approval_user_meta($user_id)
 {
-    if (!current_user_can('edit_user', $user_id)) return;
+    // Ensure the current user can edit this user
+    if (!current_user_can('edit_user', $user_id)) {
+        return;
+    }
 
     $old_status = get_user_meta($user_id, 'account_status', true);
-    $new_status = sanitize_text_field($_POST['account_status']);
+    $new_status = isset($_POST['account_status']) ? sanitize_text_field($_POST['account_status']) : '';
 
     update_user_meta($user_id, 'account_status', $new_status);
 
-    if ($old_status !== 'approved' && $new_status === 'approved') {
-        $user = get_userdata($user_id);
-        $subject = 'Your Account Has Been Approved';
-        $message = "Hi " . esc_html($user->display_name) . ",\n\nYour account has been approved. You can now log in:\n\nhttps://geekpress.theprogressteam.com/login/\n\nThank you,\n" . get_bloginfo('name');
-        $headers = ['Content-Type: text/plain; charset=UTF-8'];
+    $user = get_userdata($user_id);
+    $headers = ['Content-Type: text/plain; charset=UTF-8'];
 
+    // Approved email
+    if ($old_status !== 'approved' && $new_status === 'approved') {
+        $subject = 'Your Account Has Been Approved';
+		$message = "
+			<p>Hi " . esc_html($user->display_name) . ",</p>
+			<p>Good news! We’ve approved your application to <strong>GeekPress</strong>.</p>
+			<p>You can now log in to your account using the link below:</p>
+			<p>
+				<a href='https://geekpress.theprogressteam.com/login/' target='_blank'>
+					https://geekpress.theprogressteam.com/login/
+				</a>
+			</p>
+			<p>Thank you,<br>" . get_bloginfo('name') . " Team</p>
+		";
+        wp_mail($user->user_email, $subject, $message, $headers);
+    }
+
+    // Rejected email
+    if ($old_status !== 'rejected' && $new_status === 'rejected') {
+        $subject = 'Your Account Has Been Rejected';
+		$message = "
+			<p>Hi " . esc_html($user->display_name) . ",</p>
+			<p>Sorry, your application for <strong>GeekPress</strong> has not been approved as you did not meet our criteria at this time.</p>
+			<p>Thank you,<br>" . get_bloginfo('name') . " Team</p>
+		";
         wp_mail($user->user_email, $subject, $message, $headers);
     }
 }
+
+// --------------NOTIFY ADMIN ON NEW REGISTRATION-----------------------
+add_action('user_register', 'notify_admin_new_user', 10, 1);
+function notify_admin_new_user($user_id) {
+    $user = get_userdata($user_id);
+    $admin_email = 'hello@geek.press';
+    $subject = 'New User Registration on ' . get_bloginfo('name');
+    // Use HTML formatting instead of \n
+    $message = "
+        <p>Hello Admin,</p>
+        <p>A new user has just registered on your website:</p>
+        <hr>
+        <p>
+			<strong>Name: </strong>{$user->display_name}<br>
+			<strong>Email: </strong>{$user->user_email}
+        </p>
+        <hr>
+        <p>
+            You can review or approve this user here:<br>
+            <a href='" . admin_url('user-edit.php?user_id=' . $user_id) . "'>" . admin_url('user-edit.php?user_id=' . $user_id) . "</a>
+        </p>
+        <p>Best regards,<br>" . get_bloginfo('name') . " Team</p>
+    ";
+
+    $headers = ['Content-Type: text/plain; charset=UTF-8'];
+
+    wp_mail($admin_email, $subject, $message, $headers);
+}
+
 
 // --------------ADDING the status in the userlist-----------------------
 
@@ -638,18 +692,16 @@ function user_icon()
     ob_start(); ?>
     <div class="signup header__signup">
         <div class="dropdown">
-            <img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" />
 
             <?php if (is_user_logged_in()) {
                 $current_user = wp_get_current_user(); ?>
-
+            	<img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" />
                 <span class="current__user"> <?php echo  get_user_meta($current_user->ID, 'first_name', true)  ?></span>
 
             <?php } else { ?>
                 <ul>
-                    <li><a href="<?php echo esc_url(site_url('/login')) ?>">Login</a></li>
-                    <li>/</li>
-                    <li><a href="<?php echo esc_url(site_url('/registration')) ?>">Register</a></li>
+                    <li><a href="<?php echo esc_url(site_url('/login')) ?>" class="header-btn">Login</a></li>
+                    <li><a href="<?php echo esc_url(site_url('/registration')) ?>" class="header-btn">Register</a></li>
                 </ul>
             <?php } ?>
 
@@ -663,6 +715,7 @@ function user_icon()
                     <ul>
                         <?php if ($company_id) { ?>
                             <li><a href="<?php echo esc_url(get_the_permalink($company_id)); ?>">Company Profile</a></li>
+							<li><a href="<?php echo esc_url(get_the_permalink(436)); ?>">Edit Profile</a></li>
                         <?php } ?>
                         <?php if (in_array($user_id, $company_manager) && $company_id) { ?>
                             <li><a href="<?php echo esc_url(get_the_permalink(1330)); ?>">Edit Company</a></li>
@@ -839,22 +892,22 @@ function custom_registration()
 
                     <div class="register__grid">
                         <div class="input__wrapper">
-                            <label for="first_name">First Name</label>
+                            <label for="first_name">First Name*</label>
                             <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo esc_attr($_POST['first_name'] ?? ''); ?>" required>
                         </div>
 
                         <div class="input__wrapper">
-                            <label for="last_name">Last Name</label>
+                            <label for="last_name">Last Name*</label>
                             <input type="text" placeholder="Enter Last Name" name="last_name" value="<?php echo esc_attr($_POST['last_name'] ?? ''); ?>" required>
                         </div>
 
                         <div class="input__wrapper">
-                            <label for="email">Email Address</label>
+                            <label for="email">Email Address*</label>
                             <input type="email" id="email" name="email" placeholder="Enter Email Address" value="<?php echo esc_attr($_POST['email'] ?? ''); ?>" required>
                         </div>
 
                         <div class="input__wrapper dob">
-                            <label for="">Date of Birth</label>
+                            <label for="">Date of Birth*</label>
                             <div class="grid">
                                 <select name="dobday" required>
                                     <option value="" hidden style="opacity: 0.6">Day</option>
@@ -892,24 +945,20 @@ function custom_registration()
                             'Distributor',
                             'Developer/Designer',
                             'Lifestyle/news website',
-                            'Magazine',
+                           	'Media (Journalist/Content Creator)',
                             'National newspaper',
                             'Online retailer',
                             'Outsourcing',
-                            'Podcast',
-                            'PR/Marketing agency',
+                         	'PR/Marketing agency',
                             'PR/Marketing in-house',
-                            'Radio',
                             'Regional newspaper',
                             'Retailer (Website)',
                             'Retailer (Store)',
-                            'Streamer/influencer',
                             'Television',
-                            'Trade press'
                         ]; ?>
 
                         <div class="input__wrapper">
-                            <label for="job">Job Type</label>
+                            <label for="job">Job Type*</label>
                             <select name="job" required>
                                 <option value="" style="opacity: 0.8">Select your job type</option>
                                 <?php foreach ($job_list as $job): ?>
@@ -918,7 +967,7 @@ function custom_registration()
                             </select>
                         </div>
 
-                        <div class="input__wrapper">
+                        <div class="input__wrapper media-outlet">
                             <label for="outlet">Media Outlet</label>
                             <input type="text" placeholder="Enter Outlet" name="outlet" value="<?php echo esc_attr($_POST['outlet'] ?? ''); ?>">
                         </div>
@@ -936,7 +985,7 @@ function custom_registration()
                     <h4>Company Details</h4>
                     <div class="register__grid">
                         <div class="input__wrapper">
-                            <label for="company">Company</label>
+                            <label for="company">Company*</label>
 
                             <input list="company_post" placeholder="Enter Company" name="company_post" value="<?php echo esc_attr($_POST['company_post'] ?? ''); ?>" required>
 
@@ -948,12 +997,12 @@ function custom_registration()
                         </div>
 
                         <div class="input__wrapper input__wrapper--company-fields">
-                            <label for="website" required>Website</label>
+                            <label for="website" required>Website*</label>
                             <input type="text" placeholder="Enter Website URL" name="website" value="<?php echo esc_attr($_POST['website'] ?? ''); ?>">
                         </div>
                         <?php $country_list = array("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (fmr. 'Swaziland')", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Holy See", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (formerly Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"); ?>
                         <div class="input__wrapper input__wrapper--company-fields">
-                            <label for="country" required>Country</label>
+                            <label for="country" required>Country*</label>
                             <select name="country">
                                 <option value="">Select your country</option>
                                 <?php foreach ($country_list as $country): ?>
@@ -965,8 +1014,8 @@ function custom_registration()
                     </div>
                     <div class="register__block input__wrapper--company-fields" style="margin-top: 1rem">
                         <div class="input__wrapper input__wrapper--company-fields">
-                            <label for="country" required>Company Bio</label>
-                            <textarea name="company_bio" id="company_bio" rows="4" class="textarea--height" placeholder="Write a short company bio..." style="width:100%;" required><?php echo esc_textarea($_POST['company_bio'] ?? ''); ?></textarea>
+                            <label for="company_bio">Company Bio</label>
+                            <textarea name="company_bio" id="company_bio" rows="4" class="textarea--height" placeholder="Write a short company bio..." style="width:100%;"><?php echo esc_textarea($_POST['company_bio'] ?? ''); ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -1006,13 +1055,29 @@ function custom_registration()
 
                 <div class="register__block">
                     <h4>Profile Details</h4>
+                    <p class="upload__label">Upload Cover Photo <span class="upload__error" id="error__banner"></span></p>
+                    <div class="input__upload" style="gap: 0;">
+                        <div id="preview__banner" class=" preview__container"></div>
+                        <div class="input__wrapper upload__image">
+                            <input type="file" id="page_banner" name="page_banner" accept="image/*">
+                            <label for="page_banner" id="label__banner">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="transparent" stroke="#0d0629" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 15V3"></path>
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <path d="m7 10 5 5 5-5"></path>
+                                </svg>
+                                <span>Upload Cover</span>
+                            </label>
+                        </div>
+                    </div>
+					
                     <div class="input__wrapper" style="margin-bottom:3rem">
-                        <label for="display_name">Display Name</label>
+                        <label for="display_name">Display Name*</label>
                         <input type="text" placeholder="Enter Name" name="display_name" value="<?php echo esc_attr($_POST['display_name'] ?? ''); ?>" required>
                     </div>
 
                     <div class="input__wrapper">
-                        <label for="author_bio">Profile Bio</label>
+                        <label for="author_bio">Profile Bio*</label>
                         <textarea name="author_bio" id="author_bio" rows="4" placeholder="Write a short bio..." style="width:100%;" required><?php echo esc_textarea($_POST['author_bio'] ?? ''); ?></textarea>
                     </div>
                 </div>
@@ -1023,17 +1088,17 @@ function custom_registration()
 
                     <div class="register__grid">
                         <div class="input__wrapper">
-                            <label for="username">Username</label>
+                            <label for="username">Username*</label>
                             <input type="text" id="username" placeholder="Enter Username" name="username" value="<?php echo esc_attr($_POST['username'] ?? ''); ?>" required>
                         </div>
 
                         <div class="input__wrapper">
-                            <label for="password">Password</label>
+                            <label for="password">Password*</label>
                             <input type="password" id="password" placeholder="Enter Password" name="password" value="<?php echo esc_attr($_POST['password'] ?? ''); ?>" required>
                         </div>
 
                         <div class="input__wrapper">
-                            <label for="confirm_password">Confirm Password</label>
+                            <label for="confirm_password">Confirm Password*</label>
                             <input type="password" id="confirm_password" placeholder="Enter Password" name="confirm_password" value="<?php echo esc_attr($_POST['confirm_password'] ?? ''); ?>" required>
                         </div>
                     </div>
@@ -1041,11 +1106,11 @@ function custom_registration()
 
                 <div class="input__wrapper toc checkbox p-0">
                     <label for="toc">
-                        <input type="checkbox" id="toc" name="toc" <?php checked($_POST['toc'] ?? '', 1); ?>>
+                        <input type="checkbox" id="toc" name="toc" required <?php checked($_POST['toc'] ?? '', 1); ?>>
                         <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M20 6 9 17l-5-5" />
                             </svg></span>
-                        I have read and agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                        I have read and agree to the <a href="https://geekpress.theprogressteam.com/terms-of-service/" target="_blank">Terms and Conditions</a> and <a href="https://geekpress.theprogressteam.com/privacy-policy/" target="_blank">Privacy Policy</a>.
                     </label>
                 </div>
 
@@ -1063,7 +1128,29 @@ function custom_registration()
                 ?>
             </form>
         </div>
-    </section>
+	</section>
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const jobSelect = document.querySelector('select[name="job"]');
+			const mediaOutletDiv = document.querySelector('.media-outlet');
+
+			// Hide initially
+			if (mediaOutletDiv) mediaOutletDiv.style.display = 'none';
+
+			// Watch for changes
+			if (jobSelect) {
+				jobSelect.addEventListener('change', function () {
+					if (this.value === 'Media (Journalist/Content Creator)') {
+						mediaOutletDiv.style.display = 'block';
+					} else {
+						mediaOutletDiv.style.display = 'none';
+					}
+				});
+			}
+		});
+	</script>
 
     <script>
         jQuery(document).ready(function() {
@@ -1088,87 +1175,6 @@ function custom_registration()
         }
     </script>
 
-
-    <script>
-        const inputProfile = document.querySelector('#profile_image');
-        const previewProfile = document.querySelector('#preview__profile');
-        const errorProfile = document.querySelector('#error__profile');
-        let filesFeatArray = [];
-
-        function renderProfilePreview(e) {
-            errorProfile.innerHTML = "";
-            previewProfile.innerHTML = "";
-            filesFeatArray.forEach((file, index) => {
-                if (file.size > 5 * 1024 * 1024) {
-                    errorProfile.innerHTML = ` - ${file.name} exceeds 5MB and will be ignored.`;
-                    return;
-                }
-                const fileUrlFeat = URL.createObjectURL(file);
-                previewProfile.innerHTML = `
-        <div class="preview">
-            <img src="${fileUrlFeat}" alt="${file.name}"/>
-            <h5>${file.name}</h5>
-            <ul>
-                <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
-            </ul>
-        <div>
-    `;
-            });
-        }
-
-        inputProfile.addEventListener("change", (e) => {
-            filesFeatArray = Array.from(e.target.files);
-            renderProfilePreview();
-
-        });
-
-
-
-
-        const inputBanner = document.querySelector('#page_banner');
-        const previewBanner = document.querySelector('#preview__banner');
-        const errorBanner = document.querySelector('#error__banner');
-        let filesFeatArrayBanner = [];
-
-        function renderBannerPreview(e) {
-            errorBanner.innerHTML = "";
-            previewBanner.innerHTML = "";
-            filesFeatArrayBanner.forEach((file, index) => {
-                if (file.size > 5 * 1024 * 1024) {
-                    errorBanner.innerHTML = ` - ${file.name} exceeds 5MB and will be ignored.`;
-                    return;
-                }
-                const fileUrlFeat = URL.createObjectURL(file);
-                previewBanner.innerHTML = `
-        <div class="preview">
-            <img src="${fileUrlFeat}" alt="${file.name}"/>
-            <h5>${file.name}</h5>
-            <ul>
-                <li><small>${(file.size / 1024).toFixed(2)} KB</small></li>
-            </ul>
-        <div>
-    `;
-            });
-        }
-
-        inputBanner.addEventListener("change", (e) => {
-            filesFeatArrayBanner = Array.from(e.target.files);
-            renderBannerPreview();
-
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const optIn = document.querySelector('#optin');
-            const optOut = document.querySelector('#optout');
-
-            optIn.addEventListener('change', () => {
-                if (optIn.checked) optOut.checked = false;
-            });
-            optOut.addEventListener('change', () => {
-                if (optOut.checked) optIn.checked = false;
-            });
-        });
-    </script>
 <?php
     return ob_get_clean();
 }
@@ -1194,6 +1200,7 @@ add_shortcode('custom_registration', 'custom_registration');
 // Function to increment the post view count
 function my_post_views_count($postID)
 {
+    $count_key = 'post_views_count';
     // Retrieve the current view count from post meta
     $count = get_post_meta($postID, 'post_views_count', true);
 
@@ -1692,9 +1699,32 @@ function update_acf_on_post_edit_with_url_param()
 
 function reject__email($post_id)
 {
+	/*
+
     $to = get_post_author_email_by_id($post_id);
     $subject = 'Geekpress rejected your submission';
     $message = email__template('Submission Rejected for ' . get_the_title($post_id), '<p>We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you.<p>');
+    wp_mail($to, $subject, $message);
+	*/
+	
+	$to = get_post_author_email_by_id($post_id);
+    $subject = 'GeekPress rejected your submission';
+
+    // Get rejection reason field (optional field)
+    $reason = get_field('rejection_reason', $post_id);
+
+    // Default message
+    $message_body = '<p>We’re really sorry, but GeekPress has rejected your submission.</p>
+    <p>Please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened.</p>
+    <p>If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you.</p>';
+
+    // Append reason if provided
+    if (!empty($reason)) {
+        $message_body = '<p><strong>Reason for rejection:</strong><br>' . nl2br(esc_html($reason)) . '</p>' . $message_body;
+    }
+
+    $message = email__template('Submission Rejected for ' . get_the_title($post_id), $message_body);
+
     wp_mail($to, $subject, $message);
 }
 /**
@@ -1729,6 +1759,7 @@ function send_email_on_listing_rejection($value, $post_id, $field)
     // 2. Get the value of the field *before* this update.
     $old_value = get_field('listing_status', $post_id);
 
+	
     // 3. Check if the new value is 'reject' and the old value was NOT 'reject'.
     //    This ensures the email is sent only when the status changes *to* reject.
     if ($value === 'reject' && $old_value !== 'reject') {
@@ -1755,6 +1786,31 @@ add_filter('wp_mail_content_type', 'wpse27856_set_content_type');
 // Add the function to the 'save_post' action hook.
 add_action('admin_footer', 'update_acf_on_post_edit_with_url_param');
 
+/**
+ * Sync ACF 'listing_status' with WordPress post status changes.
+ * If a rejected or approved post is edited and saved as draft/pending,
+ * reset the ACF field to 'pending'.
+ */
+function sync_listing_status_with_post_status($post_id, $post, $update) {
+    // Prevent running on autosave, revisions, or direct status-change URLs
+    if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id) || isset($_GET['listing_status'])) {
+        return;
+    }
+
+    if ($post->post_type !== 'post') {
+        return;
+    }
+
+    $listing_status = get_field('listing_status', $post_id);
+
+    // Only reset if the admin manually reverts post to Draft or Pending from the editor
+    if (in_array($post->post_status, ['draft', 'pending'], true)) {
+        if (in_array($listing_status, ['reject', 'approve'], true)) {
+            update_field('listing_status', 'pending', $post_id);
+        }
+    }
+}
+//add_action('save_post', 'sync_listing_status_with_post_status', 10, 3);
 
 function email__template($headline, $content)
 {
