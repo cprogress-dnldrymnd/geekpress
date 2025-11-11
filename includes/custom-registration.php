@@ -14,6 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
 
 
+    echo '<pre>';
+    var_dump($company_post);
+    echo '</pre>';
+
+
     $website = sanitize_text_field($_POST['website']);
     $country = sanitize_text_field($_POST['country']);
     $job = sanitize_text_field($_POST['job']);
@@ -42,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
         $errors[] = 'Invalid email.';
     } elseif (username_exists($username) || email_exists($email)) {
         $errors[] = 'Username or email already exists.';
-    } 
+    }
 
 
     // echo '<pre>'; print_r($_POST); echo '</pre>'; //check if 
@@ -53,9 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
         if (!is_wp_error($user_id)) {
 
 
-            echo '<pre>';
-            var_dump($company_post);
-            echo '</pre>';
+
 
             $company_exists = get_custom_post_id_by_title($company_post, 'company');
             if ($company_exists != false) {
@@ -68,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                     'post_author'   => $user_id,
                 );
                 // Insert the post into the database
-               // $company_id = wp_insert_post($my_post);
+                // $company_id = wp_insert_post($my_post);
             }
 
 
