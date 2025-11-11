@@ -221,8 +221,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         </datalist>
                     </div>
 
-                    <div class="btn-custom btn-outline mb-5"> Add another company </div>
-
+                    <div class="add-company-holder w-100">
+                        <div class="btn-custom btn-outline mb-5"> Add another company </div>
+                    </div>
                 </div>
             </div>
 
