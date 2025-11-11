@@ -835,28 +835,12 @@ function custom_registration()
                 // Update the user. wp_update_user() returns a WP_Error object on failure.
                 wp_update_user($user_data);
 
-                if (!empty($_FILES['page_banner']['name']) || !empty($_FILES['profile_image']['name'])) {
-                    require_once ABSPATH . 'wp-admin/includes/file.php';
-                    require_once ABSPATH . 'wp-admin/includes/media.php';
-                    require_once ABSPATH . 'wp-admin/includes/image.php';
-
-                    $attachment_id = media_handle_upload('page_banner', 0);
-                    if (!is_wp_error($attachment_id)) {
-                        update_user_meta($user_id, 'profile_banner', $attachment_id);
-                    }
-
-                    $profile_image_id = media_handle_upload('profile_image', 0);
-                    if (!is_wp_error($profile_image_id)) {
-                        update_user_meta($user_id, 'profile_picture', $profile_image_id);
-                    }
-                }
-
                 update_user_meta($user_id, 'account_status', 'pending');
 
                 wp_mail(
                     get_option('admin_email'),
                     'New User Pending Approval',
-                    'A new user has registered and is pending approval.' . "\n\nUsername: " . $user_login
+                    'A new user has registered and is pending approval.' . "\n\nUsername: " . $username
                 );
 
                 wp_redirect(home_url('/registration-success'));
