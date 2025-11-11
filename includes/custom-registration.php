@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $dobyear = sanitize_text_field($_POST['dobyear']);
 
     //$display_name = sanitize_text_field($_POST['display_name']);
-    
+
 
 
 
@@ -51,6 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     if (empty($errors)) {
         $user_id = wp_create_user($username, $password, $email);
         if (!is_wp_error($user_id)) {
+
+
+            echo '<pre>';
+            var_dump($company_post);
+            echo '</pre>';
+
             $company_exists = get_custom_post_id_by_title($company_post, 'company');
             if ($company_exists != false) {
                 $company_id = $company_exists;
@@ -62,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                     'post_author'   => $user_id,
                 );
                 // Insert the post into the database
-                $company_id = wp_insert_post($my_post);
+               // $company_id = wp_insert_post($my_post);
             }
 
 
@@ -84,9 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             );
 
             // Update the user. wp_update_user() returns a WP_Error object on failure.
-            wp_update_user($user_data);
+            //wp_update_user($user_data);
 
-            update_user_meta($user_id, 'account_status', 'pending');
+            //update_user_meta($user_id, 'account_status', 'pending');
 
             wp_mail(
                 get_option('admin_email'),
@@ -94,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 'A new user has registered and is pending approval.' . "\n\nUsername: " . $username
             );
 
-            wp_redirect(home_url('/registration-success'));
+            //wp_redirect(home_url('/registration-success'));
         } else {
             $errors[] = $user_id->get_error_message();
         }
