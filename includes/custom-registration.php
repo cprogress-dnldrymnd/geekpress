@@ -208,7 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             ?>
             <div class="register__block">
                 <h4>Company Details</h4>
-                <div class="register__grid">
+                
+                <div class="register__flex d-flex flex-column gap-3">
                     <div class="input__wrapper input__wrapper--company-fields">
                         <label for="company">Company*</label>
 
