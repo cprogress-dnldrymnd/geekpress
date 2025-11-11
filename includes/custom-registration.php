@@ -27,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $dobday = sanitize_text_field($_POST['dobday']);
     $dobyear = sanitize_text_field($_POST['dobyear']);
 
-    $display_name = sanitize_text_field($_POST['display_name']);
+    //$display_name = sanitize_text_field($_POST['display_name']);
+    
 
 
 
@@ -41,9 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
         $errors[] = 'Invalid email.';
     } elseif (username_exists($username) || email_exists($email)) {
         $errors[] = 'Username or email already exists.';
-    } elseif (empty($display_name)) {
-        $errors[] = 'Display Name is required';
-    }
+    } 
 
 
     // echo '<pre>'; print_r($_POST); echo '</pre>'; //check if 
@@ -82,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             // Prepare the user data to be updated.
             $user_data = array(
                 'ID'           => $user_id,
-                'display_name' => sanitize_text_field($display_name),
             );
 
             // Update the user. wp_update_user() returns a WP_Error object on failure.
@@ -263,7 +261,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             </div>
 
 
-            <div class="register__block">
+            <div class="register__block d-none">
                 <h4>Profile Details</h4>
                 <div class="input__wrapper" style="margin-bottom:3rem">
                     <label for="display_name">Display Name*</label>
