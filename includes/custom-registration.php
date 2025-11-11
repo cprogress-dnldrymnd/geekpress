@@ -1,6 +1,6 @@
 <?php
     echo '<pre>';
-    var_dump($_GET['company_post']);
+    var_dump($_POST['company_post']);
     echo '</pre>';
 echo 'xxsdsd';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
@@ -119,7 +119,7 @@ echo 'xxsdsd';
 <section class="register">
     <div class="container">
 
-        <form method="get" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" enctype="multipart/form-data">
+        <form method="POST" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" enctype="multipart/form-data">
             <?php wp_nonce_field('custom_register', 'custom_register_nonce'); ?>
 
             <div class="register__block">
