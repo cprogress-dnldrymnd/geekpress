@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     echo '<pre>';
     var_dump($_POST['company_post']);
     var_dump($_POST['company_post_admin']);
-    echo '</pre>';
 
 
     // echo '<pre>'; print_r($_POST); echo '</pre>'; //check if 
@@ -62,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             echo $company_id;
         }
     }
+    echo '</pre>';
 
     if (empty($errors)) {
         $user_id = wp_create_user($username, $password, $email);
