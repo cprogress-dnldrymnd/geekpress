@@ -1,8 +1,5 @@
 <?php
 $journalist = get_field('journalist', 1652);
-if (!is_array($journalist)) {
-    $journalist = [];
-}
 var_dump($journalist);
 $journalist[] = 32;
 var_dump($journalist);
