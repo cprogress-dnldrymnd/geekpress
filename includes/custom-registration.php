@@ -5,7 +5,7 @@ if (!is_array($journalist)) {
 }
 var_dump($journalist);
 $journalist_var = array_push($journalist, 32);
-update_field($company_id, 'journalist', $journalist_var);
+update_field(1652, 'journalist', $journalist_var);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
     $email = sanitize_email($_POST['email']);
