@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
     foreach ($company_post_admin as $company_admin) {
         echo $company_admin;
-        $company_post_val = $company_post[$company_admin];
+        $company_post_val = $company_post[intval($company_admin)];
         $company_exists = get_custom_post_id_by_title($company_post_val, 'company');
         if ($company_exists != false) {
             $company_id = $company_exists;
