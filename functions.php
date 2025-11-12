@@ -1290,7 +1290,63 @@ function update_acf_on_post_edit_with_url_param()
     <?php
         }
     }
+
+
+    //Admin Application
+     // 1. Set the name of the URL parameter to check for.
+    $url_parameter = 'application_status';
+
+    // 2. Set the name of the ACF field you want to update.
+    $acf_field_name = 'application_status'; // 🚨 Replace with your actual ACF field name.
+
+
+    // ---  Execution ---
+
+    // Check if the URL parameter is set in the current request.
+    if (isset($_GET[$url_parameter])) {
+        $post_id = $_GET['post'];
+        // Sanitize the input from the URL parameter to ensure security.
+        // 'sanitize_text_field' is a good general-purpose function.
+        // For other data types, consider using functions like 'absint' for integers
+        // or 'sanitize_email' for emails.
+        $current_value = get_field($acf_field_name, $post_id);
+        $status_value = sanitize_text_field($_GET[$url_parameter]);
+
+        if ($current_value != $status_value) {
+
+            // Update the ACF field with the sanitized value.
+            // The `update_field()` function is the recommended way to update ACF fields.
+            // It requires the field name (or key), the new value, and the post ID.
+            update_field($acf_field_name, $status_value, $post_id);
+
+            if ($status_value === 'approve') {
+                // Set the post status to 'publish' if approved
+                wp_update_post(array(
+                    'ID' => $post_id,
+                    'post_status' => 'publish'
+                ));
+            } elseif ($status_value === 'reject') {
+                // Set the post status to 'draft' if rejected
+                wp_update_post(array(
+                    'ID' => $post_id,
+                    'post_status' => 'pending'
+                ));
+            }
+    ?>
+            <script>
+                jQuery(document).ready(function() {
+                    jQuery('.acf-field[data-name="listing_status"] select').val('<?php echo esc_js($status_value); ?>').trigger('change');
+                    <?php if ($status_value === 'approve') { ?>
+                        jQuery('.editor-post-publish-button__button').click();
+                    <?php } ?>
+                });
+            </script>
+    <?php
+        }
+    }
 }
+
+add_action('admin_footer', 'update_acf_on_post_edit_with_url_param');
 
 function reject__email($post_id)
 {
@@ -1378,8 +1434,6 @@ function wpse27856_set_content_type()
 add_filter('wp_mail_content_type', 'wpse27856_set_content_type');
 
 
-// Add the function to the 'save_post' action hook.
-add_action('admin_footer', 'update_acf_on_post_edit_with_url_param');
 
 /**
  * Sync ACF 'listing_status' with WordPress post status changes.
