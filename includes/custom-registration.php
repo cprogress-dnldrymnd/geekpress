@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 if (isset($company_post_admin[intval($key)])) {
                     $my_company_admin_post = array(
                         'post_type' => 'admin-registration',
-                        'post_title'    => $first_name . ' ' . $last_name . ' - ' . $company,
+                        'post_title'    => $email . ' - ' . $company,
                         'post_status'   => 'publish',
                         'post_author'   => $user_id,
                     );
