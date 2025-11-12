@@ -4,7 +4,7 @@ if (!is_array($journalist)) {
     $journalist = [];
 }
 var_dump($journalist);
-$journalist_var = array_push($journalist, 32);
+$journalist = 32;
 var_dump($journalist_var);
 
 update_field(1652, 'journalist', $journalist_var);
