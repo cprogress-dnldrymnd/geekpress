@@ -1312,6 +1312,18 @@ function update_acf_on_post_edit_with_url_param()
         $current_value = get_field($acf_field_name, $post_id);
         $status_value = sanitize_text_field($_GET[$url_parameter]);
 
+        // Get the post object using the provided post ID.
+        $post = get_post($post_id);
+
+        // Check if a valid post was found. If not, return false.
+        if (! $post) {
+            return false;
+        }
+
+        // The 'post_author' property of the post object contains the author's user ID.
+        $author_id = $post->post_author;
+        $company_id = get_post_meta($post_id, 'company', true);
+
         if ($current_value != $status_value) {
 
             // Update the ACF field with the sanitized value.
@@ -1327,6 +1339,14 @@ function update_acf_on_post_edit_with_url_param()
                 ));
 
                 
+
+
+                $journalist = get_field('journalist', $company_id);
+                if (!is_array($journalist)) {
+                    $journalist = [];
+                }
+                array_push($journalist, $author_id);
+                update_field('journalist', $journalist, $company_id);
                 
             } elseif ($status_value === 'reject') {
                 // Set the post status to 'draft' if rejected
