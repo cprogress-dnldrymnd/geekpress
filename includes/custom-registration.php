@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
 
     $outlet = sanitize_text_field($_POST['outlet']);
-    $company_bio = sanitize_text_field($_POST['company_bio']);
 
 
     $company_post = $_POST['company_post'];
@@ -18,8 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
 
 
-    $website = sanitize_text_field($_POST['website']);
-    $country = sanitize_text_field($_POST['country']);
     $job = sanitize_text_field($_POST['job']);
 
     $email_pref = sanitize_text_field($_POST['email_pref'] ?? '');
