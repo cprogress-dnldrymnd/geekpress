@@ -1982,7 +1982,7 @@ add_shortcode('preview__title', 'preview__title');
  * @param array $columns The existing columns.
  * @return array The modified columns.
  */
-function add_listing_status_column($columns)
+function add_listing_status_column_company_admin($columns)
 {
     // Add the new column after the 'title' column
     $new_columns = [];
@@ -1994,7 +1994,7 @@ function add_listing_status_column($columns)
     }
     return $new_columns;
 }
-add_filter('manage_admin-registration_posts_columns', 'add_listing_status_column');
+add_filter('manage_admin-registration_posts_columns', 'add_listing_status_column_company_admin');
 
 
 /**
@@ -2004,7 +2004,7 @@ add_filter('manage_admin-registration_posts_columns', 'add_listing_status_column
  * @param string $column_name The name of the column to display.
  * @param int    $post_id     The ID of the current post.
  */
-function display_listing_status_column_content($column_name, $post_id)
+function display_listing_status_column_content_company_admin($column_name, $post_id)
 {
 ?>
     <style>
@@ -2079,4 +2079,4 @@ function display_listing_status_column_content($column_name, $post_id)
         }
     }
 }
-add_action('manage_posts_custom_column', 'display_listing_status_column_content', 10, 2);
+add_action('manage_posts_custom_column', 'display_listing_status_column_content_company_admin', 10, 2);
