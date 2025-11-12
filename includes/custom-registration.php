@@ -352,7 +352,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
     function add_company() {
         jQuery('.btn-add-company').click(function(e) {
-            jQuery('.input__wrapper--company-field:last-child').clone().appendTo('.input__wrapper--company-fields').find('.input-field').val('').find('input').val('');
+            $input = jQuery('.input__wrapper--company-field:last-child').clone();
+            $input.find('.input-field').val('');
+            $val = $input.find('.input-checkbox').val();
+
+            $val = parseInt($val) + 1;
+            $input.find('.input-checkbox').val($val);
+
+            $input.appendTo('.input__wrapper--company-fields');
             e.preventDefault();
         });
     }
