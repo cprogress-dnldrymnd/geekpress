@@ -969,6 +969,7 @@ function get_user_companies() {
     $company = get_posts(array(
         'post_type' => 'company',
         'numberposts' => -1,
+        'fields' => 'ids',
         'meta_query' => array(
             'relation' => 'OR',
             array(
