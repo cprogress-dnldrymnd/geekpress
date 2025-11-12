@@ -50,7 +50,7 @@ get_header() ?>
 
         <?php $messages = [];
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_post_nonce']) && wp_verify_nonce($_POST['custom_post_nonce'], 'create_custom_post')) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = sanitize_text_field($_POST['post_title']);
             $company = sanitize_text_field($_POST['company']);
             $subheading  = sanitize_text_field($_POST['subheading']);
