@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         <div class="input__wrapper--company-field d-flex flex-column gap-3">
                             <div class="input__wrapper">
                                 <label for="company">Company Name</label>
-                                <input list="company_post" placeholder="Enter Company" name="company_post[]" required>
+                                <input list="company_post" placeholder="Enter Company" class="input-field" name="company_post[]" required>
 
                                 <datalist id="company_post">
                                     <?php foreach ($companies as $company) { ?>
@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
                             <div class="input__wrapper checkbox p-0">
                                 <label>
-                                    <input type="checkbox" name="company_post_admin[]" value="0">
+                                    <input type="checkbox" class="input-checkbox" name="company_post_admin[]" value="0">
                                     <span class="checkbox-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M20 6 9 17l-5-5"></path>
                                         </svg></span>
@@ -352,6 +352,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
     function add_company() {
         jQuery('.btn-add-company').click(function(e) {
+            jQuery('.input__wrapper--company-field:last-child').clone().appendTo('.input__wrapper--company-fields').find('.input-field').val('');
             jQuery('.input__wrapper--company-field:last-child').clone().appendTo('.input__wrapper--company-fields').find('input').val('');
             e.preventDefault();
         });
