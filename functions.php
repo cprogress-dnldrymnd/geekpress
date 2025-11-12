@@ -2017,7 +2017,7 @@ function display_listing_status_column_content_company_admin($column_name, $post
     <?php
     if ($column_name === 'application_status') {
         // Get the value of the custom field
-        $status = get_post_meta($post_id, 'listing_status', true);
+        $status = get_post_meta($post_id, 'application_status', true);
 
         if (!empty($status)) {
             // Sanitize and display the value
@@ -2037,8 +2037,8 @@ function display_listing_status_column_content_company_admin($column_name, $post
         echo "</div>";
         if ($status === 'Pending') {
             echo "<div class='listing-status-wrapper approve--reject'>";
-            echo '<a class="approve-listing" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=approve') . '">Approve</a>';
-            echo '<a class="reject-listing" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&listing_status=reject') . '">Reject</a>';
+            echo '<a class="approve-listing" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&application_status=approve') . '">Approve</a>';
+            echo '<a class="reject-listing" href="' . admin_url('post.php?post=' . $post_id . '&action=edit&application_status=reject') . '">Reject</a>';
             echo "</div>";
         }
     }
