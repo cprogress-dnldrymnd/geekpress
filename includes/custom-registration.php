@@ -44,37 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     }
 
 
-    echo '<pre>';
-    var_dump($_POST['company_post']);
-    var_dump($_POST['company_post_admin']);
-
-
-    // echo '<pre>'; print_r($_POST); echo '</pre>'; //check if 
-    foreach ($company_post as $key => $company) {
-        $company_exists = get_custom_post_id_by_title($company_post_val, 'company');
-        if ($company_exists != false) {
-            $company_id = $company_exists;
-        } else {
-            $my_post_company = array(
-                'post_type' => 'company',
-                'post_title'    => wp_strip_all_tags($company_post),
-                'post_status'   => 'publish',
-                'post_author'   => $user_id,
-            );
-        }
-
-        if (isset($company_post_admin[intval($key)])) {
-            $my_company_admin_post = array(
-                'post_type' => 'admin-registration',
-                'post_title'    => wp_strip_all_tags($company_post),
-                'post_status'   => 'publish',
-                'post_author'   => $user_id,
-            );
-        }
-    }
-
-    echo '</pre>';
-
     if (empty($errors)) {
         $user_id = wp_create_user($username, $password, $email);
         if (!is_wp_error($user_id)) {
