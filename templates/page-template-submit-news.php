@@ -169,7 +169,7 @@
                 echo '<p class="Thanks for submitting your news. We’ll review it and get it up on the site as soon as possible. If there are any issues, then we’ll let you know</p>';
             }
             ?>
-         <form method="GET"  id="postForm">
+         <form method="post" enctype="multipart/form-data" id="postForm">
              <?php wp_nonce_field('create_custom_post', 'custom_post_nonce'); ?>
 
              <div class="register__block">
@@ -178,7 +178,7 @@
                  <?php $user_companies = get_user_companies() ?>
                  <div class="input__wrapper mb-4">
                      <label>Please select the company you want to submit news</label><br>
-                     <select id="company" name="company" required>
+                     <select id="company_id" name="company_id" required>
                          <option value="">-- Select company --</option>
                          <?php
                             foreach ($user_companies as $company) {
