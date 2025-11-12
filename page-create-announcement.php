@@ -167,10 +167,22 @@ get_header() ?>
         ?>
         <form method="post" enctype="multipart/form-data" id="postForm">
             <?php wp_nonce_field('create_custom_post', 'custom_post_nonce'); ?>
-            
+
             <div class="register__block">
                 <h4>Company Details</h4>
-                <?php var_dump(get_user_companies()) ?>
+
+                <?php $user_companies = get_user_companies() ?>
+                <div class="input__wrapper mb-4">
+                    <label>Please select the company you want to submit news</label><br>
+                    <select id="company"  name="company">
+                        <option value="">-- Select company --</option>
+                        <?php
+                        foreach ($user_companies as $company) {
+                            echo '<option value="' . $company . '"> ' . get_the_title($company) . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
             </div>
             <div class="register__block">
                 <h4>Announcement Details</h4>
