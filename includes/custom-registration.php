@@ -80,9 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 if (!is_array($journalist)) {
                     $journalist = [];
                 }
-
-                $journalist_var = array_push($journalist, $user_id);
-                update_field('journalist', $journalist_var, $company_id);
+                echo $company_id;
+                array_push($journalist, $user_id);
+                update_field('journalist', $journalist, $company_id);
             }
 
 
