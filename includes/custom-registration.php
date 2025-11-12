@@ -64,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
         }
 
         if (isset($company_post_admin[intval($key)])) {
-            echo 'test';
             $my_company_admin_post = array(
                 'post_type' => 'admin-registration',
                 'post_title'    => wp_strip_all_tags($company_post),
@@ -73,32 +72,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             );
         }
     }
- 
+
     echo '</pre>';
 
     if (empty($errors)) {
         $user_id = wp_create_user($username, $password, $email);
         if (!is_wp_error($user_id)) {
 
-            $company_exists = get_custom_post_id_by_title($company_post, 'company');
-            if ($company_exists != false) {
-                $company_id = $company_exists;
-            } else {
-                $my_post = array(
-                    'post_type' => 'company',
-                    'post_title'    => wp_strip_all_tags($company_post),
-                    'post_status'   => 'publish',
-                    'post_author'   => $user_id,
-                );
-                // Insert the post into the database
-                // $company_id = wp_insert_post($my_post);
+            foreach ($company_post as $key => $company) {
+                $company_exists = get_custom_post_id_by_title($company_post_val, 'company');
+                if ($company_exists != false) {
+                    $company_id = $company_exists;
+                } else {
+                    $my_post_company = array(
+                        'post_type' => 'company',
+                        'post_title'    => wp_strip_all_tags($company_post),
+                        'post_status'   => 'publish',
+                        'post_author'   => $user_id,
+                    );
+
+                    $company_id = wp_insert_post($my_post);
+                }
+
+                if (isset($company_post_admin[intval($key)])) {
+                    $my_company_admin_post = array(
+                        'post_type' => 'admin-registration',
+                        'post_title'    => $first_name . ' ' . $last_name . ' - ' . $company,
+                        'post_status'   => 'publish',
+                        'post_author'   => $user_id,
+                    );
+                    $admin_registration_id = wp_insert_post($my_post);
+                }
+
+                update
             }
 
 
             update_user_meta($user_id, 'first_name', $first_name);
             update_user_meta($user_id, 'last_name', $last_name);
             update_user_meta($user_id, 'outlet', $outlet);
-            update_user_meta($user_id, 'company', $company_id);
             //update_user_meta($user_id, 'company_post', $company_post);
             //update_user_meta($user_id, 'website', $website);
             //update_user_meta($user_id, 'country', $country);
