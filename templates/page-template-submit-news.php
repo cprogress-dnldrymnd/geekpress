@@ -14,7 +14,7 @@
     }
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = sanitize_text_field($_POST['post_title']);
-        $company = sanitize_text_field($_POST['company']);
+        $company_id = sanitize_text_field($_POST['company_id']);
         $subheading  = sanitize_text_field($_POST['subheading']);
         $preview_title  = sanitize_text_field($_POST['preview_title']);
         $content = wp_kses_post($_POST['post_content']);
@@ -45,7 +45,7 @@
                 'post_author'  => get_current_user_id(),
                 'meta_input'   => array(
                     'preview_title' => $preview_title,
-                    'company' => $company,
+                    'company' => $company_id,
                 ),
             ]);
 
