@@ -51,7 +51,109 @@ get_header() ?>
         <?php $messages = [];
         wp_nonce_field('frontend_post_nonce');
 
-   
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_post_nonce']) && wp_verify_nonce($_POST['custom_post_nonce'], 'create_custom_post')) {
+            $title = sanitize_text_field($_POST['post_title']);
+            $company = sanitize_text_field($_POST['company']);
+            $subheading  = sanitize_text_field($_POST['subheading']);
+            $preview_title  = sanitize_text_field($_POST['preview_title']);
+            $content = wp_kses_post($_POST['post_content']);
+            $categories = array_map('intval', $_POST['post_categories'] ?? []);
+
+            $links = array_map('esc_url_raw', $_POST['external_links']);
+
+
+            // var_dump($_POST);
+            $errors = [];
+
+            if (empty($title)) {
+                $errors[] = 'Header is required.';
+            } elseif (empty($content)) {
+                $errors[] = 'Body is required.';
+            } elseif (empty($_FILES['featured_image']['name'])) {
+                $errors[] = 'Featured Image is required.';
+            }
+
+
+            if (empty($errors)) {
+
+                $post_id = wp_insert_post([
+                    'post_title'   => $title,
+                    'post_content' => $content,
+                    'post_status'  => 'draft',
+                    'post_category' => $categories,
+                    'post_author'  => get_current_user_id(),
+                    'meta_input'   => array(
+                        'preview_title' => $preview_title,
+                        'company' => $company,
+                    ),
+                ]);
+
+                $assets = [];
+
+                if ($post_id && !is_wp_error($post_id)) {
+                    if (!empty($_FILES['featured_image']['name'])) {
+                        $feat_id = media_handle_upload('featured_image', $post_id);
+                        if (!is_wp_error($feat_id)) {
+                            set_post_thumbnail($post_id, $feat_id);
+
+                            $assets[] = array(
+                                'asset' => $feat_id,
+                            );
+                        }
+                    }
+                    if ($links) {
+                        $external_links = [];
+                        foreach ($links as $link) {
+                            $external_links[] = array(
+                                'external_link' => $link
+                            );
+                        }
+                        update_field('external_links', $external_links, $post_id);
+                    }
+
+
+                    if (!empty($_FILES['assets']['name'][0])) {
+
+                        foreach ($_FILES['assets']['name'] as $key => $value) {
+
+                            $file_size = $_FILES['assets']['size'][$key];
+
+                            if ($file_size > 1 * 1024 * 1024) { // 4MB
+                                echo "<p style='color: red;'>Image must be < 4mb.</p>";
+                                break;
+                            }
+
+                            if ($_FILES['assets']['name'][$key]) {
+                                $file = [
+                                    'name'     => $_FILES['assets']['name'][$key],
+                                    'type'     => $_FILES['assets']['type'][$key],
+                                    'tmp_name' => $_FILES['assets']['tmp_name'][$key],
+                                    'error'    => $_FILES['assets']['error'][$key],
+                                    'size'     => $_FILES['assets']['size'][$key]
+                                ];
+                                $_FILES['asset'] = $file;
+
+                                $attach_id = media_handle_upload('asset', $post_id);
+                                if (!is_wp_error($attach_id)) {
+                                    $assets[] = array(
+                                        'asset' => $attach_id,
+                                    );
+                                }
+                            }
+                        }
+
+                        if ($assets) {
+                            update_field('assets', $assets, $post_id);
+                        }
+                    }
+                    update_field('subheading', $subheading, $post_id);
+
+                    wp_redirect(get_permalink(1571)); // redirect to new post
+                    exit;
+                }
+            }
+        }
+
 
 
         // Fetch categories for the select dropdown
