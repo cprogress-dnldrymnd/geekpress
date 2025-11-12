@@ -970,8 +970,14 @@ function get_user_companies() {
         'post_type' => 'company',
         'numberposts' => -1,
         'meta_query' => array(
+            'relation' => 'OR',
             array(
-                'key'     => 'your_acf_field_name', // **REQUIRED**
+                'key'     => 'journalist', // **REQUIRED**
+                'value'   => '"' . get_current_user_id() . '"', // Value needs to be wrapped in quotes
+                'compare' => 'LIKE',
+            ),
+            array(
+                'key'     => 'company_manager', // **REQUIRED**
                 'value'   => '"' . get_current_user_id() . '"', // Value needs to be wrapped in quotes
                 'compare' => 'LIKE',
             ),
