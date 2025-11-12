@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 }
 
                 $journalist = array_push($journalist, $user_id);
-                update_post_meta('journalist',);
+                update_post_meta($company_id, 'journalist', $journalist);
             }
 
 
