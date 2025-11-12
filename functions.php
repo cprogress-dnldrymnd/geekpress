@@ -1100,6 +1100,10 @@ function file_type($attachment_id)
 function admin_head_css() {
     ?>
        <style>
+        .readonly.readonly {
+            pointer-events: none;
+            opacity: 0.6;
+        }
         .listing-status {
             padding: 4px 8px;
             border-radius: 4px;
