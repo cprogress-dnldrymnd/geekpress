@@ -161,11 +161,11 @@ get_header() ?>
 
         <form method="post" enctype="multipart/form-data" id="postForm">
             <?php wp_nonce_field('create_custom_post', 'custom_post_nonce'); ?>
-
+            <div class="register__block">
+                <h4>Company Details</h4>
+            </div>
             <div class="register__block">
                 <h4>Announcement Details</h4>
-
-
                 <div class="register__grid xl">
                     <div class="input__wrapper">
                         <label for="post_title">Headline</label>
