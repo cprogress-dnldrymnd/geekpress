@@ -207,23 +207,21 @@
 												// Define date filters dynamically
 												$date_filters = [
 													'today'       => 'Today',
-													'yesterday'   => 'Yesterday',
-													'monday'      => 'Monday',
+													'last_24h'    => 'Last 24 Hours',
 													'this_week'   => 'This Week',
-													'last_week'   => 'Last Week',
 													'this_month'  => 'This Month',
-													'last_month'  => 'Last Month',
 													'this_year'   => 'This Year',
-													'last_year'   => 'Last Year'
 												];
 
+												 /*
 												// Add last 3 years dynamically
 												$current_year = date('Y');
 												for ($i = 1; $i <= 3; $i++) {
 													$year = $current_year - $i;
 													$date_filters[$year] = $year; // key and label are the same
 												}
-
+												*/
+												 
 												if (!empty($date_filters)) {
 													$selected_filters = isset($_GET['date_filter']) ? (array) $_GET['date_filter'] : [];
 
@@ -287,21 +285,24 @@
 											<div class="tag"><?php echo esc_html(get_the_category()[0]->name); ?></div>
 										</div>
 										<div class="press__item__content">
-											<div class="meta">
-												<div>
-													<img src="<?php echo get_theme_file_uri(); ?>/images/clock.svg" alt="" />
-													<span><?php echo esc_html(get_the_date('F j, Y')); ?> at <?php echo esc_html(get_the_time('g:i A')); ?></span>
-												</div>
-												<div>
-													<?= get__user_company_flag(get_the_author_meta('ID')) ?>
-													<span> <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
-												</div>
-											</div>
-											<?php
-											echo preview__title();
-											?>
-											<h5><a href="<?php the_permalink(); ?>"><?= $title ?></a></h5>
-											<p><?php echo wp_trim_words(get_the_excerpt(), 25); ?></p>
+													<div class="meta">
+														<div>
+															<img src="<?php echo get_theme_file_uri(); ?>/images/clock.svg" alt="" />
+															<span><?php echo esc_html(get_the_date('F j, Y')); ?> at <?php echo esc_html(get_the_time('g:i A')); ?></span>
+														</div>
+														<div>
+															<?= get__company_flag(get_the_author_meta('ID')) ?>
+															<span> <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+														</div>
+													</div>
+												<a href="<?php the_permalink(); ?>">
+													<?php
+														echo preview__title();
+														?>
+													<h5><?= $title ?></h5>
+												</a>
+												<p><?php echo wp_trim_words(get_the_excerpt(), 25); ?></p>
+											
 										</div>
 									</div>
 							<?php endwhile;
@@ -348,7 +349,7 @@
 
 									<div class="info">
 										<small>
-											<?= get__user_company_flag(get_the_author_meta('ID')) ?>
+											<?= get__company_flag(get_the_author_meta('ID')) ?>
 											<?= get__user_company(get_the_author_meta('ID'), true) ?>
 										</small>
 										<span><?php print_r(get_the_category(get_the_ID())[0]->name) ?></span>
@@ -457,6 +458,6 @@
 </script>
 
 
-<?php require_once(get_theme_file_path() . '/templates/template-subscribe.php');  ?>
-
+<?php // require_once(get_theme_file_path() . '/templates/template-subscribe.php');  ?>
+<?= do_shortcode('[elementor-template id="1524"]') ?>
 <?php get_footer() ?>

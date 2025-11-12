@@ -889,7 +889,7 @@ function get__company_contacts($ids_only = true)
         return false;
     }
 }
-function get__user_company_flag($author_id, $country_name = false)
+function get__company_flag($author_id, $country_name = false)
 {
     $company_id = get_field('company');
 
@@ -900,11 +900,11 @@ function get__user_company_flag($author_id, $country_name = false)
     }
 }
 
-function get__user_company_flag_sc()
+function get__company_flag_sc()
 {
-    return get__user_company_flag(get_the_author_meta('ID'), true);
+    return get__company_flag(get_the_author_meta('ID'), true);
 }
-add_shortcode('get__user_company_flag_sc', 'get__user_company_flag_sc');
+add_shortcode('get__company_flag_sc', 'get__company_flag_sc');
 
 function get__company_posts()
 {
