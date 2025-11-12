@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             );
         }
     }
-
+    var_dump(get_field('journalist', 1128));
     echo '</pre>';
 
     if (empty($errors)) {
