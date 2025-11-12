@@ -73,6 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         'post_title'    => $email . ' - ' . $company,
                         'post_status'   => 'publish',
                         'post_author'   => $user_id,
+                        'meta_input'   => array(
+                            'company' => $company_id,
+                        ),
                     );
                     $admin_registration_id = wp_insert_post($my_company_admin_post);
                 }
