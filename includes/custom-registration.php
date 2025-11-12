@@ -3,7 +3,7 @@ $journalist = get_field('journalist', 1652);
 if (!is_array($journalist)) {
     $journalist = [];
 }
-
+var_dump($journalist);
 $journalist_var = array_push($journalist, 32);
 update_field($company_id, 'journalist', $journalist_var);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
