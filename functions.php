@@ -1325,6 +1325,9 @@ function update_acf_on_post_edit_with_url_param()
                     'ID' => $post_id,
                     'post_status' => 'publish'
                 ));
+
+                
+                
             } elseif ($status_value === 'reject') {
                 // Set the post status to 'draft' if rejected
                 wp_update_post(array(
