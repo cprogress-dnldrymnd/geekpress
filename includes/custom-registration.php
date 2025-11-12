@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             );
         }
     }
-    var_dump(get_field('journalist', 1128));
+
     echo '</pre>';
 
     if (empty($errors)) {
@@ -103,7 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                     );
                     $admin_registration_id = wp_insert_post($my_post);
                 }
+                $journalist = get_field('journalist', $company_id);
+                if (!is_array($journalist)) {
+                    $journalist = [];
+                }
 
+                $journalist = array_push($journalist, $user_id);
+                update_post_meta('journalist',);
             }
 
 
