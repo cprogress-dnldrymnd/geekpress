@@ -1995,7 +1995,7 @@ function add_listing_status_column_company_admin($columns)
     foreach ($columns as $key => $title) {
         $new_columns[$key] = $title;
         if ($key === 'title') {
-            $new_columns['listing_status'] = __('Application Status', 'your-text-domain');
+            $new_columns['application_status'] = __('Application Status', 'your-text-domain');
         }
     }
     return $new_columns;
@@ -2015,7 +2015,7 @@ function display_listing_status_column_content_company_admin($column_name, $post
 ?>
 
     <?php
-    if ($column_name === 'listing_status') {
+    if ($column_name === 'application_status') {
         // Get the value of the custom field
         $status = get_post_meta($post_id, 'listing_status', true);
 
