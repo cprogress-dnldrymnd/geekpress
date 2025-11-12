@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
         $user_id = wp_create_user($username, $password, $email);
         if (!is_wp_error($user_id)) {
             foreach ($company_post as $key => $company) {
-                $company_exists = get_custom_post_id_by_title($company_post_val, 'company');
+                $company_exists = get_custom_post_id_by_title($company, 'company');
                 if ($company_exists != false) {
                     $company_id = $company_exists;
                 } else {
