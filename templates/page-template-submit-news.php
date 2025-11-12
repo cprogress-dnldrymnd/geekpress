@@ -109,7 +109,7 @@
                 }
                 update_field('subheading', $subheading, $post_id);
 
-                //wp_redirect(get_permalink(1571)); // redirect to new post
+                wp_redirect(get_permalink(1571)); // redirect to new post
                 exit;
             }
         }
