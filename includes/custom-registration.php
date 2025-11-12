@@ -104,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                     $admin_registration_id = wp_insert_post($my_post);
                 }
 
-                update
             }
 
 
