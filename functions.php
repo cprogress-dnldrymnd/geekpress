@@ -964,6 +964,25 @@ function get__company_posts()
 }
 add_shortcode('get__company_posts', 'get__company_posts');
 
+
+function get_user_companies() {
+    $company = get_posts(array(
+        'post_type' => 'company',
+        'numberposts' => -1,
+        'meta_query' => array(
+            array(
+                'key'     => 'your_acf_field_name', // **REQUIRED**
+                'value'   => '"' . get_current_user_id() . '"', // Value needs to be wrapped in quotes
+                'compare' => 'LIKE',
+            ),
+        ),
+    ));
+
+    return $company;
+}
+
+
+
 function display__company_contacts()
 {
     return get__company_contacts(false);
