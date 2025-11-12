@@ -174,7 +174,7 @@ get_header() ?>
                 <?php $user_companies = get_user_companies() ?>
                 <div class="input__wrapper mb-4">
                     <label>Please select the company you want to submit news</label><br>
-                    <select id="company"  name="company">
+                    <select id="company"  name="company" required>
                         <option value="">-- Select company --</option>
                         <?php
                         foreach ($user_companies as $company) {
