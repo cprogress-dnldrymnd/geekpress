@@ -1,6 +1,7 @@
 <?php
 echo '<pre>';
 var_dump($_POST['company_post']);
+var_dump($_POST['company_post_admin']);
 echo '</pre>';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
@@ -15,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $company_bio = sanitize_text_field($_POST['company_bio']);
 
 
-    $company_post = $_POST['company_post'];
     $company_post = $_POST['company_post'];
 
 
