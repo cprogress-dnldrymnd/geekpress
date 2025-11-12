@@ -56,9 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         'post_author'   => $user_id,
                     );
                     $company_id = wp_insert_post($my_post_company);
-                    if ($company_id) {
-                        echo 'Company created: ' . $company . ' (ID: ' . $company_id . ')<br>';
-                    }
                 }
 
                 if (isset($company_post_admin[intval($key)])) {
@@ -69,9 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         'post_author'   => $user_id,
                     );
                     $admin_registration_id = wp_insert_post($my_company_admin_post);
-                    if ($admin_registration_id) {
-                        echo 'Admin registration created for company: ' . $company . ' (Post ID: ' . $admin_registration_id . ')<br>';
-                    }
+                   
                 }
                 $journalist = get_field('journalist', $company_id);
                 if (!is_array($journalist)) {
