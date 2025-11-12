@@ -1,8 +1,5 @@
 <?php
-echo '<pre>';
-var_dump($_POST['company_post']);
-var_dump($_POST['company_post_admin']);
-echo '</pre>';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
     $email = sanitize_email($_POST['email']);
@@ -44,6 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     } elseif (username_exists($username) || email_exists($email)) {
         $errors[] = 'Username or email already exists.';
     }
+
+
+    echo '<pre>';
+    var_dump($_POST['company_post']);
+    var_dump($_POST['company_post_admin']);
+    echo '</pre>';
 
 
     // echo '<pre>'; print_r($_POST); echo '</pre>'; //check if 
