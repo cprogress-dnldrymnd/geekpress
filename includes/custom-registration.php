@@ -361,6 +361,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
         jQuery('.btn-add-company').click(function(e) {
             $input = jQuery('.input__wrapper--company-field:last-child').clone();
             $input.find('.input-field').val('');
+            $input.find('.input-checkbox').prop('checked', false); 
+           
             $val = $input.find('.input-checkbox').val();
 
             $val = parseInt($val) + 1;
