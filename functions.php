@@ -1989,7 +1989,7 @@ function add_listing_status_column_company_admin($columns)
     foreach ($columns as $key => $title) {
         $new_columns[$key] = $title;
         if ($key === 'title') {
-            $new_columns['listing_status'] = __('Listing Status', 'your-text-domain');
+            $new_columns['listing_status'] = __('Application Status', 'your-text-domain');
         }
     }
     return $new_columns;
