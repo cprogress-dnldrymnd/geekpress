@@ -169,7 +169,7 @@
                 echo '<p class="Thanks for submitting your news. We’ll review it and get it up on the site as soon as possible. If there are any issues, then we’ll let you know</p>';
             }
             ?>
-         <form method="post"  id="postForm">
+         <form method="GET"  id="postForm">
              <?php wp_nonce_field('create_custom_post', 'custom_post_nonce'); ?>
 
              <div class="register__block">
