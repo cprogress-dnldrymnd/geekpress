@@ -1851,12 +1851,14 @@ function get_country_code_by_name($country_name)
 
 function get__svg($name)
 {
-    $svgPath = get_stylesheet_directory() . '/images/flags/' . DIRECTORY_SEPARATOR . $name . '.svg';
+    if($name != false) {
+        $svgPath = get_stylesheet_directory() . '/images/flags/' . DIRECTORY_SEPARATOR . $name . '.svg';
 
-    if (file_exists($svgPath)) {
-        return file_get_contents($svgPath);
-    } else {
-        throw new Exception("SVG not found: {$name}");
+        if (file_exists($svgPath)) {
+            return file_get_contents($svgPath);
+        } else {
+            throw new Exception("SVG not found: {$name}");
+        }
     }
 }
 
