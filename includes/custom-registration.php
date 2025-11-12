@@ -1,8 +1,7 @@
 <?php
-    echo '<pre>';
-    var_dump($_POST['company_post']);
-    echo '</pre>';
-echo 'xxsdsd';
+echo '<pre>';
+var_dump($_POST['company_post']);
+echo '</pre>';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
     $email = sanitize_email($_POST['email']);
@@ -13,15 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
 
     $outlet = sanitize_text_field($_POST['outlet']);
-    $company_post = sanitize_text_field($_POST['company_post']);
     $company_bio = sanitize_text_field($_POST['company_bio']);
 
 
+    $company_post = $_POST['company_post'];
+    $company_post = $_POST['company_post'];
 
-    echo '<pre>';
-    var_dump($company_post);
-    echo '</pre>';
-echo 'xxsdsd';
+
 
     $website = sanitize_text_field($_POST['website']);
     $country = sanitize_text_field($_POST['country']);
@@ -37,11 +34,6 @@ echo 'xxsdsd';
     $dobyear = sanitize_text_field($_POST['dobyear']);
 
     //$display_name = sanitize_text_field($_POST['display_name']);
-
-
-
-
-
 
     $errors = [];
 
@@ -60,9 +52,6 @@ echo 'xxsdsd';
     if (empty($errors)) {
         $user_id = wp_create_user($username, $password, $email);
         if (!is_wp_error($user_id)) {
-
-
-
 
             $company_exists = get_custom_post_id_by_title($company_post, 'company');
             if ($company_exists != false) {
@@ -83,7 +72,7 @@ echo 'xxsdsd';
             update_user_meta($user_id, 'last_name', $last_name);
             update_user_meta($user_id, 'outlet', $outlet);
             update_user_meta($user_id, 'company', $company_id);
-            // update_user_meta($user_id, 'company_post', $company_post);
+            //update_user_meta($user_id, 'company_post', $company_post);
             //update_user_meta($user_id, 'website', $website);
             //update_user_meta($user_id, 'country', $country);
             update_user_meta($user_id, 'job', $job);
