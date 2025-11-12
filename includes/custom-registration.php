@@ -66,15 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         'post_author'   => $user_id,
                     );
                     $admin_registration_id = wp_insert_post($my_company_admin_post);
-                   
                 }
                 $journalist = get_field('journalist', $company_id);
                 if (!is_array($journalist)) {
                     $journalist = [];
                 }
 
-                $journalist = array_push($journalist, $user_id);
-                update_post_meta($company_id, 'journalist', $journalist);
+                $journalist_var = array_push($journalist, $user_id);
+                update_post_meta($company_id, 'journalist', $journalist_var);
             }
 
 
