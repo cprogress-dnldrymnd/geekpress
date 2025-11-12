@@ -2158,4 +2158,4 @@ function action_application_status_change_value($value, $post_id, $field)
  * We use a targeted hook 'acf/update_value/name={$field_name}' for better performance.
  * This ensures our function only runs when the 'listing_status' field is updated.
  */
-add_filter('acf/update_value/name=application_status', 'send_email_on_listing_rejection', 10, 3);
+add_filter('acf/update_value/name=application_status', 'action_application_status_change_value', 10, 3);
