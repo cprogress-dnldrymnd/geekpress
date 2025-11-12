@@ -51,7 +51,7 @@ get_header() ?>
         <?php $messages = [];
         wp_nonce_field('frontend_post_nonce');
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_post_nonce']) && wp_verify_nonce($_POST['custom_post_nonce'], 'create_custom_post')) {
             $title = sanitize_text_field($_POST['post_title']);
             $company = sanitize_text_field($_POST['company']);
             $subheading  = sanitize_text_field($_POST['subheading']);
