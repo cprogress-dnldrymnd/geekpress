@@ -1,10 +1,5 @@
 <?php
-$journalist = get_field('journalist', 1652);
-var_dump($journalist);
-array_push($journalist, 32);
-var_dump($journalist);
 
-update_field('journalist', $journalist, 1652);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
@@ -79,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 }
 
                 $journalist_var = array_push($journalist, $user_id);
-                update_field($company_id, 'journalist', $journalist_var);
+                update_field('journalist', $journalist_var, $company_id);
             }
 
 
