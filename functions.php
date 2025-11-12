@@ -709,7 +709,7 @@ function user_icon()
                 <?php
                 $user_id = get_current_user_id();
                 $company_id = get__user_company($user_id, false, true);
-                $company_manager = get_field('company_manager', $company_id);
+                $admin = get_field('admin', $company_id);
                 ?>
                 <div class="dropdown__menu">
                     <ul>
@@ -717,7 +717,7 @@ function user_icon()
                             <li><a href="<?php echo esc_url(get_the_permalink($company_id)); ?>">Company Profile</a></li>
 							<li><a href="<?php echo esc_url(get_the_permalink(436)); ?>">Edit Profile</a></li>
                         <?php } ?>
-                        <?php if (in_array($user_id, $company_manager) && $company_id) { ?>
+                        <?php if (in_array($user_id, $admin) && $company_id) { ?>
                             <li><a href="<?php echo esc_url(get_the_permalink(1330)); ?>">Edit Company</a></li>
                         <?php } ?>
                         <li><a href="<?php echo wp_logout_url(home_url()); ?>">Logout</a></li>
