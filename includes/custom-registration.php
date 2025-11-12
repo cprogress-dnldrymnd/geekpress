@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 } else {
                     $my_post_company = array(
                         'post_type' => 'company',
-                        'post_title'    => wp_strip_all_tags($company_post),
+                        'post_title'    => wp_strip_all_tags($company),
                         'post_status'   => 'publish',
                         'post_author'   => $user_id,
                     );
