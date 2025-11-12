@@ -50,16 +50,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
 
     // echo '<pre>'; print_r($_POST); echo '</pre>'; //check if 
-
-    foreach ($company_post_admin as $company_admin) {
-        $company_post_val = $company_post[intval($company_admin)];
+    foreach ($company_post as $key => $company) {
         $company_exists = get_custom_post_id_by_title($company_post_val, 'company');
         if ($company_exists != false) {
             $company_id = $company_exists;
-            echo $company_id;
-            echo '<br>';
+        } else {
+            $my_post_company = array(
+                'post_type' => 'company',
+                'post_title'    => wp_strip_all_tags($company_post),
+                'post_status'   => 'publish',
+                'post_author'   => $user_id,
+            );
+        }
+
+        if (isset($company_post_admin[intval($key)])) {
+            echo 'test';
+            $my_company_admin_post = array(
+                'post_type' => 'admin-registration',
+                'post_title'    => wp_strip_all_tags($company_post),
+                'post_status'   => 'publish',
+                'post_author'   => $user_id,
+            );
         }
     }
+ 
     echo '</pre>';
 
     if (empty($errors)) {
