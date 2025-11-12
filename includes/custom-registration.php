@@ -78,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     if (empty($errors)) {
         $user_id = wp_create_user($username, $password, $email);
         if (!is_wp_error($user_id)) {
-
             foreach ($company_post as $key => $company) {
                 $company_exists = get_custom_post_id_by_title($company_post_val, 'company');
                 if ($company_exists != false) {
@@ -90,8 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         'post_status'   => 'publish',
                         'post_author'   => $user_id,
                     );
-
                     $company_id = wp_insert_post($my_post);
+                    if ($company_id) {
+                        echo 'Company created: ' . $company . ' (ID: ' . $company_id . ')<br>';
+                    }
                 }
 
                 if (isset($company_post_admin[intval($key)])) {
@@ -102,6 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                         'post_author'   => $user_id,
                     );
                     $admin_registration_id = wp_insert_post($my_post);
+                    if ($admin_registration_id) {
+                        echo 'Admin registration created for company: ' . $company . ' (Post ID: ' . $admin_registration_id . ')<br>';
+                    }
                 }
                 $journalist = get_field('journalist', $company_id);
                 if (!is_array($journalist)) {
@@ -116,23 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             update_user_meta($user_id, 'first_name', $first_name);
             update_user_meta($user_id, 'last_name', $last_name);
             update_user_meta($user_id, 'outlet', $outlet);
-            //update_user_meta($user_id, 'company_post', $company_post);
-            //update_user_meta($user_id, 'website', $website);
-            //update_user_meta($user_id, 'country', $country);
             update_user_meta($user_id, 'job', $job);
             update_user_meta($user_id, 'toc', $toc);
             update_user_meta($user_id, 'email_pref', $email_pref);
             update_user_meta($user_id, 'birthday', $dobday . '/' . $dobmonth . '/' . $dobyear);
 
-            // Prepare the user data to be updated.
-            $user_data = array(
-                'ID'           => $user_id,
-            );
-
-            // Update the user. wp_update_user() returns a WP_Error object on failure.
-            //wp_update_user($user_data);
-
-            //update_user_meta($user_id, 'account_status', 'pending');
 
             wp_mail(
                 get_option('admin_email'),
@@ -140,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 'A new user has registered and is pending approval.' . "\n\nUsername: " . $username
             );
 
-            wp_redirect(home_url('/registration-success'));
+            // wp_redirect(home_url('/registration-success'));
         } else {
             $errors[] = $user_id->get_error_message();
         }
