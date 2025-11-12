@@ -1,7 +1,7 @@
 <?php
 $journalist = get_field('journalist', 1652);
 var_dump($journalist);
-$journalist[] = 32;
+array_push($journalist, 32);
 var_dump($journalist);
 
 update_field(1652, 'journalist', $journalist);
