@@ -2138,18 +2138,30 @@ function action_application_status_change_value($value, $post_id, $field)
 	
     // 3. Check if the new value is 'reject' and the old value was NOT 'reject'.
     //    This ensures the email is sent only when the status changes *to* reject.
-    if ($value === 'approve' ) {
-        $post = get_post($post_id);
-        $author_id = $post->post_author;
-        $company_id = get_field('company', $post_id);
-        $company_manager = get_field('company_manager', $company_id);
-        if (!is_array($company_manager)) {
-            $company_manager = [];
-        }
-        array_push($company_manager, $author_id);
-        update_field('company_manager', $company_manager, $company_id);
+    $post = get_post($post_id);
+    $author_id = $post->post_author;
+    $company_id = get_field('company', $post_id);
+    $company_manager = get_field('company_manager', $company_id);
+
+    if (!is_array($company_manager)) {
+        $company_manager = [];
     }
 
+    if ($value === 'approve' ) {
+        // Add author_id if 'approve'
+        // Check if the author_id is not already in the array before pushing
+        if (!in_array($author_id, $company_manager)) {
+            array_push($company_manager, $author_id);
+        }
+    } else {
+        // Remove author_id if not 'approve' (or 'reject' based on the comment's intent)
+        // Use array_diff to remove the author_id from the array
+        $company_manager = array_diff($company_manager, [$author_id]);
+        // Re-index the array after removal (optional but good practice)
+        $company_manager = array_values($company_manager); 
+    }
+
+    update_field('company_manager', $company_manager, $company_id);
     // IMPORTANT: Always return the original value to allow ACF to save the field.
     return $value;
 }
