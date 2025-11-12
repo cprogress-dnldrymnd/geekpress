@@ -1322,7 +1322,7 @@ function update_acf_on_post_edit_with_url_param()
 
         // The 'post_author' property of the post object contains the author's user ID.
         $author_id = $post->post_author;
-        $company_id = get_post_meta($post_id, 'company', true);
+        $company_id = get_field('company', $post_id);
 
         if ($current_value != $status_value) {
 
@@ -1338,15 +1338,13 @@ function update_acf_on_post_edit_with_url_param()
                     'post_status' => 'publish'
                 ));
 
-                
 
-
-                $journalist = get_field('journalist', $company_id);
-                if (!is_array($journalist)) {
-                    $journalist = [];
+                $company_manager = get_field('company_manager', $company_id);
+                if (!is_array($company_manager)) {
+                    $company_manager = [];
                 }
-                array_push($journalist, $author_id);
-                update_field('journalist', $journalist, $company_id);
+                array_push($company_manager, $author_id);
+                update_field('company_manager', $company_manager, $company_id);
                 
             } elseif ($status_value === 'reject') {
                 // Set the post status to 'draft' if rejected
