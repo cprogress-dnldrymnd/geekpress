@@ -1,8 +1,10 @@
 <?php
 if (! is_user_logged_in()) {
     wp_redirect(home_url('/login'));
+    add_action('template_redirect', function () {
+        wp_redirect(home_url('/create-announcement/'));
         exit;
-
+    });
 }
 
 
@@ -49,7 +51,7 @@ get_header() ?>
         <?php $messages = [];
         wp_nonce_field('frontend_post_nonce');
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_post_nonce']) && wp_verify_nonce($_POST['custom_post_nonce'], 'create_custom_post')) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
             $title = sanitize_text_field($_POST['post_title']);
             $company = sanitize_text_field($_POST['company']);
             $subheading  = sanitize_text_field($_POST['subheading']);
@@ -174,7 +176,7 @@ get_header() ?>
                 <?php $user_companies = get_user_companies() ?>
                 <div class="input__wrapper mb-4">
                     <label>Please select the company you want to submit news</label><br>
-                    <select id="company" name="company" required>
+                    <select id="company"  name="company" required>
                         <option value="">-- Select company --</option>
                         <?php
                         foreach ($user_companies as $company) {
