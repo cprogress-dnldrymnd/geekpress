@@ -4,7 +4,7 @@ var_dump($journalist);
 array_push($journalist, 32);
 var_dump($journalist);
 
-update_field(1652, 'journalist', $journalist);
+update_field('journalist', $journalist, 1652);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $username = sanitize_user($_POST['username']);
