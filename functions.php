@@ -1312,17 +1312,8 @@ function update_acf_on_post_edit_with_url_param()
         $current_value = get_field($acf_field_name, $post_id);
         $status_value = sanitize_text_field($_GET[$url_parameter]);
 
-        // Get the post object using the provided post ID.
-        $post = get_post($post_id);
 
-        // Check if a valid post was found. If not, return false.
-        if (! $post) {
-            return false;
-        }
-
-        // The 'post_author' property of the post object contains the author's user ID.
-        $author_id = $post->post_author;
-        $company_id = get_field('company', $post_id);
+      
 
         if ($current_value != $status_value) {
 
@@ -1337,15 +1328,6 @@ function update_acf_on_post_edit_with_url_param()
                     'ID' => $post_id,
                     'post_status' => 'publish'
                 ));
-
-
-                $company_manager = get_field('company_manager', $company_id);
-                if (!is_array($company_manager)) {
-                    $company_manager = [];
-                }
-                array_push($company_manager, $author_id);
-                update_field('company_manager', $company_manager, $company_id);
-                
             } elseif ($status_value === 'reject') {
                 // Set the post status to 'draft' if rejected
                 wp_update_post(array(
@@ -2119,3 +2101,61 @@ function display_listing_status_column_content_company_admin($column_name, $post
     }
 }
 add_action('manage_posts_custom_column', 'display_listing_status_column_content_company_admin', 10, 2);
+
+
+/**
+ * Sends an email to the post author when a specific ACF field value changes.
+ *
+ * This function is hooked into 'acf/update_value' which runs before a field
+ * value is saved to the database. This allows us to compare the new value
+ * with the old one.
+ *
+ * Field Name: listing_status
+ * Trigger Value: reject
+ *
+ * @param mixed $value   The new field value.
+ * @param int   $post_id The ID of the post being updated.
+ * @param array $field   The ACF field object.
+ * @return mixed The original value to allow the update to proceed.
+ */
+function action_application_status_change_value($value, $post_id, $field)
+{
+
+    // --- Configuration ---
+    // The post type you want this to run for. Use 'any' for all post types.
+    $target_post_type = 'admin-registration'; // e.g., 'post', 'page', 'your_custom_post_type'
+
+    // --- Validation ---
+    // 1. Check if the post type matches our target.
+    //    If you want this to run for ANY post type, you can remove this block.
+    if ($target_post_type !== 'any' && get_post_type($post_id) !== $target_post_type) {
+        return $value;
+    }
+
+    // 2. Get the value of the field *before* this update.
+    $old_value = get_field('application_status', $post_id);
+
+	
+    // 3. Check if the new value is 'reject' and the old value was NOT 'reject'.
+    //    This ensures the email is sent only when the status changes *to* reject.
+    if ($value === 'approve' ) {
+        $post = get_post($post_id);
+        $author_id = $post->post_author;
+        $company_id = get_field('company', $post_id);
+        $company_manager = get_field('company_manager', $company_id);
+        if (!is_array($company_manager)) {
+            $company_manager = [];
+        }
+        array_push($company_manager, $author_id);
+        update_field('company_manager', $company_manager, $company_id);
+    }
+
+    // IMPORTANT: Always return the original value to allow ACF to save the field.
+    return $value;
+}
+
+/**
+ * We use a targeted hook 'acf/update_value/name={$field_name}' for better performance.
+ * This ensures our function only runs when the 'listing_status' field is updated.
+ */
+add_filter('acf/update_value/name=application_status', 'send_email_on_listing_rejection', 10, 3);
