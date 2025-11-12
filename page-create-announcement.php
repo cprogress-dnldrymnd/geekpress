@@ -146,7 +146,7 @@ get_header() ?>
                     }
                     update_field('subheading', $subheading, $post_id);
 
-                    wp_redirect(get_permalink($post_id)); // redirect to new post
+                    wp_redirect(get_permalink(1571)); // redirect to new post
                     exit;
                 }
             }
@@ -159,29 +159,37 @@ get_header() ?>
             'hide_empty' => false,
         ]); ?>
 
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // validate + save post data here
+            echo '<p class="Thanks for submitting your news. We’ll review it and get it up on the site as soon as possible. If there are any issues, then we’ll let you know</p>';
+        }
+        ?>
         <form method="post" enctype="multipart/form-data" id="postForm">
             <?php wp_nonce_field('create_custom_post', 'custom_post_nonce'); ?>
+
             <div class="register__block">
                 <h4>Company Details</h4>
             </div>
             <div class="register__block">
                 <h4>Announcement Details</h4>
+
+
                 <div class="register__grid xl">
                     <div class="input__wrapper">
                         <label for="post_title">Headline</label>
-                        <input type="text" id="post_title" name="post_title" placeholder="Enter Headline" value="<?php echo esc_attr($_POST['post_title'] ?? ''); ?>">
+                        <input type="text" id="post_title" name="post_title" placeholder="Enter Headline" required value="<?php echo esc_attr($_POST['post_title'] ?? ''); ?>">
                     </div>
 
                     <div class="input__wrapper">
                         <label for="subheading">Sub-Header</label>
-                        <input type="text" id="subheading" name="subheading" placeholder="Enter Sub-Header" value="<?php echo esc_attr($_POST['subheading'] ?? ''); ?>">
+                        <input type="text" id="subheading" name="subheading" placeholder="Enter Sub-Header" required value="<?php echo esc_attr($_POST['subheading'] ?? ''); ?>">
                     </div>
 
 
                     <div class="input__wrapper">
                         <label for="">Body</label>
                         <?php
-
                         wp_editor(
                             isset($_POST['post_content']) ? $_POST['post_content'] : '',
                             'post_content',
@@ -189,14 +197,16 @@ get_header() ?>
                                 'textarea_name' => 'post_content',
                                 'textarea_rows' => 10,
                                 'media_buttons' => false,
+                                'tinymce' => [
+                                    'toolbar1' => 'undo,redo,removeformat,bold,italic,underline,bullist,numlist,link,unlink',
+                                ],
                             ]
                         );
-
                         ?>
                     </div>
                     <div class="input__wrapper">
                         <label for="preview_title">Site Homepage Headline (Maximum of 50 Char.)</label>
-                        <input type="text" id="preview_title" name="preview_title" placeholder="Enter Site Homepage Headline" value="<?php echo esc_attr($_POST['preview_title'] ?? ''); ?>" maxlength="50">
+                        <input type="text" id="preview_title" name="preview_title" placeholder="Enter Site Homepage Headline" required value="<?php echo esc_attr($_POST['preview_title'] ?? ''); ?>" maxlength="50">
                         <div class="help-text">
                             This is a shorter version of your headline for us to show on the front of the site. We recommend just putting the name of your product or service here.
                         </div>
@@ -263,18 +273,32 @@ get_header() ?>
 
 
                     <div class="medialink">
-                        <h4 class="mb-0">Media Links</h4>
+                        <h4 class="mb-0">Video Links</h4>
                         <div class="input-desc mb-3">
-                            <p>Add some media to your post! Insert the link from your video platform to embed straight into your announcement.</p>
+                            <p>Add a video to your post - trailers, product description or more. We support links from YouTube and Vimeo to your post! </p>
                         </div>
-                        <ul>
-                            <li><button type="button" class="insert__link" onclick="addMoreLinks()">Insert Media Link <img src="<?php echo get_theme_file_uri() ?>/images/plus.svg" alt=""> </button></li>
-                        </ul>
 
 
                         <div id="external-links-wrapper">
-                            <input type="url" name="external_links[]" placeholder="https://example.com" style="width:100%; margin-bottom:5px;">
+                            <div class="external-link-item" style="display:flex; align-items:center; margin-bottom:5px;">
+                                <input type="url" name="external_links[]" placeholder="https://example.com" style="flex:1; margin-right:8px;">
+                                <span class="remove-link" onclick="removeLink(this)" style="cursor:pointer; display:flex; align-items:center;">
+                                    <!-- Trash SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#888">
+                                        <path d="M3 6h18v2H3V6zm2 3h14l-1.4 12.6A2 2 0 0 1 15.6 23H8.4a2 2 0 0 1-1.99-1.4L5 9zm4 2v9h2v-9H9zm4 0v9h2v-9h-2zM9 4V3h6v1h5v2H4V4h5z" />
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
+
+                        <ul>
+                            <li>
+                                <button type="button" class="insert__link" onclick="addMoreLinks()">
+                                    Add Video Link <img src="<?php echo get_theme_file_uri() ?>/images/plus.svg" alt="">
+                                </button>
+                            </li>
+                        </ul>
+
 
                         <div id="response"></div>
 
@@ -290,14 +314,20 @@ get_header() ?>
                         }
                         ?>
                     </div>
+                    <div class="register-agreement">
+                        <p>
+                            <strong>PLEASE NOTE.</strong> All posts need to adhere to the GeekPress Terms of Service, which you can read <a href="https://geekpress.theprogressteam.com/terms-of-service/" target="_blank">here</a>... Failure to do so can result in your news being rejected. Thanks.
+                        </p>
+                    </div>
                     <input type="submit" id="btnSubmit" name="submit_post" value="Submit" class="btn-custom btn-outline">
-                    <?php
-                    if (!empty($errors)) {
-                        foreach ($errors as $error) {
-                            echo '<span style="color:red!important">' . esc_html($error) . '</span>';
-                        }
-                    }
-                    ?>
+
+                    <?php if (!empty($errors)) : ?>
+                        <div class="error-messages" style="color: red; margin-top: 10px;">
+                            <?php foreach ($errors as $error) : ?>
+                                <p><?php echo esc_html($error); ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </form>
@@ -417,12 +447,40 @@ get_header() ?>
     // --- External Links ---
     function addMoreLinks() {
         const wrapper = document.getElementById("external-links-wrapper");
+        const item = document.createElement("div");
+        item.className = "external-link-item";
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.style.marginBottom = "5px";
+
         const input = document.createElement("input");
         input.type = "url";
         input.name = "external_links[]";
         input.placeholder = "https://example.com";
-        input.style = "width:100%; margin-bottom:5px;";
-        wrapper.appendChild(input);
+        input.style.flex = "1";
+        input.style.marginRight = "8px";
+
+        const removeIcon = document.createElement("span");
+        removeIcon.className = "remove-link";
+        removeIcon.style.cursor = "pointer";
+        removeIcon.style.display = "flex";
+        removeIcon.style.alignItems = "center";
+        removeIcon.innerHTML = `
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#888">
+				<path d="M3 6h18v2H3V6zm2 3h14l-1.4 12.6A2 2 0 0 1 15.6 23H8.4a2 2 0 0 1-1.99-1.4L5 9zm4 2v9h2v-9H9zm4 0v9h2v-9h-2zM9 4V3h6v1h5v2H4V4h5z"/>
+			</svg>
+		`;
+        removeIcon.onclick = function() {
+            removeLink(removeIcon);
+        };
+
+        item.appendChild(input);
+        item.appendChild(removeIcon);
+        wrapper.appendChild(item);
+    }
+
+    function removeLink(el) {
+        el.parentElement.remove();
     }
 </script>
 
