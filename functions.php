@@ -2235,7 +2235,6 @@ function user_company_query($query)
 add_action('elementor/query/user_company', 'user_company_query');
 
 
-define('MAILCHIMP_DATACENTER', end($api_key_parts));
 
 function handle_mailchimp_subscribe($email, $fname, $lname)
 {
