@@ -69,7 +69,7 @@ get_header();
 <?php
 $user_id = get_current_user_id();
 $company_id = $_GET['id'];
-
+echo is_company_manager(get_current_user_id(), $company_id) ;
 
 if (is_company_manager(get_current_user_id(), $company_id)  && isset($_GET['id'])) {
 ?>
