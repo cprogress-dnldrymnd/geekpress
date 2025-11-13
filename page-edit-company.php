@@ -70,10 +70,8 @@ get_header();
 $user_id = get_current_user_id();
 $company_id = $_GET['id'];
 
-if (is_company_manager(get_current_user_id(), $company_id) && isset($_GET['id'])) {
-} else {
-    $company_id = 0;
-}
+
+if (is_company_manager(get_current_user_id(), $company_id)  && isset($_GET['id'])) {
 ?>
     <section class="edit__profile">
         <div class="container">
