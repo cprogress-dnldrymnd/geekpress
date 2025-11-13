@@ -814,7 +814,6 @@ function get_custom_post_id_by_title($post_title, $post_type)
 /*custom functions*/
 function get__company($company_id, $link = true)
 {
-
     if ($company_id) {
         $html = '';
         if ($link == true && is_user_logged_in()) {
@@ -838,22 +837,12 @@ function get__company_contacts($ids_only = true)
         $id = get_the_ID();
     } else  if (get_post_type() == 'post') {
         $company_id = get_field('company', get_the_ID());
-        $id = get__company($company_id, false, true);
+        $journalist = get_field('journalist', $company_id);
+        $company_manager = get_field('journalist', $company_id);
+        $user_ids = array_merge($company_manager, $journalist);
     }
     $user_query = new WP_User_Query(array(
-        'meta_query' => array(
-            'relation' => 'AND',
-            array(
-                'key'     => 'company',
-                'value'   => $id,
-                'compare' => '='
-            ),
-            array(
-                'key'     => 'account_status',
-                'value'   => 'approved',
-                'compare' => '='
-            )
-        )
+        'include' => array_unique($user_ids)
     ));
 
     if (! empty($user_query->get_results())) {
