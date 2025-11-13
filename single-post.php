@@ -150,51 +150,6 @@
                         <div class="press-contact">
                             <h2 style="color: var( --e-global-color-primary )">Press Contact</h2>
                             <?= do_shortcode('[display__company_contacts]') ?>
-                            <div class="author" style="display: none !important">
-
-                                <img src="<?php echo wp_get_attachment_image_url(get_user_meta(get_the_author_meta('ID'), 'profile_image', true), 'full'); ?>" alt="" />
-                                <div class="author__info">
-                                    <h4><a href="<?php echo get_author_posts_url(get_the_author_meta('ID')) ?>" class="authorname">
-                                            <?php
-                                            $author_id = get_the_author_meta('ID');
-                                            echo get_the_author_meta('display_name', $author_id);
-                                            ?>
-                                        </a></h4>
-
-                                    <div class="author__header">
-                                        <small>Author</small>
-                                        <ul style="margin-bottom:0">
-                                            <?php
-                                            $author_id = get_the_author_meta('ID');
-
-                                            // ACF fields for user
-                                            $social_links = [
-                                                'x'         => get_field('x', 'user_' . $author_id),
-                                                'linkedin'  => get_field('linkedin', 'user_' . $author_id),
-                                                'instagram' => get_field('instagram', 'user_' . $author_id),
-                                                'bluesky'   => get_field('bluesky', 'user_' . $author_id),
-                                            ];
-
-                                            // Loop through only non-empty links
-                                            foreach ($social_links as $platform => $url) {
-                                                if (!empty($url)) {
-                                                    echo '<li>
-								<a href="' . esc_url($url) . '" target="_blank" rel="noopener">
-									<img src="' . get_theme_file_uri() . '/images/' . $platform . '.svg" alt="' . esc_attr(ucfirst($platform)) . '" />
-								</a>
-							</li>';
-                                                }
-                                            }
-                                            ?>
-                                        </ul>
-                                    </div>
-
-                                    <p>
-                                        <?php echo get_the_author_meta('author_bio'); ?>
-                                    </p>
-                                </div>
-                            </div>
-
                         </div>
                     <?php } ?>
 
