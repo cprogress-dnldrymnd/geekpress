@@ -1,11 +1,4 @@
 <?php
-define('MAILCHIMP_API_KEY', 'YOUR_MAILCHIMP_API_KEY_HERE');
-// The List ID is a short, alphanumeric ID specific to your audience list.
-define('MAILCHIMP_LIST_ID', 'YOUR_MAILCHIMP_LIST_ID_HERE');
-// Extract the datacenter ID (e.g., 'us1', 'eu2') from the API key
-$api_key_parts = explode('-', MAILCHIMP_API_KEY);
-define('MAILCHIMP_DATACENTER', end($api_key_parts));
-
 require_once get_stylesheet_directory() . '/includes/assets.php';
 require_once get_stylesheet_directory() . '/includes/cpt.php';
 require_once get_stylesheet_directory() . '/includes/theme-support.php';
@@ -2240,3 +2233,89 @@ function user_company_query($query)
     $query->set('meta_query', $meta_query);
 }
 add_action('elementor/query/user_company', 'user_company_query');
+
+
+define('MAILCHIMP_API_KEY', 'fdd67789183306669b279833229b0c65-us13');
+// The List ID is a short, alphanumeric ID specific to your audience list.
+define('MAILCHIMP_LIST_ID', '1235419');
+// Extract the datacenter ID (e.g., 'us1', 'eu2') from the API key
+$api_key_parts = explode('-', MAILCHIMP_API_KEY);
+define('MAILCHIMP_DATACENTER', end($api_key_parts));
+
+function handle_mailchimp_subscribe()
+{
+    // Check for security nonce
+    if (! check_ajax_referer('mailchimp_subscribe_nonce', 'security', false)) {
+        return false;
+    }
+
+    $email = sanitize_email($_POST['email'] ?? '');
+    $fname = sanitize_text_field($_POST['fname'] ?? '');
+
+    $api_key = MAILCHIMP_API_KEY;
+    $list_id = MAILCHIMP_LIST_ID;
+    $datacenter = MAILCHIMP_DATACENTER;
+
+    $member_hash = md5(strtolower($email));
+    $api_url = "https://{$datacenter}.api.mailchimp.com/3.0/lists/{$list_id}/members/{$member_hash}";
+
+    // Request body for Mailchimp
+    $body = json_encode([
+        'email_address' => $email,
+        // 'subscribed' is 'pending' for double opt-in (best practice) or 'subscribed' for single opt-in
+        'status'        => 'pending',
+        'merge_fields'  => [
+            'FNAME' => $fname,
+        ],
+    ]);
+
+    // Headers for the Mailchimp API request
+    $headers = [
+        'Content-Type'  => 'application/json',
+        // Basic Authentication: The username is anything (usually 'user'), and the password is the API key.
+        'Authorization' => 'Basic ' . base64_encode("user:{$api_key}"),
+    ];
+
+    // Arguments for wp_remote_post
+    $args = [
+        'method'    => 'PUT', // Use PUT to add or update (upsert)
+        'headers'   => $headers,
+        'body'      => $body,
+        'timeout'   => 15,
+        'sslverify' => false, // Set to true in a production environment with proper SSL setup
+    ];
+
+    // Send the request using WordPress HTTP API
+    $response = wp_remote_post($api_url, $args);
+
+    if (is_wp_error($response)) {
+        // Handle WordPress network error
+        wp_send_json_error(['message' => 'Error connecting to Mailchimp service.']);
+    } else {
+        $response_code = wp_remote_retrieve_response_code($response);
+        $response_body = json_decode(wp_remote_retrieve_body($response), true);
+
+        if ($response_code === 200) {
+            // Successful update or add
+            $status = $response_body['status'] ?? 'pending';
+            $message = match ($status) {
+                'subscribed' => 'You are already subscribed and active!',
+                'pending' => 'Success! Please check your email to confirm your subscription (double opt-in).',
+                'unsubscribed' => 'Subscription successful. Your status was updated.',
+                default => 'Subscription received successfully.',
+            };
+
+            wp_send_json_success(['message' => $message]);
+        } elseif ($response_code === 400 && ($response_body['title'] ?? '') === 'Member Exists') {
+            // Member already exists, but perhaps is 'pending' or 'unsubscribed'
+            wp_send_json_error(['message' => 'That email address is already on our list.']);
+        } elseif ($response_code === 404 && ($response_body['title'] ?? '') === 'Resource Not Found') {
+            // Invalid API key or List ID (check your constants)
+            wp_send_json_error(['message' => 'Configuration Error: Invalid Mailchimp List ID or API Key.']);
+        } else {
+            // General Mailchimp API error
+            $error_detail = $response_body['detail'] ?? 'An unknown error occurred with the Mailchimp API.';
+            wp_send_json_error(['message' => "Subscription failed: {$error_detail}"]);
+        }
+    }
+}

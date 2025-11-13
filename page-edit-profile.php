@@ -167,6 +167,7 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
 
         <form method="post" enctype="multipart/form-data">
             <?php wp_nonce_field('edit_profile_action', 'edit_profile_nonce'); ?>
+            <?php wp_nonce_field('mailchimp_subscribe_action', 'mailchimp_subscribe_nonce'); ?>
 
             <div class="register__block dark">
                 <div class="input__wrapper">
