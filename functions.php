@@ -834,13 +834,18 @@ function get__company($company_id, $link = true)
 function get__company_contacts($ids_only = true)
 {
     if (get_post_type() == 'company') {
-        $id = get_the_ID();
+        $company_id = get_the_ID();
     } else  if (get_post_type() == 'post') {
         $company_id = get_field('company', get_the_ID());
-        $journalist = get_field('journalist', $company_id);
-        $company_manager = get_field('journalist', $company_id);
-        $user_ids = array_merge($company_manager, $journalist);
     }
+
+    $journalist = get_field('journalist', $company_id);
+    $company_manager = get_field('journalist', $company_id);
+    $user_ids = array_merge($company_manager, $journalist);
+    echo '<pre>';
+    var_dump($user_ids);
+    echo '<pre>';
+
     $user_query = new WP_User_Query(array(
         'include' => array_unique($user_ids)
     ));
