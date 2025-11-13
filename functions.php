@@ -328,7 +328,7 @@ function save_approval_user_meta($user_id)
     // Approved email
     if ($old_status !== 'approved' && $new_status === 'approved') {
         $subject = 'Your Account Has Been Approved';
-		$message = "
+        $message = "
 			<p>Hi " . esc_html($user->display_name) . ",</p>
 			<p>Good news! We’ve approved your application to <strong>GeekPress</strong>.</p>
 			<p>You can now log in to your account using the link below:</p>
@@ -345,7 +345,7 @@ function save_approval_user_meta($user_id)
     // Rejected email
     if ($old_status !== 'rejected' && $new_status === 'rejected') {
         $subject = 'Your Account Has Been Rejected';
-		$message = "
+        $message = "
 			<p>Hi " . esc_html($user->display_name) . ",</p>
 			<p>Sorry, your application for <strong>GeekPress</strong> has not been approved as you did not meet our criteria at this time.</p>
 			<p>Thank you,<br>" . get_bloginfo('name') . " Team</p>
@@ -356,7 +356,8 @@ function save_approval_user_meta($user_id)
 
 // --------------NOTIFY ADMIN ON NEW REGISTRATION-----------------------
 add_action('user_register', 'notify_admin_new_user', 10, 1);
-function notify_admin_new_user($user_id) {
+function notify_admin_new_user($user_id)
+{
     $user = get_userdata($user_id);
     $admin_email = 'hello@geek.press';
     $subject = 'New User Registration on ' . get_bloginfo('name');
@@ -695,7 +696,7 @@ function user_icon()
 
             <?php if (is_user_logged_in()) {
                 $current_user = wp_get_current_user(); ?>
-            	<img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" />
+                <img src="<?php echo get_theme_file_uri() ?>/images/user.svg" alt="" />
                 <span class="current__user"> <?php echo  get_user_meta($current_user->ID, 'first_name', true)  ?></span>
 
             <?php } else { ?>
@@ -708,14 +709,13 @@ function user_icon()
             <?php if (is_user_logged_in()) { ?>
                 <?php
                 $user_id = get_current_user_id();
-                $company_id = get__user_company($user_id, false, true);
-                $admin = get_field('admin', $company_id);
+                $companies = get_user_companies();
                 ?>
                 <div class="dropdown__menu">
                     <ul>
-                        <?php if ($company_id) { ?>
+                        <?php if ($companies) { ?>
                             <li><a href="<?php echo esc_url(get_the_permalink($company_id)); ?>">Company Profile</a></li>
-							<li><a href="<?php echo esc_url(get_the_permalink(436)); ?>">Edit Profile</a></li>
+                            <li><a href="<?php echo esc_url(get_the_permalink(436)); ?>">Edit Profile</a></li>
                         <?php } ?>
                         <?php if (in_array($user_id, $admin) && $company_id) { ?>
                             <li><a href="<?php echo esc_url(get_the_permalink(1330)); ?>">Edit Company</a></li>
@@ -965,7 +965,8 @@ function get__company_posts()
 add_shortcode('get__company_posts', 'get__company_posts');
 
 
-function get_user_companies() {
+function get_user_companies()
+{
     $company = get_posts(array(
         'post_type' => 'company',
         'numberposts' => -1,
@@ -1097,13 +1098,15 @@ function file_type($attachment_id)
 
 /*posts listing */
 
-function admin_head_css() {
-    ?>
-       <style>
+function admin_head_css()
+{
+?>
+    <style>
         .readonly.readonly {
             pointer-events: none;
             opacity: 0.6;
         }
+
         .listing-status {
             padding: 4px 8px;
             border-radius: 4px;
@@ -1146,7 +1149,7 @@ function admin_head_css() {
             color: #d9534f
         }
     </style>
-    <?php
+<?php
 }
 add_action('admin_head', 'admin_head_css');
 /**
@@ -1182,7 +1185,7 @@ add_filter('manage_post_posts_columns', 'add_listing_status_column');
 function display_listing_status_column_content($column_name, $post_id)
 {
 ?>
- 
+
     <?php
     if ($column_name === 'listing_status') {
         // Get the value of the custom field
@@ -1291,13 +1294,13 @@ function update_acf_on_post_edit_with_url_param()
                     <?php } ?>
                 });
             </script>
-    <?php
+        <?php
         }
     }
 
 
     //Admin Application
-     // 1. Set the name of the URL parameter to check for.
+    // 1. Set the name of the URL parameter to check for.
     $url_parameter = 'application_status';
 
     // 2. Set the name of the ACF field you want to update.
@@ -1317,7 +1320,7 @@ function update_acf_on_post_edit_with_url_param()
         $status_value = sanitize_text_field($_GET[$url_parameter]);
 
 
-      
+
 
         if ($current_value != $status_value) {
 
@@ -1339,7 +1342,7 @@ function update_acf_on_post_edit_with_url_param()
                     'post_status' => 'pending'
                 ));
             }
-    ?>
+        ?>
             <script>
                 jQuery(document).ready(function() {
                     jQuery('.acf-field[data-name="application_status"] select').val('<?php echo esc_js($status_value); ?>').trigger('change');
@@ -1357,15 +1360,15 @@ add_action('admin_footer', 'update_acf_on_post_edit_with_url_param');
 
 function reject__email($post_id)
 {
-	/*
+    /*
 
     $to = get_post_author_email_by_id($post_id);
     $subject = 'Geekpress rejected your submission';
     $message = email__template('Submission Rejected for ' . get_the_title($post_id), '<p>We’re really sorry, but GeekPress has rejected your submission. We appreciate that this can be frustrating, so please check our <a href="https://geekpress.theprogressteam.com/submission-guidelines/">submission guidelines</a> to understand why this has happened. If you would like more detailed reasons, then <a href="mailto:contact@geekpress.co.uk">email us</a> and we can look into it for you.<p>');
     wp_mail($to, $subject, $message);
 	*/
-	
-	$to = get_post_author_email_by_id($post_id);
+
+    $to = get_post_author_email_by_id($post_id);
     $subject = 'GeekPress rejected your submission';
 
     // Get rejection reason field (optional field)
@@ -1417,7 +1420,7 @@ function send_email_on_listing_rejection($value, $post_id, $field)
     // 2. Get the value of the field *before* this update.
     $old_value = get_field('listing_status', $post_id);
 
-	
+
     // 3. Check if the new value is 'reject' and the old value was NOT 'reject'.
     //    This ensures the email is sent only when the status changes *to* reject.
     if ($value === 'reject' && $old_value !== 'reject') {
@@ -1447,7 +1450,8 @@ add_filter('wp_mail_content_type', 'wpse27856_set_content_type');
  * If a rejected or approved post is edited and saved as draft/pending,
  * reset the ACF field to 'pending'.
  */
-function sync_listing_status_with_post_status($post_id, $post, $update) {
+function sync_listing_status_with_post_status($post_id, $post, $update)
+{
     // Prevent running on autosave, revisions, or direct status-change URLs
     if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id) || isset($_GET['listing_status'])) {
         return;
@@ -1938,7 +1942,7 @@ function get_country_code_by_name($country_name)
 
 function get__svg($name)
 {
-    if($name != false) {
+    if ($name != false) {
         $svgPath = get_stylesheet_directory() . '/images/flags/' . DIRECTORY_SEPARATOR . $name . '.svg';
 
         if (file_exists($svgPath)) {
@@ -2139,7 +2143,7 @@ function action_application_status_change_value($value, $post_id, $field)
     // 2. Get the value of the field *before* this update.
     $old_value = get_field('application_status', $post_id);
 
-	
+
     // 3. Check if the new value is 'reject' and the old value was NOT 'reject'.
     //    This ensures the email is sent only when the status changes *to* reject.
     $post = get_post($post_id);
@@ -2151,7 +2155,7 @@ function action_application_status_change_value($value, $post_id, $field)
         $company_manager = [];
     }
 
-    if ($value === 'approve' ) {
+    if ($value === 'approve') {
         // Add author_id if 'approve'
         // Check if the author_id is not already in the array before pushing
         if (!in_array($author_id, $company_manager)) {
@@ -2162,7 +2166,7 @@ function action_application_status_change_value($value, $post_id, $field)
         // Use array_diff to remove the author_id from the array
         $company_manager = array_diff($company_manager, [$author_id]);
         // Re-index the array after removal (optional but good practice)
-        $company_manager = array_values($company_manager); 
+        $company_manager = array_values($company_manager);
     }
 
     update_field('company_manager', $company_manager, $company_id);
@@ -2175,3 +2179,17 @@ function action_application_status_change_value($value, $post_id, $field)
  * This ensures our function only runs when the 'listing_status' field is updated.
  */
 add_filter('acf/update_value/name=application_status', 'action_application_status_change_value', 10, 3);
+
+function company_grid_buttons()
+{
+    ob_start();
+    ?>
+    <div class="company-grid-buttons">
+        <a href="<?= get_the_permalink() ?> ?>" class="button submit-company-button">View</a>
+        <a href="<?php echo esc_url(home_url('/companies/')); ?>" class="button view-companies-button">Edit</a>
+    </div>
+<?php
+    return ob_get_clean();
+}
+
+add_shortcode('company_grid_buttons', 'company_grid_buttons');
