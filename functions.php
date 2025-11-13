@@ -2185,8 +2185,8 @@ function company_grid_buttons()
     ob_start();
     ?>
     <div class="company-grid-buttons">
-        <a href="<?= get_the_permalink() ?> ?>" class="button submit-company-button">View</a>
-        <a href="<?php echo esc_url(home_url('/companies/')); ?>" class="button view-companies-button">Edit</a>
+        <a href="<?= get_the_permalink() ?> ?>" class="btn btn-yellow">View</a>
+        <a href="<?php echo esc_url(home_url('/companies/')); ?>" class="btn btn-bordered">Edit</a>
     </div>
 <?php
     return ob_get_clean();
