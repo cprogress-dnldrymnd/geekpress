@@ -23,7 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
     $new_email    = sanitize_email($_POST['email'] ?? '');
     $email_pref = sanitize_text_field($_POST['email_pref'] ?? '');
 
-
+    $first_name = sanitize_user($_POST['first_name']);
+    $last_name = sanitize_user($_POST['last_name']);
+    $job = sanitize_text_field($_POST['job']);
+    $outlet = sanitize_text_field($_POST['outlet']);
 
     // ----------------------Email Change-----------
     if (empty($new_email) || !is_email($new_email)) {
@@ -173,12 +176,12 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
 
                 <div class="input__wrapper">
                     <label for="first_name">First Name*</label>
-                    <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo esc_attr($_POST['first_name'] ?? ''); ?>" required>
+                    <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo esc_attr($_POST['first_name'] ?? $current_user->first_name); ?>" required>
                 </div>
 
                 <div class="input__wrapper">
                     <label for="last_name">Last Name*</label>
-                    <input type="text" placeholder="Enter Last Name" name="last_name" value="<?php echo esc_attr($_POST['last_name'] ?? ''); ?>" required>
+                    <input type="text" placeholder="Enter Last Name" name="last_name" value="<?php echo esc_attr($_POST['last_name'] ?? $current_user->last_name); ?>" required>
                 </div>
 
 
@@ -219,7 +222,7 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="register__block">
                     <h4>Email Preferences</h4>
                     <p>If you’d like to be kept up to date with the latest news in geek culture, then simply tick ‘Opt in’ below. You can unsubscribe at any time.</p>

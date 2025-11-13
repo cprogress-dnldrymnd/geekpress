@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
     $first_name = sanitize_user($_POST['first_name']);
     $last_name = sanitize_user($_POST['last_name']);
 
+    $job = sanitize_text_field($_POST['job']);
 
     $outlet = sanitize_text_field($_POST['outlet']);
 
@@ -26,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
 
 
-    $job = sanitize_text_field($_POST['job']);
 
     $email_pref = sanitize_text_field($_POST['email_pref'] ?? '');
 
