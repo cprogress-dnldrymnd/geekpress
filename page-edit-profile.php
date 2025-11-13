@@ -85,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
         wp_cache_delete($current_user->user_login, 'userlogins');
         $current_user = get_userdata($user_id);
         $outlet = get_user_meta($user_id, 'outlet', true);
+        $job = get_user_meta($user_id, 'job', true);
 
         $success = 'Profile updated successfully!';
     }
