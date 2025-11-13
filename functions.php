@@ -841,7 +841,8 @@ function get__company_contacts($ids_only = true)
     if (get_post_type() == 'company') {
         $id = get_the_ID();
     } else  if (get_post_type() == 'post') {
-        $id = get__company(get_the_author_meta('ID'), false, true);
+        $company_id = get_field('company', get_the_ID());
+        $id = get__company($company_id, false, true);
     }
     $user_query = new WP_User_Query(array(
         'meta_query' => array(
