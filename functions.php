@@ -933,7 +933,7 @@ function get__company_posts()
 
                         <h3>
                             <a href="<?php the_permalink() ?>" style="color:white;">
-                                <?php echo get_the_title() ?>
+                                <?php preview__title() ?>
                             </a>
                         </h3>
                         <p>
