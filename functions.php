@@ -2262,7 +2262,6 @@ function handle_mailchimp_subscribe()
     // Request body for Mailchimp
     $body = json_encode([
         'email_address' => $email,
-        // 'subscribed' is 'pending' for double opt-in (best practice) or 'subscribed' for single opt-in
         'status'        => 'pending',
         'merge_fields'  => [
             'FNAME' => $fname,
@@ -2289,9 +2288,8 @@ function handle_mailchimp_subscribe()
     $response = wp_remote_post($api_url, $args);
 
     if (is_wp_error($response)) {
-        // Handle WordPress network error
-        wp_send_json_error(['message' => 'Error connecting to Mailchimp service.']);
-    } else {
+        echo 'Error connecting to Mailchimp service.';
+    } /*else {
         $response_code = wp_remote_retrieve_response_code($response);
         $response_body = json_decode(wp_remote_retrieve_body($response), true);
 
@@ -2304,6 +2302,7 @@ function handle_mailchimp_subscribe()
                 'unsubscribed' => 'Subscription successful. Your status was updated.',
                 default => 'Subscription received successfully.',
             };
+            
 
             wp_send_json_success(['message' => $message]);
         } elseif ($response_code === 400 && ($response_body['title'] ?? '') === 'Member Exists') {
@@ -2317,5 +2316,5 @@ function handle_mailchimp_subscribe()
             $error_detail = $response_body['detail'] ?? 'An unknown error occurred with the Mailchimp API.';
             wp_send_json_error(['message' => "Subscription failed: {$error_detail}"]);
         }
-    }
+    }*/
 }
