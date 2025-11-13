@@ -850,8 +850,6 @@ function get__company_contacts($ids_only = true)
 
     $user_ids = array_merge($company_manager, $journalist);
 
-    echo count($user_ids);
-
     $user_query = new WP_User_Query(array(
         'include' => array_unique($user_ids)
     ));
