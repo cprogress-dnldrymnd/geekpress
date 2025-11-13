@@ -2238,9 +2238,10 @@ add_action('elementor/query/user_company', 'user_company_query');
 function handle_mailchimp_subscribe($email, $fname, $lname)
 {
     // Check for security nonce
+    /*
     if (! check_ajax_referer('mailchimp_subscribe_nonce', 'security', false)) {
         return;
-    }
+    }*/
 
     $email = sanitize_email($email);
     $fname = sanitize_text_field($fname);
