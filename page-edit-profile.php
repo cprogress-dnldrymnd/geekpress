@@ -336,4 +336,25 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
     });
 </script>
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const jobSelect = document.querySelector('select[name="job"]');
+        const mediaOutletDiv = document.querySelector('.media-outlet');
+
+        // Hide initially
+        if (mediaOutletDiv) mediaOutletDiv.style.display = 'none';
+
+        // Watch for changes
+        if (jobSelect) {
+            jobSelect.addEventListener('change', function() {
+                if (this.value === 'Media (Journalist/Content Creator)') {
+                    mediaOutletDiv.style.display = 'block';
+                } else {
+                    mediaOutletDiv.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
 <?php get_footer(); ?>
