@@ -842,9 +842,6 @@ function get__company_contacts($ids_only = true)
     $journalist = get_field('journalist', $company_id);
     $company_manager = get_field('company_manager', $company_id);
     $user_ids = array_merge($company_manager, $journalist);
-    echo '<pre>';
-    var_dump($user_ids);
-    echo '<pre>';
 
     $user_query = new WP_User_Query(array(
         'include' => array_unique($user_ids)
