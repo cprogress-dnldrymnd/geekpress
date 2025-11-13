@@ -27,14 +27,15 @@
         gap: 10px;
     }
 </style>
-<?php
-$company_id = get_field('company', get_the_ID());
-?>
+
 <section class="single">
     <div class="container">
         <div class="single__wrapper">
 
             <!-- <?php while (have_posts()) : the_post() ?> -->
+            <?php
+                        $company_id = get_field('company', get_the_ID());
+            ?>
             <main class="single__main">
                 <div class="single__main__image">
 
@@ -222,7 +223,9 @@ $company_id = get_field('company', get_the_ID());
 
                     ));
                     if ($popular->have_posts()) : while ($popular->have_posts()) : $popular->the_post() ?>
-
+                            <?php
+                            $company_id = get_field('company', get_the_ID());
+                            ?>
                             <div class="popular__post">
                                 <div class="popular__post__image">
                                     <a href="<?php the_permalink(); ?>">
