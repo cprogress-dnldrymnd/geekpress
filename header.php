@@ -90,7 +90,7 @@
 						<?php if (is_user_logged_in()) { ?>
 							<?php
 							$user_id = get_current_user_id();
-							$company_id = get__user_company($user_id, false, true);
+							$company_id = get__company($user_id, false, true);
 							$admin = get_field('admin', $company_id);
 							?>
 							<div class="dropdown__menu">

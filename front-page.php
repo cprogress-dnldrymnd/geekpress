@@ -292,7 +292,7 @@
 														</div>
 														<div>
 															<?= get__company_flag(get_the_author_meta('ID')) ?>
-															<span> <?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+															<span> <?= get__company(get_the_author_meta('ID'), true) ?> </span>
 														</div>
 													</div>
 												<a href="<?php the_permalink(); ?>">
@@ -350,7 +350,7 @@
 									<div class="info">
 										<small>
 											<?= get__company_flag(get_the_author_meta('ID')) ?>
-											<?= get__user_company(get_the_author_meta('ID'), true) ?>
+											<?= get__company(get_the_author_meta('ID'), true) ?>
 										</small>
 										<span><?php print_r(get_the_category(get_the_ID())[0]->name) ?></span>
 									</div>

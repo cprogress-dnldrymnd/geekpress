@@ -812,7 +812,7 @@ function get_custom_post_id_by_title($post_title, $post_type)
 
 
 /*custom functions*/
-function get__user_company($user_id, $link = true, $id_only = false)
+function get__company($user_id, $link = true, $id_only = false)
 {
     $company_id = get_field('company');
 
@@ -840,7 +840,7 @@ function get__company_contacts($ids_only = true)
     if (get_post_type() == 'company') {
         $id = get_the_ID();
     } else  if (get_post_type() == 'post') {
-        $id = get__user_company(get_the_author_meta('ID'), false, true);
+        $id = get__company(get_the_author_meta('ID'), false, true);
     }
     $user_query = new WP_User_Query(array(
         'meta_query' => array(
@@ -1989,7 +1989,7 @@ function add_featured_image_to_rss_feed($content)
     $content_html .= '</a>';
     $content_html .= '</h2>';
     $content_html .= '<span style="margin-top: 0; font-size: 12px; margin-left: 10px; float: right; ">';
-    $content_html .= 'by ' . get__user_company(get_the_author_meta('ID'), false);
+    $content_html .= 'by ' . get__company(get_the_author_meta('ID'), false);
     $content_html .= '</span>';
     $content_html .= '</div>';
 

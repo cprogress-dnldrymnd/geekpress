@@ -47,7 +47,7 @@
                             <span><?php echo get_the_date('F j, Y') ?> </span></small>
                         <div>
                             <?= get__company_flag(get_the_author_meta('ID')) ?>
-                            <span><?= get__user_company(get_the_author_meta('ID'), true) ?></span>
+                            <span><?= get__company(get_the_author_meta('ID'), true) ?></span>
                         </div>
                     </div>
                     <h1>
@@ -238,7 +238,7 @@
                                     </li>
                                     <li>
                                         <?= get__company_flag(get_the_author_meta('ID')) ?>
-                                        <span><?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+                                        <span><?= get__company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                 </ul>
 
@@ -279,7 +279,7 @@
                                 <ul>
                                     <li>
                                         <?= get__company_flag(get_the_author_meta('ID')) ?>
-                                        <span><?= get__user_company(get_the_author_meta('ID'), true) ?> </span>
+                                        <span><?= get__company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                     <li>
                                         <span class="tag"><?php $categories = get_the_category();
