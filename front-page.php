@@ -353,7 +353,7 @@
 									<div class="info">
 										<small>
 											<?= get__company_flag($company_id) ?>
-											<?= get__company(get_the_author_meta('ID'), true) ?>
+											<?= get__company($company_id, true) ?>
 										</small>
 										<span><?php print_r(get_the_category(get_the_ID())[0]->name) ?></span>
 									</div>

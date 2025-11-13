@@ -90,12 +90,11 @@
 						<?php if (is_user_logged_in()) { ?>
 							<?php
 							$user_id = get_current_user_id();
-							$company_id = get__company($user_id, false, true);
-							$admin = get_field('admin', $company_id);
+							$user_companies = get_user_companies();
 							?>
 							<div class="dropdown__menu">
 								<ul>
-									<?php if ($company_id) { ?>
+									<?php if ($user_companies) { ?>
 										<li><a href="<?php echo esc_url(get_the_permalink($company_id)); ?>">Company Profile</a></li>
 									<?php } ?>
 									<li><a href="<?php echo esc_url(site_url('/edit-profile')); ?>">Edit Profile</a></li>
