@@ -889,8 +889,11 @@ function get__company_contacts($ids_only = true)
 function get__company_flag($company_id, $country_name = false)
 {
     $country = get_field('country', $company_id);
-    $country_code = get_country_code_by_name($country);
-    return '<div class="flag">' . get__svg($country_code) . ' ' . ($country_name == true ? $country : '') . ' </div>';
+    if ($country) {
+
+        $country_code = get_country_code_by_name($country);
+        return '<div class="flag">' . get__svg($country_code) . ' ' . ($country_name == true ? $country : '') . ' </div>';
+    }
 }
 
 function get__company_flag_sc()
