@@ -168,7 +168,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
             <?php endif; ?>
 
             <?php if ($success): ?>
-                <p style="color:green;"><?php echo esc_html($success); ?></p>
+                <p style="color:green;"><?= $success ?></p>
             <?php endif; ?>
 
             <?php
