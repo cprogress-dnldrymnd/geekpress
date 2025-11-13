@@ -273,6 +273,89 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                     </div>
                 </div>
 
+                <div class="register__block">
+                    <h4 style="margin-bottom:0">
+                        Social Media
+                    </h4>
+                    <p style="font-size:14px; color:gray; margin-top:5px">
+                        Enter your social media details below
+                    </p>
+                </div>
+
+
+                <div class="input__wrapper">
+                    <label for="linkedin">LinkedIn</label>
+                    <div class="input-group">
+                        <span class="prefix">@</span>
+                        <input
+                            type="text"
+                            name="linkedin"
+                            value="<?php
+                                    $linkedin_full = $_POST['linkedin'] ?? get_field('linkedin', 'user_' . $user_id);
+                                    echo esc_attr(get_username_from_url($linkedin_full, 'https://www.linkedin.com/in/'));
+                                    ?>"
+                            <?php echo isset($errors['linkedin']) ? 'class="error-field"' : ''; ?>>
+                    </div>
+                    <?php if (isset($errors['linkedin'])): ?>
+                        <p style="color:red;"><?php echo esc_html($errors['linkedin']); ?></p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="input__wrapper">
+                    <label for="x">X (Twitter)</label>
+                    <div class="input-group">
+                        <span class="prefix">@</span>
+                        <input
+                            type="text"
+                            name="x"
+                            value="<?php
+                                    $x_full = $_POST['x'] ?? get_field('x', 'user_' . $user_id);
+                                    echo esc_attr(get_username_from_url($x_full, 'https://twitter.com/'));
+                                    ?>"
+                            <?php echo isset($errors['x']) ? 'class="error-field"' : ''; ?>>
+                    </div>
+                    <?php if (isset($errors['x'])): ?>
+                        <p style="color:red;"><?php echo esc_html($errors['x']); ?></p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="input__wrapper">
+                    <label for="instagram">Instagram</label>
+                    <div class="input-group">
+                        <span class="prefix">@</span>
+                        <input
+                            type="text"
+                            name="instagram"
+                            value="<?php
+                                    $insta_full = $_POST['instagram'] ?? get_field('instagram', 'user_' . $user_id);
+                                    echo esc_attr(get_username_from_url($insta_full, 'https://instagram.com/'));
+                                    ?>"
+                            <?php echo isset($errors['instagram']) ? 'class="error-field"' : ''; ?>>
+                    </div>
+                    <?php if (isset($errors['instagram'])): ?>
+                        <p style="color:red;"><?php echo esc_html($errors['instagram']); ?></p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="input__wrapper">
+                    <label for="bluesky">Bluesky</label>
+                    <div class="input-group">
+                        <span class="prefix">@</span>
+                        <input
+                            type="text"
+                            name="bluesky"
+                            value="<?php
+                                    $bluesky_full = $_POST['bluesky'] ?? get_field('bluesky', 'user_' . $user_id);
+                                    echo esc_attr(get_username_from_url($bluesky_full, 'https://bsky.app/profile/'));
+                                    ?>"
+                            <?php echo isset($errors['bluesky']) ? 'class="error-field"' : ''; ?>>
+                    </div>
+                    <?php if (isset($errors['bluesky'])): ?>
+                        <p style="color:red;"><?php echo esc_html($errors['bluesky']); ?></p>
+                    <?php endif; ?>
+                </div>
+
+
                 <input type="submit" value="Update Company" class="btn-custom btn-inverse">
             </form>
         </div>
