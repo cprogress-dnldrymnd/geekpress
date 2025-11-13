@@ -900,7 +900,13 @@ function get__company_posts()
         <?php $article = new WP_Query(array(
             'post_type' => 'post',
             'posts_per_page' => -1,
-            'author__in' => get__company_contacts()
+            'meta_query' => array(
+                array(
+                    'key'     => 'company', // **REQUIRED**
+                    'value'   => get_the_ID(), // Value needs to be wrapped in quotes
+                    'compare' => '=',
+                ),
+            ),
         ));
 
 
