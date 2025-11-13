@@ -105,7 +105,6 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce']
         wp_cache_delete($current_user->user_login, 'userlogins');
         $current_user = get_userdata($user_id);
 
-
         $success = 'Profile updated successfully!';
     }
 }
@@ -197,8 +196,8 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
                     <textarea name="author_bio" class="author-bio" placeholder="Write a short bio for your profile"><?php echo esc_textarea($_POST['author_bio'] ?? $author_bio); ?></textarea>
                 </div>
 
+            
 
-          
 				
 				<div class="register__block">
 					<h4 style="margin-bottom:0">
@@ -297,8 +296,8 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
 				<div>
 					<div class="register__block dark" style="margin-bottom:0">
 						<h4 style="font-size:large">Email</h4>
-						 <p style="font-size:14px; color:gray; margin-top:5px;font-style:italic">
-							If you want to change your email, simply enter the new email in the field below.
+						 <p style="font-size:14px; color:gray; margin-top:5px;">
+							If you want to change your email, simply enter the new email in the field below
 						</p>
 					</div>
 					<div class="input__wrapper">
@@ -315,8 +314,8 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
 					<div>
 						<div class="register__block dark" style="margin-bottom:0">
 							<h4 style="font-size:large">Password</h4>
-							<p style="font-size:14px; color:gray; margin-top:5px;font-style:italic">
-								To change your password, fill in the fields below.
+							<p style="font-size:14px; color:gray; margin-top:5px;">
+								To change your password, fill in the fields below
 							</p>
 						</div>
 
@@ -354,7 +353,6 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
 </section>
 
 <script>
-
 document.querySelectorAll('.toggle-password').forEach(toggle => {
     toggle.addEventListener('click', function() {
         const targetInput = document.getElementById(this.dataset.target);
