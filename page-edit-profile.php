@@ -213,14 +213,14 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
                     <div class="register__grid opt">
                         <div class="input__wrapper radio p-0">
                             <label for="optin">
-                                <input type="radio" id="optin" name="email_pref" value="optin" <?php checked($_POST['email_pref'] ?? '', 'optin'); ?>>
+                                <input type="radio" id="optin" name="email_pref" value="optin" <?php checked($email_pref ?? '', 'optin'); ?>>
                                 OPT IN
                             </label>
                         </div>
 
                         <div class="input__wrapper radio p-0">
                             <label for="optout">
-                                <input type="radio" id="optout" name="email_pref" value="optout" <?php checked($_POST['email_pref'] ?? '', 'optout'); ?>>
+                                <input type="radio" id="optout" name="email_pref" value="optout" <?php checked($email_pref ?? '', 'optout'); ?>>
                                 OPT OUT
                             </label>
                         </div>
