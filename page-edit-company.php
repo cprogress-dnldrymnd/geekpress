@@ -65,6 +65,54 @@ get_header();
     .upload_thumbnail:not([style="display: none;"])+.asset__upload__wrapper .preview_banner_wrapper {
         display: none !important;
     }
+
+     .preview_profile__container .preview img {
+        object-fit: contain !important;
+    }
+
+    .upload_thumbnail img {
+        object-fit: contain !important;
+    }
+
+    textarea::placeholder {
+        text-transform: initial !important;
+    }
+
+    @media screen and (max-width:720px) {
+        .asset__upload__wrapper {
+            flex-direction: column;
+        }
+    }
+
+    .error-field {
+        border: 2px solid red !important;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .input-group .prefix {
+        background: #f4f4f4;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        color: #555;
+        border-right: 1px solid #ccc;
+    }
+
+    .input-group input {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
 </style>
 <?php
 $user_id = get_current_user_id();
