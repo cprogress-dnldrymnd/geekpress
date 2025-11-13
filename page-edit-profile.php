@@ -216,7 +216,7 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
 
                         <div class="input__wrapper media-outlet">
                             <label for="outlet">Media Outlet</label>
-                            <input type="text" placeholder="Enter Outlet" name="outlet" value="<?php echo esc_attr($_POST['last_name'] ?? $outlet); ?>">
+                            <input type="text" placeholder="Enter Outlet" name="outlet" value="<?php echo esc_attr($_POST['outlet'] ?? $outlet); ?>">
                         </div>
                     </div>
                 </div>
