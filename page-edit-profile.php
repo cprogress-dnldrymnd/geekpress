@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
         update_user_meta($user_id, 'author_bio', $author_bio);
         update_user_meta($user_id, 'email_pref', $email_pref);
 
-      
+
 
         if (!empty($new_password) && empty($errors)) {
             wp_set_password($new_password, $user_id);
@@ -138,7 +138,8 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
         font-size: 1rem;
     }
 </style>
-
+<?= handle_mailchimp_subscribe('donald2@cprogress.co.uk', 'don', 'ray') ?>
+<?= et_field('mailchimp_api_key', 'option'); ?>
 <section class="edit__profile">
     <div class="container">
         <div class="edit__profile__wrapper">
@@ -202,7 +203,7 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
                     </div>
                 </div>
 
-               
+
 
                 <div class="register__block">
                     <h4 style="margin-bottom:0; margin-top:65px">

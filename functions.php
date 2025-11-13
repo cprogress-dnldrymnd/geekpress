@@ -2235,25 +2235,25 @@ function user_company_query($query)
 add_action('elementor/query/user_company', 'user_company_query');
 
 
-define('MAILCHIMP_API_KEY', 'fdd67789183306669b279833229b0c65-us13');
 // The List ID is a short, alphanumeric ID specific to your audience list.
 define('MAILCHIMP_LIST_ID', '1235419');
 // Extract the datacenter ID (e.g., 'us1', 'eu2') from the API key
 $api_key_parts = explode('-', MAILCHIMP_API_KEY);
 define('MAILCHIMP_DATACENTER', end($api_key_parts));
 
-function handle_mailchimp_subscribe()
+function handle_mailchimp_subscribe($email, $fname, $lname)
 {
     // Check for security nonce
     if (! check_ajax_referer('mailchimp_subscribe_nonce', 'security', false)) {
-        return false;
+        return;
     }
 
-    $email = sanitize_email($_POST['email'] ?? '');
-    $fname = sanitize_text_field($_POST['fname'] ?? '');
+    $email = sanitize_email($email);
+    $fname = sanitize_text_field($fname);
+    $lname = sanitize_text_field($lname);
 
-    $api_key = MAILCHIMP_API_KEY;
-    $list_id = MAILCHIMP_LIST_ID;
+    $api_key = get_field('mailchimp_api_key', 'option');
+    $list_id = get_field('mailchimp_list_id', 'option');
     $datacenter = MAILCHIMP_DATACENTER;
 
     $member_hash = md5(strtolower($email));
@@ -2265,6 +2265,7 @@ function handle_mailchimp_subscribe()
         'status'        => 'pending',
         'merge_fields'  => [
             'FNAME' => $fname,
+            'LNAME' => $lname,
         ],
     ]);
 
