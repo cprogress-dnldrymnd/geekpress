@@ -83,15 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
         // Refresh user data after update
         wp_cache_delete($user_id, 'users');
         wp_cache_delete($current_user->user_login, 'userlogins');
+        $current_user = get_userdata($user_id);
 
 
         $success = 'Profile updated successfully!';
     }
 }
-$current_user = get_userdata($user_id);
+
+$email_pref = get_user_meta($user_id, 'email_pref', true);
 $outlet = get_user_meta($user_id, 'outlet', true);
 $job = get_user_meta($user_id, 'job', true);
-$email_pref = get_user_meta($user_id, 'email_pref', true);
 ?>
 
 <style>
