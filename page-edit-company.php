@@ -140,7 +140,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
             wp_update_post($my_post);
 
 
-            $success = 'Company Profile updated successfully!';
+            $success = 'Company Profile updated successfully! <a href="' . get_the_permalink($company_id) . '">View Company</a>';
         }
     }
 
