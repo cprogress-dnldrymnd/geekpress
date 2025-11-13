@@ -245,7 +245,7 @@
                                     </li>
                                     <li>
                                         <?= get__company_flag($company_id) ?>
-                                        <span><?= get__company($company_id, true) ?> </span>x
+                                        <span><?= get__company($company_id, true) ?> </span>
                                     </li>
                                 </ul>
 

@@ -815,20 +815,22 @@ function get_custom_post_id_by_title($post_title, $post_type)
 function get__company($company_id, $link = true, $id_only = false)
 {
 
-    if ($id_only == true) {
-        return $company_id;
-    } else {
-        $html = '';
-        if ($link == true && is_user_logged_in()) {
-            $html .= '<a href="' . get_the_permalink($company_id) . '">';
+    if ($company_id) {
+        if ($id_only == true) {
+            return $company_id;
+        } else {
+            $html = '';
+            if ($link == true && is_user_logged_in()) {
+                $html .= '<a href="' . get_the_permalink($company_id) . '">';
+            }
+            $html .= '<span class="company--name">';
+            $html .= get_the_title($company_id);
+            $html .= '</span>';
+            if ($link == true && is_user_logged_in()) {
+                $html .= '</a>';
+            }
+            return $html;
         }
-        $html .= '<span class="company--name">';
-        $html .= get_the_title($company_id);
-        $html .= '</span>';
-        if ($link == true && is_user_logged_in()) {
-            $html .= '</a>';
-        }
-        return $html;
     }
 }
 
