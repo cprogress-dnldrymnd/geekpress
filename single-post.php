@@ -21,11 +21,15 @@
     .full__access p a:hover {
         color: #f3ff49;
     }
+
     .flag {
         display: flex;
         gap: 10px;
     }
 </style>
+<?php
+$company_id = get_field('company', get_the_ID());
+?>
 <section class="single">
     <div class="container">
         <div class="single__wrapper">
@@ -46,7 +50,7 @@
                         <small class="meta__info"><img src="<?php echo get_theme_file_uri() ?>/images/clock.svg" alt="" />
                             <span><?php echo get_the_date('F j, Y') ?> </span></small>
                         <div>
-                            <?= get__company_flag(get_the_author_meta('ID')) ?>
+                            <?= get__company_flag($company_id) ?>
                             <span><?= get__company(get_the_author_meta('ID'), true) ?></span>
                         </div>
                     </div>
@@ -237,7 +241,7 @@
                                         <span><?php echo get_the_date("M j, Y") ?></span>
                                     </li>
                                     <li>
-                                        <?= get__company_flag(get_the_author_meta('ID')) ?>
+                                        <?= get__company_flag($company_id) ?>
                                         <span><?= get__company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                 </ul>
@@ -278,7 +282,7 @@
                                 </p>
                                 <ul>
                                     <li>
-                                        <?= get__company_flag(get_the_author_meta('ID')) ?>
+                                        <?= get__company_flag($company_id) ?>
                                         <span><?= get__company(get_the_author_meta('ID'), true) ?> </span>
                                     </li>
                                     <li>
