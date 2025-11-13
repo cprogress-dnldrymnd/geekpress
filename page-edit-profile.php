@@ -84,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
         wp_cache_delete($user_id, 'users');
         wp_cache_delete($current_user->user_login, 'userlogins');
         $current_user = get_userdata($user_id);
+        $outlet = get_user_meta($user_id, 'outlet', true);
 
         $success = 'Profile updated successfully!';
     }
@@ -214,7 +215,7 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
 
                         <div class="input__wrapper media-outlet">
                             <label for="outlet">Media Outlet</label>
-                            <input type="text" placeholder="Enter Outlet" name="outlet" value="<?php echo esc_attr($_POST['outlet'] ?? ''); ?>">
+                            <input type="text" placeholder="Enter Outlet" name="outlet" value="<?php echo esc_attr($_POST['last_name'] ?? $outlet); ?>">
                         </div>
                     </div>
                 </div>
