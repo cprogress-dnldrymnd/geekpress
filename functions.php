@@ -714,8 +714,7 @@ function user_icon()
                 <div class="dropdown__menu">
                     <ul>
                         <?php if ($companies) { ?>
-                            <li><a href="<?php echo esc_url(get_the_permalink($company_id)); ?>">Company Profile</a></li>
-                            <li><a href="<?php echo esc_url(get_the_permalink(436)); ?>">Edit Profile</a></li>
+                            <li><a href="<?php echo esc_url(get_the_permalink(1687)); ?>">Manage Companies</a></li>
                         <?php } ?>
                         <?php if (in_array($user_id, $admin) && $company_id) { ?>
                             <li><a href="<?php echo esc_url(get_the_permalink(1330)); ?>">Edit Company</a></li>
