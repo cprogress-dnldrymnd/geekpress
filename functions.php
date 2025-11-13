@@ -812,9 +812,8 @@ function get_custom_post_id_by_title($post_title, $post_type)
 
 
 /*custom functions*/
-function get__company($user_id, $link = true, $id_only = false)
+function get__company($company_id, $link = true, $id_only = false)
 {
-    $company_id = get_field('company');
 
     if ($id_only == true) {
         return $company_id;

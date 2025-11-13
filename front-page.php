@@ -292,7 +292,7 @@
 												</div>
 												<div>
 													<?= get__company_flag($company_id) ?>
-													<span> <?= get__company(get_the_author_meta('ID'), true) ?> </span>
+													<span> <?= get__company($company_id, true) ?> </span>
 												</div>
 											</div>
 											<a href="<?php the_permalink(); ?>">
