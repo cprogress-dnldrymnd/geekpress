@@ -67,8 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
             'user_email'   => $new_email
         ]);
 
+        update_user_meta($user_id, 'first_name', $first_name);
+        update_user_meta($user_id, 'last_name', $last_name);
         update_user_meta($user_id, 'email_pref', $email_pref);
-
+        update_user_meta($user_id, 'outlet', $outlet);
+        update_user_meta($user_id, 'job', $job);
 
 
         if (!empty($new_password) && empty($errors)) {
@@ -156,13 +159,6 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
             <p style="color:green;"><?php echo esc_html($success); ?></p>
         <?php endif; ?>
 
-        <?php
-        function get_username_from_url($url, $base)
-        {
-            if (empty($url)) return '';
-            return str_replace($base, '', $url);
-        }
-        ?>
 
         <form method="post" enctype="multipart/form-data">
             <?php wp_nonce_field('edit_profile_action', 'edit_profile_nonce'); ?>
