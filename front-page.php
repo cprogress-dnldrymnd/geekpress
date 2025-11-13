@@ -337,6 +337,9 @@
 
 						));
 						if ($viewed->have_posts()) : while ($viewed->have_posts()) : $viewed->the_post() ?>
+								<?php
+								$company_id = get_field('company', get_the_ID());
+								?>
 								<div class="viewed__item__content">
 									<small>
 										<img src="<?php echo get_theme_file_uri() ?>/images/clock.svg" alt="" /><span>
@@ -349,7 +352,7 @@
 
 									<div class="info">
 										<small>
-											<?= get__company_flag(get_the_author_meta('ID')) ?>
+											<?= get__company_flag($company_id) ?>
 											<?= get__company(get_the_author_meta('ID'), true) ?>
 										</small>
 										<span><?php print_r(get_the_category(get_the_ID())[0]->name) ?></span>
