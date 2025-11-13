@@ -337,7 +337,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                                     name="linkedin"
                                     value="<?php
                                             $linkedin_full = $_POST['linkedin'] ?? get_field('linkedin', $company_id);
-                                            echo esc_attr(get_username_from_url($linkedin_full, 'https://www.linkedin.com/in/'));
+                                            echo $linkedin_full;
                                             ?>"
                                     <?php echo isset($errors['linkedin']) ? 'class="error-field"' : ''; ?>>
                             </div>
@@ -355,7 +355,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                                     name="x"
                                     value="<?php
                                             $x_full = $_POST['x'] ?? get_field('x', $company_id);
-                                            echo esc_attr(get_username_from_url($x_full, 'https://twitter.com/'));
+                                            echo $x_full;
                                             ?>"
                                     <?php echo isset($errors['x']) ? 'class="error-field"' : ''; ?>>
                             </div>
@@ -373,7 +373,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                                     name="instagram"
                                     value="<?php
                                             $insta_full = $_POST['instagram'] ?? get_field('instagram', $company_id);
-                                            echo esc_attr(get_username_from_url($insta_full, 'https://instagram.com/'));
+                                            echo $insta_full;
                                             ?>"
                                     <?php echo isset($errors['instagram']) ? 'class="error-field"' : ''; ?>>
                             </div>
@@ -391,7 +391,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                                     name="bluesky"
                                     value="<?php
                                             $bluesky_full = $_POST['bluesky'] ?? get_field('bluesky', $company_id);
-                                            echo esc_attr(get_username_from_url($bluesky_full, 'https://bsky.app/profile/'));
+                                            echo $bluesky_full;
                                             ?>"
                                     <?php echo isset($errors['bluesky']) ? 'class="error-field"' : ''; ?>>
                             </div>
