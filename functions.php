@@ -2183,10 +2183,16 @@ add_filter('acf/update_value/name=application_status', 'action_application_statu
 function company_grid_buttons()
 {
     ob_start();
+    $company_manager = get_field('company_manager', get_the_ID());
+    if (!is_array($company_manager)) {
+        $company_manager = [];
+    }
     ?>
     <div class="company-grid-buttons">
         <a href="<?= get_the_permalink() ?> ?>" class="btn btn-yellow">View</a>
-        <a href="<?php echo esc_url(home_url('/companies/')); ?>" class="btn btn-bordered">Edit</a>
+        <?php if (in_array(get_current_user_id(), $company_manager)) { ?>
+            <a href="<?php echo esc_url(home_url('/companies/')); ?>" class="btn btn-bordered">Edit</a>
+        <?php } ?>
     </div>
 <?php
     return ob_get_clean();
