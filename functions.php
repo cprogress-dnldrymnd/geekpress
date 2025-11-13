@@ -2199,3 +2199,42 @@ function company_grid_buttons()
 }
 
 add_shortcode('company_grid_buttons', 'company_grid_buttons');
+
+
+
+/**
+ * Update the query by specific post meta.
+ *
+ * @since 1.0.0
+ * @param \WP_Query $query The WordPress query instance.
+ */
+function user_company_query($query)
+{
+
+    // Get current meta Query
+    $meta_query = $query->get('meta_query');
+
+    // If there is no meta query when this filter runs, it should be initialized as an empty array.
+    if (! $meta_query) {
+        $meta_query = [];
+    }
+
+    // Append our meta query
+    $meta_query['relation'] = 'OR';
+
+    $meta_query[] = [
+        'key'     => 'journalist', // **REQUIRED**
+        'value'   => '"' . get_current_user_id() . '"', // Value needs to be wrapped in quotes
+        'compare' => 'LIKE',
+    ];
+
+    $meta_query[] = [
+        'key'     => 'company_manager', // **REQUIRED**
+        'value'   => '"' . get_current_user_id() . '"', // Value needs to be wrapped in quotes
+        'compare' => 'LIKE',
+    ];
+
+
+    $query->set('meta_query', $meta_query);
+}
+add_action('elementor/query/user_company', 'user_company_query');
