@@ -2191,7 +2191,7 @@ function company_grid_buttons()
     <div class="company-grid-buttons">
         <a href="<?= get_the_permalink() ?> ?>" class="btn btn-yellow">View</a>
         <?php if (in_array(get_current_user_id(), $company_manager)) { ?>
-            <a href="<?php echo esc_url(home_url('/companies/')); ?>" class="btn btn-bordered">Edit</a>
+            <a href="<?php echo esc_url(home_url('/companies/')); ?>" class="btn btn-dark">Edit</a>
         <?php } ?>
     </div>
 <?php
