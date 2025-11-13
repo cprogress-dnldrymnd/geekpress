@@ -244,7 +244,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                     </div>
                     <div class="input__wrapper">
                         <label for="company_website">Company Website</label>
-                        <input type="text" name="company_name" value="<?php echo esc_attr($_POST['company_website'] ?? $company_website_val); ?>" required>
+                        <input type="text" name="company_website" value="<?php echo esc_attr($_POST['company_website'] ?? $company_website_val); ?>" required>
 
                     </div>
 
