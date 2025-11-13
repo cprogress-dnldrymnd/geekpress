@@ -716,9 +716,7 @@ function user_icon()
                         <?php if ($companies) { ?>
                             <li><a href="<?php echo esc_url(get_the_permalink(1687)); ?>">Manage Companies</a></li>
                         <?php } ?>
-                        <?php if (in_array($user_id, $admin) && $company_id) { ?>
-                            <li><a href="<?php echo esc_url(get_the_permalink(1330)); ?>">Edit Company</a></li>
-                        <?php } ?>
+                        <li><a href="<?php echo esc_url(get_the_permalink(436)); ?>">Edit Profile</a></li>
                         <li><a href="<?php echo wp_logout_url(home_url()); ?>">Logout</a></li>
                     </ul>
                 </div>
@@ -2190,7 +2188,7 @@ function company_grid_buttons()
     <div class="company-grid-buttons">
         <a href="<?= get_the_permalink() ?> ?>" class="btn btn-yellow">View</a>
         <?php if (in_array(get_current_user_id(), $company_manager)) { ?>
-            <a href="<?= get_the_permalink(436) . '?id=' . get_the_ID() ?> " class="btn btn-dark">Edit</a>
+            <a href="<?= get_the_permalink(1330) . '?id=' . get_the_ID() ?> " class="btn btn-dark">Edit</a>
         <?php } ?>
     </div>
 <?php
