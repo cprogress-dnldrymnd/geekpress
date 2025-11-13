@@ -205,17 +205,6 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
                 </div>
 
 
-
-
-                <div class="register__block">
-                    <h4 style="margin-bottom:0">
-                        Social Media
-                    </h4>
-                    <p style="font-size:14px; color:gray; margin-top:5px">
-                        Enter your social media details below
-                    </p>
-                </div>
-
                 <div class="register__block">
                     <h4>Email Preferences</h4>
                     <p>If you’d like to be kept up to date with the latest news in geek culture, then simply tick ‘Opt in’ below. You can unsubscribe at any time.</p>
@@ -236,6 +225,17 @@ $author_bio = get_user_meta($user_id, 'author_bio', true);
                         </div>
                     </div>
                 </div>
+
+                <div class="register__block">
+                    <h4 style="margin-bottom:0">
+                        Social Media
+                    </h4>
+                    <p style="font-size:14px; color:gray; margin-top:5px">
+                        Enter your social media details below
+                    </p>
+                </div>
+
+
                 <div class="input__wrapper">
                     <label for="linkedin">LinkedIn</label>
                     <div class="input-group">
