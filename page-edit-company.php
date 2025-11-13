@@ -69,7 +69,6 @@ get_header();
 <?php
 $user_id = get_current_user_id();
 $company_id = get__user_company($user_id, false, true);
-$admin = get_field('admin', $company_id);
 
 if (!in_array($user_id, $admin) || !$company_id) {
 ?>

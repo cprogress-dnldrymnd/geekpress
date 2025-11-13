@@ -2180,14 +2180,10 @@ add_filter('acf/update_value/name=application_status', 'action_application_statu
 function company_grid_buttons()
 {
     ob_start();
-    $company_manager = get_field('company_manager', get_the_ID());
-    if (!is_array($company_manager)) {
-        $company_manager = [];
-    }
     ?>
     <div class="company-grid-buttons">
         <a href="<?= get_the_permalink() ?> ?>" class="btn btn-yellow">View</a>
-        <?php if (in_array(get_current_user_id(), $company_manager)) { ?>
+        <?php if (is_company_manager(get_current_user_id(), get_the_ID())) { ?>
             <a href="<?= get_the_permalink(1330) . '?id=' . get_the_ID() ?> " class="btn btn-dark">Edit</a>
         <?php } ?>
     </div>
@@ -2198,6 +2194,14 @@ function company_grid_buttons()
 add_shortcode('company_grid_buttons', 'company_grid_buttons');
 
 
+function is_company_manager($user_id, $company_id)
+{
+    $company_manager = get_field('company_manager', get_the_ID());
+    if (!is_array($company_manager)) {
+        $company_manager = [];
+    }
+    return in_array($user_id, $company_manager);
+}
 
 /**
  * Update the query by specific post meta.
