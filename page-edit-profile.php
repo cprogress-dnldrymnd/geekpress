@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
 }
 
 $author_bio = get_user_meta($user_id, 'author_bio', true);
+$email_pref = get_user_meta($user_id, 'email_pref', true);
 ?>
 
 <style>
