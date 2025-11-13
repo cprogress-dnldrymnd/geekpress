@@ -1,4 +1,11 @@
 <?php
+define('MAILCHIMP_API_KEY', 'YOUR_MAILCHIMP_API_KEY_HERE');
+// The List ID is a short, alphanumeric ID specific to your audience list.
+define('MAILCHIMP_LIST_ID', 'YOUR_MAILCHIMP_LIST_ID_HERE');
+// Extract the datacenter ID (e.g., 'us1', 'eu2') from the API key
+$api_key_parts = explode('-', MAILCHIMP_API_KEY);
+define('MAILCHIMP_DATACENTER', end($api_key_parts));
+
 require_once get_stylesheet_directory() . '/includes/assets.php';
 require_once get_stylesheet_directory() . '/includes/cpt.php';
 require_once get_stylesheet_directory() . '/includes/theme-support.php';
