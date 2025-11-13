@@ -206,8 +206,8 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
                             <label for="job">Job Type*</label>
                             <select name="job" required>
                                 <option value="" style="opacity: 0.8">Select your job type</option>
-                                <?php foreach ($job_list as $job): ?>
-                                    <option value="<?php echo esc_attr($job); ?>"><?php echo esc_html($job); ?></option>
+                                <?php foreach ($job_list as $joblist): ?>
+                                    <option <?= selected($joblist, $job) ?> value="<?php echo esc_attr($job); ?>"><?php echo esc_html($joblist); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
