@@ -105,6 +105,35 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
             }
         }
 
+
+        $social_fields = [
+            'linkedin'  => 'https://www.linkedin.com/in/',
+            'x'         => 'https://twitter.com/',
+            'instagram' => 'https://instagram.com/',
+            'bluesky'   => 'https://bsky.app/profile/',
+            // Add more if needed
+        ];
+
+        foreach ($social_fields as $field => $base_url) {
+            if (isset($_POST[$field])) {
+                $username = trim($_POST[$field]);
+
+                if (!empty($username)) {
+                    // Remove @ if user accidentally added it
+                    $username = ltrim($username, '@');
+
+                    // Build full URL
+                    $full_url = $base_url . $username;
+
+                    // Save the full URL in the user meta via ACF
+                    update_field($field, esc_url_raw($full_url), $company_id);
+                } else {
+                    // If empty, clear the field
+                    update_field($field, '', $company_id);
+                }
+            }
+        }
+
         if ($_POST['remove_company_logo'] == 'yes') {
             delete_post_thumbnail($company_id);
         }
@@ -291,7 +320,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                             type="text"
                             name="linkedin"
                             value="<?php
-                                    $linkedin_full = $_POST['linkedin'] ?? get_field('linkedin', 'user_' . $user_id);
+                                    $linkedin_full = $_POST['linkedin'] ?? get_field('linkedin', $company_id);
                                     echo esc_attr(get_username_from_url($linkedin_full, 'https://www.linkedin.com/in/'));
                                     ?>"
                             <?php echo isset($errors['linkedin']) ? 'class="error-field"' : ''; ?>>
@@ -309,7 +338,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                             type="text"
                             name="x"
                             value="<?php
-                                    $x_full = $_POST['x'] ?? get_field('x', 'user_' . $user_id);
+                                    $x_full = $_POST['x'] ?? get_field('x', $company_id);
                                     echo esc_attr(get_username_from_url($x_full, 'https://twitter.com/'));
                                     ?>"
                             <?php echo isset($errors['x']) ? 'class="error-field"' : ''; ?>>
@@ -327,7 +356,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                             type="text"
                             name="instagram"
                             value="<?php
-                                    $insta_full = $_POST['instagram'] ?? get_field('instagram', 'user_' . $user_id);
+                                    $insta_full = $_POST['instagram'] ?? get_field('instagram', $company_id);
                                     echo esc_attr(get_username_from_url($insta_full, 'https://instagram.com/'));
                                     ?>"
                             <?php echo isset($errors['instagram']) ? 'class="error-field"' : ''; ?>>
@@ -345,7 +374,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                             type="text"
                             name="bluesky"
                             value="<?php
-                                    $bluesky_full = $_POST['bluesky'] ?? get_field('bluesky', 'user_' . $user_id);
+                                    $bluesky_full = $_POST['bluesky'] ?? get_field('bluesky', $company_id);
                                     echo esc_attr(get_username_from_url($bluesky_full, 'https://bsky.app/profile/'));
                                     ?>"
                             <?php echo isset($errors['bluesky']) ? 'class="error-field"' : ''; ?>>

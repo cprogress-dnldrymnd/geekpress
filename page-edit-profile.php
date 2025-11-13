@@ -68,33 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
         update_user_meta($user_id, 'author_bio', $author_bio);
         update_user_meta($user_id, 'email_pref', $email_pref);
 
-        $social_fields = [
-            'linkedin'  => 'https://www.linkedin.com/in/',
-            'x'         => 'https://twitter.com/',
-            'instagram' => 'https://instagram.com/',
-            'bluesky'   => 'https://bsky.app/profile/',
-            // Add more if needed
-        ];
-
-        foreach ($social_fields as $field => $base_url) {
-            if (isset($_POST[$field])) {
-                $username = trim($_POST[$field]);
-
-                if (!empty($username)) {
-                    // Remove @ if user accidentally added it
-                    $username = ltrim($username, '@');
-
-                    // Build full URL
-                    $full_url = $base_url . $username;
-
-                    // Save the full URL in the user meta via ACF
-                    update_field($field, esc_url_raw($full_url), 'user_' . $user_id);
-                } else {
-                    // If empty, clear the field
-                    update_field($field, '', 'user_' . $user_id);
-                }
-            }
-        }
+      
 
         if (!empty($new_password) && empty($errors)) {
             wp_set_password($new_password, $user_id);
