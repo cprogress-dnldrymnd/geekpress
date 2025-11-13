@@ -2178,7 +2178,7 @@ function company_grid_buttons()
     <div class="company-grid-buttons">
         <a href="<?= get_the_permalink() ?> " class="btn btn-yellow">View</a>
         <?php if (is_company_manager(get_current_user_id(), get_the_ID())) { ?>
-            <a href="<?= get_the_permalink(1330) . '?id=' . get_the_ID() ?> " class="btn btn-dark">Edit</a>
+            <a href="<?= get_the_permalink(1330) . '?id=' . get_the_ID() ?> " class="btn btn-bordered">Edit</a>
         <?php } ?>
     </div>
 <?php
