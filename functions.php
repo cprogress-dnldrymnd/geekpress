@@ -886,20 +886,16 @@ function get__company_contacts($ids_only = true)
         return false;
     }
 }
-function get__company_flag($author_id, $country_name = false)
+function get__company_flag($company_id, $country_name = false)
 {
-    $company_id = get_field('company');
-
-    if ($company_id) {
-        $country = get_field('country', $company_id);
-        $country_code = get_country_code_by_name($country);
-        return '<div class="flag">' . get__svg($country_code) . ' ' . ($country_name == true ? $country : '') . ' </div>';
-    }
+    $country = get_field('country', $company_id);
+    $country_code = get_country_code_by_name($country);
+    return '<div class="flag">' . get__svg($country_code) . ' ' . ($country_name == true ? $country : '') . ' </div>';
 }
 
 function get__company_flag_sc()
 {
-    return get__company_flag(get_the_author_meta('ID'), true);
+    return get__company_flag(get_the_ID(), true);
 }
 add_shortcode('get__company_flag_sc', 'get__company_flag_sc');
 
