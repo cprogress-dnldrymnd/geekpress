@@ -268,7 +268,7 @@
 
 								while ($press->have_posts()) : $press->the_post();
 									$current_date = get_the_date('l j F Y'); // Format: June 20, 2025
-									$company_id = get_field('company');
+									$company_id = get_field('company', get_the_ID());
 									// If the date is different, display the date heading
 									if ($current_date !== $last_date) {
 										echo '<h3 class="post-date-heading">' . esc_html($current_date) . '</h3>';
