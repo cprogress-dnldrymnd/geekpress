@@ -139,7 +139,7 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
     }
 </style>
 <?= handle_mailchimp_subscribe('donald2@cprogress.co.uk', 'don', 'ray') ?>
-<?= et_field('mailchimp_api_key', 'option'); ?>
+<?= get_field('mailchimp_api_key', 'option'); ?>
 <section class="edit__profile">
     <div class="container">
         <div class="edit__profile__wrapper">

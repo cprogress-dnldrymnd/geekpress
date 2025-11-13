@@ -2235,10 +2235,6 @@ function user_company_query($query)
 add_action('elementor/query/user_company', 'user_company_query');
 
 
-// The List ID is a short, alphanumeric ID specific to your audience list.
-define('MAILCHIMP_LIST_ID', '1235419');
-// Extract the datacenter ID (e.g., 'us1', 'eu2') from the API key
-$api_key_parts = explode('-', MAILCHIMP_API_KEY);
 define('MAILCHIMP_DATACENTER', end($api_key_parts));
 
 function handle_mailchimp_subscribe($email, $fname, $lname)
@@ -2254,7 +2250,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 
     $api_key = get_field('mailchimp_api_key', 'option');
     $list_id = get_field('mailchimp_list_id', 'option');
-    $datacenter = MAILCHIMP_DATACENTER;
+
+    $datacenter = explode('-', $api_key);;
 
     $member_hash = md5(strtolower($email));
     $api_url = "https://{$datacenter}.api.mailchimp.com/3.0/lists/{$list_id}/members/{$member_hash}";
