@@ -20,7 +20,6 @@ $success = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce']) && wp_verify_nonce($_POST['edit_profile_nonce'], 'edit_profile_action')) {
 
     $display_name = sanitize_text_field($_POST['display_name'] ?? '');
-    $author_bio   = sanitize_textarea_field($_POST['author_bio'] ?? '');
     $new_email    = sanitize_email($_POST['email'] ?? '');
     $email_pref = sanitize_text_field($_POST['email_pref'] ?? '');
 
@@ -65,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
             'user_email'   => $new_email
         ]);
 
-        update_user_meta($user_id, 'author_bio', $author_bio);
         update_user_meta($user_id, 'email_pref', $email_pref);
 
 
@@ -85,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile_nonce'])
     }
 }
 
-$author_bio = get_user_meta($user_id, 'author_bio', true);
 $email_pref = get_user_meta($user_id, 'email_pref', true);
 ?>
 
@@ -175,11 +172,54 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
                 </div>
 
                 <div class="input__wrapper">
-                    <label for="author_bio">Profile Bio</label>
-                    <textarea name="author_bio" class="author-bio" placeholder="Write a short bio for your profile"><?php echo esc_textarea($_POST['author_bio'] ?? $author_bio); ?></textarea>
+                    <label for="first_name">First Name*</label>
+                    <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo esc_attr($_POST['first_name'] ?? ''); ?>" required>
+                </div>
+
+                <div class="input__wrapper">
+                    <label for="last_name">Last Name*</label>
+                    <input type="text" placeholder="Enter Last Name" name="last_name" value="<?php echo esc_attr($_POST['last_name'] ?? ''); ?>" required>
                 </div>
 
 
+
+                <div class="register__block">
+                    <h4>What Do You Do?</h4>
+                    <div class="register__grid">
+                        <?php $job_list = [
+                            'Analyst',
+                            'Distributor',
+                            'Developer/Designer',
+                            'Lifestyle/news website',
+                            'Media (Journalist/Content Creator)',
+                            'National newspaper',
+                            'Online retailer',
+                            'Outsourcing',
+                            'PR/Marketing agency',
+                            'PR/Marketing in-house',
+                            'Regional newspaper',
+                            'Retailer (Website)',
+                            'Retailer (Store)',
+                            'Television',
+                        ]; ?>
+
+                        <div class="input__wrapper">
+                            <label for="job">Job Type*</label>
+                            <select name="job" required>
+                                <option value="" style="opacity: 0.8">Select your job type</option>
+                                <?php foreach ($job_list as $job): ?>
+                                    <option value="<?php echo esc_attr($job); ?>"><?php echo esc_html($job); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="input__wrapper media-outlet">
+                            <label for="outlet">Media Outlet</label>
+                            <input type="text" placeholder="Enter Outlet" name="outlet" value="<?php echo esc_attr($_POST['outlet'] ?? ''); ?>">
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="register__block">
                     <h4>Email Preferences</h4>
                     <p>If you’d like to be kept up to date with the latest news in geek culture, then simply tick ‘Opt in’ below. You can unsubscribe at any time.</p>
@@ -200,6 +240,8 @@ $email_pref = get_user_meta($user_id, 'email_pref', true);
                         </div>
                     </div>
                 </div>
+
+
 
 
 
