@@ -325,7 +325,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                         Social Media
                     </h4>
                     <p style="font-size:14px; color:gray; margin-top:5px">
-                        Enter your social media details below
+                        Enter your companies social media links below. Make sure to enter the full URL, for example: https://www.instagram.com/geekpresswire
                     </p>
                     <div>
                         <div class="input__wrapper">
