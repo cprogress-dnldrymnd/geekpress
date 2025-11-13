@@ -109,7 +109,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
             }
         }
 
-
+        /*
         $social_fields = [
             'linkedin'  => 'https://www.linkedin.com/in/',
             'x'         => 'https://x.com/',
@@ -119,6 +119,8 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
         ];
 
         foreach ($social_fields as $field => $base_url) {
+            update_field($field, esc_url_raw($full_url), $company_id);
+
             if (isset($_POST[$field])) {
                 $username = trim($_POST[$field]);
 
@@ -136,11 +138,7 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
                     update_field($field, '', $company_id);
                 }
             }
-        }
-
-        if ($_POST['remove_company_logo'] == 'yes') {
-            delete_post_thumbnail($company_id);
-        }
+        }*/
 
         if ($_POST['remove_company_banner'] == 'yes') {
             update_field('banner', '', $company_id);
@@ -149,6 +147,22 @@ if (!is_company_manager(get_current_user_id(), $company_id)  && $company_id == 0
         $company_name = sanitize_text_field($_POST['company_name'] ?? '');
         $company_bio   = sanitize_textarea_field($_POST['company_bio'] ?? '');
         $company_country   = sanitize_textarea_field($_POST['company_country'] ?? '');
+        $linkedin   = sanitize_url($_POST['linkedin'] ?? '');
+        $x   = sanitize_url($_POST['x'] ?? '');
+        $instagram   = sanitize_url($_POST['instagram'] ?? '');
+        $bluesky   = sanitize_url($_POST['bluesky'] ?? '');
+
+
+        update_field('linkedin', $linkedin, $company_id);
+        update_field('x', $x, $company_id);
+        update_field('instagram', $instagram, $company_id);
+        update_field('bluesky', $bluesky, $company_id);
+
+
+        if ($_POST['remove_company_logo'] == 'yes') {
+            delete_post_thumbnail($company_id);
+        }
+
 
 
         if (empty($company_name)) {
