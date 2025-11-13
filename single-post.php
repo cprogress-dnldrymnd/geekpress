@@ -51,7 +51,7 @@ $company_id = get_field('company', get_the_ID());
                             <span><?php echo get_the_date('F j, Y') ?> </span></small>
                         <div>
                             <?= get__company_flag($company_id) ?>
-                            <span><?= get__company(get_the_author_meta('ID'), true) ?></span>
+                            <span><?= get__company($company_id, true) ?></span>
                         </div>
                     </div>
                     <h1>
@@ -242,7 +242,7 @@ $company_id = get_field('company', get_the_ID());
                                     </li>
                                     <li>
                                         <?= get__company_flag($company_id) ?>
-                                        <span><?= get__company(get_the_author_meta('ID'), true) ?> </span>
+                                        <span><?= get__company($company_id, true) ?> </span>
                                     </li>
                                 </ul>
 
@@ -283,7 +283,7 @@ $company_id = get_field('company', get_the_ID());
                                 <ul>
                                     <li>
                                         <?= get__company_flag($company_id) ?>
-                                        <span><?= get__company(get_the_author_meta('ID'), true) ?> </span>
+                                        <span><?= get__company($company_id, true) ?> </span>
                                     </li>
                                     <li>
                                         <span class="tag"><?php $categories = get_the_category();
