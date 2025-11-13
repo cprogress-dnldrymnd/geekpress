@@ -337,24 +337,30 @@ $job = get_user_meta($user_id, 'job', true);
     });
 </script>
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const jobSelect = document.querySelector('select[name="job"]');
         const mediaOutletDiv = document.querySelector('.media-outlet');
 
-        // Hide initially
-        if (mediaOutletDiv) mediaOutletDiv.style.display = 'none';
-
-        // Watch for changes
-        if (jobSelect) {
-            jobSelect.addEventListener('change', function() {
-                if (this.value === 'Media (Journalist/Content Creator)') {
+        // Function to handle the visibility logic
+        function updateMediaOutletVisibility() {
+            // Check the current value of the select box
+            if (jobSelect && mediaOutletDiv) {
+                if (jobSelect.value === 'Media (Journalist/Content Creator)') {
                     mediaOutletDiv.style.display = 'block';
                 } else {
                     mediaOutletDiv.style.display = 'none';
                 }
-            });
+            }
+        }
+
+        // --- Run on Page Load ---
+        // 1. Initial check (on DOMContentLoaded) to set the correct state based on the initial value
+        updateMediaOutletVisibility();
+
+        // 2. Watch for changes (for user interaction)
+        if (jobSelect) {
+            jobSelect.addEventListener('change', updateMediaOutletVisibility);
         }
     });
 </script>
