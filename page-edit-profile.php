@@ -248,7 +248,7 @@ $job = get_user_meta($user_id, 'job', true);
 
 
                 <div class="register__block">
-                    <h4 style="margin-bottom:0; margin-top:65px">
+                    <h4 style="margin-bottom:0; ">
                         Account Management
                     </h4>
                 </div>
