@@ -185,7 +185,7 @@ $job = get_user_meta($user_id, 'job', true);
 
 
 
-                <div class="register__block">
+                <div class="register__block mb-0">
                     <h4>What Do You Do?</h4>
                     <div class="register__grid">
                         <?php $job_list = [
@@ -222,7 +222,7 @@ $job = get_user_meta($user_id, 'job', true);
                     </div>
                 </div>
 
-                <div class="register__block">
+                <div class="register__block mb-0">
                     <h4>Email Preferences</h4>
                     <p>If you’d like to be kept up to date with the latest news in geek culture, then simply tick ‘Opt in’ below. You can unsubscribe at any time.</p>
 
@@ -248,7 +248,7 @@ $job = get_user_meta($user_id, 'job', true);
 
 
                 <div class="register__block">
-                    <h4 style="margin-bottom:0; margin-top:65px">
+                    <h4 style="margin-bottom:0; ">
                         Account Management
                     </h4>
                 </div>
