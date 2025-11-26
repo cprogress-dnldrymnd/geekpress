@@ -2265,6 +2265,7 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 
     var_dump($datacenter);
 
+    echo $email . '<br>';
     echo $api_key . '<br>';
     echo $datacenter . '<br>';
     echo $member_hash . '<br>';
