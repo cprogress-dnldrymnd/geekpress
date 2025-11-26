@@ -243,7 +243,7 @@
                          </select>
                      </div>
 
-                     <h4 class="mb-0">Feature Image</h4>
+                     <h4 class="mb-0">Feature Image *</h4>
                      <div class="input-desc mb-3">
                          <p>
                              Add a feature image that will primarily display for your announcement. Your image must be 5mb or below, and in the following formats: PNG, JPEG/JPG, WebP
