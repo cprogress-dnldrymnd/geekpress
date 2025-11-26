@@ -2314,16 +2314,20 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 }
 
 
-add_action('user_register', 'mailchimp_integration', 10, 1);
 
-function mailchimp_integration($user_id)
+
+function mailchimp_integration($meta_id, $user_id, $meta_key, $_meta_value)
 {
-    $email_pref = get_user_meta($user_id, 'email_pref', true);
-    $first_name = get_user_meta($user_id, 'first_name', true);
-    $last_name = get_user_meta($user_id, 'last_name', true);
-    $user = get_user_by('id', $user_id);
+    // You can add logic here to run only for a specific meta key
+    if ('email_pref' === $meta_key) {
+        $email_pref = get_user_meta($user_id, 'email_pref', true);
+        $first_name = get_user_meta($user_id, 'first_name', true);
+        $last_name = get_user_meta($user_id, 'last_name', true);
+        $user = get_user_by('id', $user_id);
 
-    if ($email_pref == 'optin') {
-        handle_mailchimp_subscribe($user->user_email, $first_name, $last_name);
+        if ($email_pref == 'optin') {
+            handle_mailchimp_subscribe($user->user_email, $first_name, $last_name);
+        }
     }
 }
+add_action('updated_user_meta', 'mailchimp_integration', 10, 4);
