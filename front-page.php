@@ -136,10 +136,7 @@
 		transform: none;
 	}
 </style>
-<?php
-echo handle_mailchimp_subscribe('donald2@cprogress.co.uk', 'Donald', 'Raymundo');
 
-?>
 <section class="banner home__baner">
 	<div class="container">
 		<div class="banner__content">
