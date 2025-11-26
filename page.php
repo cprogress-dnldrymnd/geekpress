@@ -11,7 +11,6 @@ if ( GamxoTheme::$layout == 'full-width' ) {
 } else {
 	$gamxo_layout_class = GamxoTheme_Helper::has_active_widget();
 }
-handle_mailchimp_subscribe('donald@cprogress.co.uk', 'Donald', 'Raymundo');
 ?>
 <?php get_header(); ?>
 <div id="primary" class="content-area">
