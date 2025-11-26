@@ -2266,8 +2266,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     // Request body for Mailchimp
     $body = json_encode([
         'email_address' => $email,
-        'status_if_new' => 'pending', // Use status_if_new for PUT requests
-        'status'        => 'pending', // Keep this for updates if needed
+        'status_if_new' => 'subscribe', // Use status_if_new for PUT requests
+        'status'        => 'subscribe', // Keep this for updates if needed
         'merge_fields'  => [
             'FNAME' => $fname,
             'LNAME' => $lname,
