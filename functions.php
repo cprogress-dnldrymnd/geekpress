@@ -2242,7 +2242,7 @@ function user_company_query($query)
 add_action('elementor/query/user_company', 'user_company_query');
 
 
-function handle_mailchimp_subscribe($email, $fname, $lname)
+function handle_mailchimp_subscribe($email, $fname, $lname, $status = 'subscribed')
 {
     // Check for security nonce
     /*
@@ -2266,8 +2266,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     // Request body for Mailchimp
     $body = json_encode([
         'email_address' => $email,
-        'status_if_new' => 'subscribed', // Use status_if_new for PUT requests
-        'status'        => 'subscribed', // Keep this for updates if needed
+        'status_if_new' => $status, // Use status_if_new for PUT requests
+        'status'        => $status, // Keep this for updates if needed
         'merge_fields'  => [
             'FNAME' => $fname,
             'LNAME' => $lname,
@@ -2327,6 +2327,8 @@ function mailchimp_integration($meta_id, $user_id, $meta_key, $_meta_value)
 
         if ($email_pref == 'optin') {
             handle_mailchimp_subscribe($user->user_email, $first_name, $last_name);
+        } else {
+            handle_mailchimp_subscribe($user->user_email, $first_name, $last_name, 'unsubscribed');
         }
     }
 }
