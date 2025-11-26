@@ -2270,6 +2270,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     echo $member_hash . '<br>';
     echo $api_url . '<br>';
 
+    echo $list_id;
+
 
     // Request body for Mailchimp
     $body = json_encode([
