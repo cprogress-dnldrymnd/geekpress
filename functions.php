@@ -2255,7 +2255,7 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     $lname = sanitize_text_field($lname);
 
     $api_key = get_field('mailchimp_api_key', 'option');
-   # $list_id = get_field('mailchimp_list_id', 'option');
+    # $list_id = get_field('mailchimp_list_id', 'option');
     $list_id = 1235419;
 
     $datacenter = explode('-', $api_key)[1];
@@ -2285,9 +2285,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 
     // Headers for the Mailchimp API request
     $headers = [
-        'Content-Type'  => 'application/json',
-        // Basic Authentication: The username is anything (usually 'user'), and the password is the API key.
-        'Authorization' => 'Basic ' . base64_encode("user:{$api_key}"),
+        'Authorization' => 'Basic ' . base64_encode('user:' . $api_key),
+        'Content-Type'  => 'application/json; charset=utf-8'
     ];
 
     // Arguments for wp_remote_post
@@ -2301,7 +2300,7 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 
     // Send the request using WordPress HTTP API
     $response = wp_remote_post($api_url, $args);
-
+  
     if (is_wp_error($response)) {
         echo 'Error connecting to Mailchimp service.';
     } else {
@@ -2311,7 +2310,6 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
         if ($response_code === 200) {
             // Successful update or add
             $status = $response_body['status'] ?? 'pending';
-            
 
             echo $status;
         } elseif ($response_code === 400 && ($response_body['title'] ?? '') === 'Member Exists') {
