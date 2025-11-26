@@ -2261,7 +2261,7 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     $datacenter = explode('-', $api_key)[1];
 
     $member_hash = md5(strtolower($email));
-    $api_url = "https://{$datacenter}.api.mailchimp.com/3.0/lists/{$list_id}/members/{$member_hash}";
+    $api_url = "https://{$datacenter}.api.mailchimp.com/3.0/lists/{$list_id}/members/";
 
     var_dump($datacenter);
 
