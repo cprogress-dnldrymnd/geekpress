@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
                 'A new user has registered and is pending approval.' . "\n\nUsername: " . $username
             );
 
-            // wp_redirect(home_url('/registration-success'));
+             wp_redirect(home_url('/registration-success'));
         } else {
             $errors[] = $user_id->get_error_message();
         }
