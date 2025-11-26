@@ -2274,10 +2274,11 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     echo $list_id;
 
 
-     // Request body for Mailchimp
+    // Request body for Mailchimp
     $body = json_encode([
         'email_address' => $email,
-        'status'        => 'pending',
+        'status_if_new' => 'pending', // Use status_if_new for PUT requests
+        'status'        => 'pending', // Keep this for updates if needed
         'merge_fields'  => [
             'FNAME' => $fname,
             'LNAME' => $lname,
@@ -2322,14 +2323,14 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
         } else {
             // General Mailchimp API error
             $error_detail = $response_body['detail'] ?? 'An unknown error occurred with the Mailchimp API.';
-           
+
 
             echo  "Subscription failed: {$error_detail}";
         }
 
-         echo '<pre>';
-            var_dump($response_body);
-            echo '</pre>';
+        echo '<pre>';
+        var_dump($response_body);
+        echo '</pre>';
     }
 
     return;
