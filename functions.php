@@ -2322,12 +2322,14 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
         } else {
             // General Mailchimp API error
             $error_detail = $response_body['detail'] ?? 'An unknown error occurred with the Mailchimp API.';
-            echo '<pre>';
-            var_dump($response_body);
-            echo '</pre>';
+           
 
             echo  "Subscription failed: {$error_detail}";
         }
+
+         echo '<pre>';
+            var_dump($response_body);
+            echo '</pre>';
     }
 
     return;
