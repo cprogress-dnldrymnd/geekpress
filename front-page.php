@@ -137,7 +137,7 @@
 	}
 </style>
 <?php
-echo handle_mailchimp_subscribe('donald@cprogress.co.uk', 'Donald', 'Raymundo');
+echo handle_mailchimp_subscribe('donald2@cprogress.co.uk', 'Donald', 'Raymundo');
 
 ?>
 <section class="banner home__baner">
