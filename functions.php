@@ -2299,16 +2299,16 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
         $response_body = json_decode(wp_remote_retrieve_body($response), true);
 
         if ($response_code === 200) {
-            echo('Mailchimp API - ' . $email . ' - added to mailchimp.');
+            error_log('Mailchimp API - ' . $email . ' - added to mailchimp.');
         } elseif ($response_code === 400 && ($response_body['title'] ?? '') === 'Member Exists') {
-            echo('Mailchimp API - ' . $email . ' - That email address is already on our list.');
+            error_log('Mailchimp API - ' . $email . ' - That email address is already on our list.');
         } elseif ($response_code === 404 && ($response_body['title'] ?? '') === 'Resource Not Found') {
             // Invalid API key or List ID (check your constants)
-            echo('Mailchimp API - ' . $email . ' - Configuration Error: Invalid Mailchimp List ID or API Key.');
+            error_log('Mailchimp API - ' . $email . ' - Configuration Error: Invalid Mailchimp List ID or API Key.');
         } else {
             // General Mailchimp API error
             $error_detail = $response_body['detail'] ?? 'An unknown error occurred with the Mailchimp API.';
-            echo("Subscription failed - ' . $email . ' : {$error_detail}");
+            error_log("Subscription failed - ' . $email . ' : {$error_detail}");
         }
     }
 
