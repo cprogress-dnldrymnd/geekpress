@@ -2263,17 +2263,6 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     $member_hash = md5(strtolower($email));
     $api_url = "https://{$datacenter}.api.mailchimp.com/3.0/lists/{$list_id}/members/{$member_hash}";
 
-    var_dump($datacenter);
-
-    echo $email . '<br>';
-    echo $api_key . '<br>';
-    echo $datacenter . '<br>';
-    echo $member_hash . '<br>';
-    echo $api_url . '<br>';
-
-    echo $list_id;
-
-
     // Request body for Mailchimp
     $body = json_encode([
         'email_address' => $email,
@@ -2310,10 +2299,7 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
         $response_body = json_decode(wp_remote_retrieve_body($response), true);
 
         if ($response_code === 200) {
-            // Successful update or add
-            $status = $response_body['status'] ?? 'pending';
-
-            echo $status;
+            error_log('Mailchimp API - ' . $email . ' - added to mailchimp.');
         } elseif ($response_code === 400 && ($response_body['title'] ?? '') === 'Member Exists') {
             // Member already exists, but perhaps is 'pending' or 'unsubscribed'
             echo 'That email address is already on our list.';
