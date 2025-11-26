@@ -2311,5 +2311,19 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
             error_log("Subscription failed - ' . $email . ' : {$error_detail}");
         }
     }
+}
 
+
+add_action('user_register', 'mailchimp_integration', 10, 1);
+
+function mailchimp_integration($user_id)
+{
+    $email_pref = get_user_meta($user_id, 'email_pref', true);
+    $first_name = get_user_meta($user_id, 'first_name', true);
+    $last_name = get_user_meta($user_id, 'last_name', true);
+    $user = get_user_by('id', $user_id);
+
+    if ($email_pref == 'optin') {
+        handle_mailchimp_subscribe($user->user_email, $first_name, $last_name);
+    }
 }
