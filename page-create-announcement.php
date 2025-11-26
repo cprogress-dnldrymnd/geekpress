@@ -333,7 +333,7 @@
                      </div>
                      <div class="register-agreement">
                          <p>
-                             <strong>PLEASE NOTE.</strong> All posts need to adhere to the GeekPress Terms of Service, which you can read <a href="https://geekpress.theprogressteam.com/terms-of-service/" target="_blank">here</a>... Failure to do so can result in your news being rejected. Thanks.
+                             <strong>PLEASE NOTE.</strong> All posts need to adhere to the GeekPress Terms of Service, which you can read <a href="https://geekpress.theprogressteam.com/terms-of-service/" target="_blank">here</a>... Failure to do so can result in your news being rejected. Thanks. You have twenty seconds to comply
                          </p>
                      </div>
                      <input type="submit" id="btnSubmit" name="submit_post" value="Submit" class="btn-custom btn-outline" disabled>
