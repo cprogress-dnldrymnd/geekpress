@@ -336,7 +336,7 @@
                              <strong>PLEASE NOTE.</strong> All posts need to adhere to the GeekPress Terms of Service, which you can read <a href="https://geekpress.theprogressteam.com/terms-of-service/" target="_blank">here</a>... Failure to do so can result in your news being rejected. Thanks.
                          </p>
                      </div>
-                     <input type="submit" id="btnSubmit" name="submit_post" value="Submit" class="btn-custom btn-outline">
+                     <input type="submit" id="btnSubmit" name="submit_post" value="Submit" class="btn-custom btn-outline" disabled>
 
                      <?php if (!empty($errors)) : ?>
                          <div class="error-messages" style="color: red; margin-top: 10px;">
