@@ -446,6 +446,8 @@
      // **FIXED FUNCTION**
      window.removeFeaturedFile = function(index) {
          // 1. Target the correct array: filesFeatArray
+         jQuery('#btnSubmit').attr('disabled', true);
+
          filesFeatArray.splice(index, 1);
          // 2. Call the correct render function: renderFeaturePreview
          renderFeaturePreview();
@@ -453,7 +455,6 @@
          syncFeatInputFiles();
          jQuery('.feat__preview__wrapper').show();
 
-         jQuery('#btnSubmit').attr('disabled');
 
      }
 
