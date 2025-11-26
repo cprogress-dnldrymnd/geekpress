@@ -52,9 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
 
     if (empty($errors)) {
         $user_id = wp_create_user($username, $password, $email);
-        if ($email_pref == 'optin') {
-            handle_mailchimp_subscribe($email, $first_name, $last_name);
-        }
+
         if (!is_wp_error($user_id)) {
             foreach ($company_post as $key => $company) {
                 $company_exists = get_custom_post_id_by_title($company, 'company');
@@ -109,6 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             // wp_redirect(home_url('/registration-success'));
         } else {
             $errors[] = $user_id->get_error_message();
+        }
+
+        if ($email_pref == 'optin') {
+            handle_mailchimp_subscribe($email, $first_name, $last_name);
         }
     }
 }
