@@ -2265,10 +2265,10 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 
     var_dump($datacenter);
 
-    echo $api_key.'<br>';
-    echo $datacenter.'<br>';
-    echo $member_hash.'<br>';
-    echo $api_url.'<br>';
+    echo $api_key . '<br>';
+    echo $datacenter . '<br>';
+    echo $member_hash . '<br>';
+    echo $api_url . '<br>';
 
 
     // Request body for Mailchimp
@@ -2302,7 +2302,7 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 
     if (is_wp_error($response)) {
         echo 'Error connecting to Mailchimp service.';
-    } /*else {
+    } else {
         $response_code = wp_remote_retrieve_response_code($response);
         $response_body = json_decode(wp_remote_retrieve_body($response), true);
 
@@ -2315,21 +2315,20 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
                 'unsubscribed' => 'Subscription successful. Your status was updated.',
                 default => 'Subscription received successfully.',
             };
-            
 
-            wp_send_json_success(['message' => $message]);
+            echo $message;
         } elseif ($response_code === 400 && ($response_body['title'] ?? '') === 'Member Exists') {
             // Member already exists, but perhaps is 'pending' or 'unsubscribed'
-            wp_send_json_error(['message' => 'That email address is already on our list.']);
+            echo 'That email address is already on our list.';
         } elseif ($response_code === 404 && ($response_body['title'] ?? '') === 'Resource Not Found') {
             // Invalid API key or List ID (check your constants)
-            wp_send_json_error(['message' => 'Configuration Error: Invalid Mailchimp List ID or API Key.']);
+            echo 'Configuration Error: Invalid Mailchimp List ID or API Key.';
         } else {
             // General Mailchimp API error
             $error_detail = $response_body['detail'] ?? 'An unknown error occurred with the Mailchimp API.';
-            wp_send_json_error(['message' => "Subscription failed: {$error_detail}"]);
+            echo  "Subscription failed: {$error_detail}";
         }
-    }*/
+    }
 
     return;
 }
