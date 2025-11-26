@@ -2309,14 +2309,9 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
         if ($response_code === 200) {
             // Successful update or add
             $status = $response_body['status'] ?? 'pending';
-            $message = match ($status) {
-                'subscribed' => 'You are already subscribed and active!',
-                'pending' => 'Success! Please check your email to confirm your subscription (double opt-in).',
-                'unsubscribed' => 'Subscription successful. Your status was updated.',
-                default => 'Subscription received successfully.',
-            };
+            
 
-            echo $message;
+            echo $status;
         } elseif ($response_code === 400 && ($response_body['title'] ?? '') === 'Member Exists') {
             // Member already exists, but perhaps is 'pending' or 'unsubscribed'
             echo 'That email address is already on our list.';
