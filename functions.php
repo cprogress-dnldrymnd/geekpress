@@ -2312,5 +2312,4 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
         }
     }
 
-    return;
 }
