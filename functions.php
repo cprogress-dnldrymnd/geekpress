@@ -2277,10 +2277,6 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     $body = json_encode([
         'email_address' => $email,
         'status'        => 'pending',
-        'merge_fields'  => [
-            'FNAME' => $fname,
-            'LNAME' => $lname,
-        ],
     ]);
 
     // Headers for the Mailchimp API request
