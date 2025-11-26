@@ -439,6 +439,7 @@
             `;
 
              jQuery('.feat__preview__wrapper').hide();
+             jQuery('#btnSubmit').attr('disabled');
          });
      }
 
@@ -451,6 +452,8 @@
          // 3. Call the correct sync function
          syncFeatInputFiles();
          jQuery('.feat__preview__wrapper').show();
+
+         jQuery('#btnSubmit').removeAttr('disabled');
 
      }
 
