@@ -2255,8 +2255,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     $lname = sanitize_text_field($lname);
 
     $api_key = get_field('mailchimp_api_key', 'option');
-    $list_id = get_field('mailchimp_list_id', 'option');
-
+   # $list_id = get_field('mailchimp_list_id', 'option');
+    $list_id = 1235419;
 
     $datacenter = explode('-', $api_key)[1];
 
