@@ -2255,8 +2255,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     $lname = sanitize_text_field($lname);
 
     $api_key = get_field('mailchimp_api_key', 'option');
- $list_id = get_field('mailchimp_list_id', 'option');
-   
+    $list_id = get_field('mailchimp_list_id', 'option');
+
 
     $datacenter = explode('-', $api_key)[1];
 
@@ -2274,10 +2274,14 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     echo $list_id;
 
 
-    // Request body for Mailchimp
+     // Request body for Mailchimp
     $body = json_encode([
         'email_address' => $email,
         'status'        => 'pending',
+        'merge_fields'  => [
+            'FNAME' => $fname,
+            'LNAME' => $lname,
+        ],
     ]);
 
     // Headers for the Mailchimp API request
@@ -2297,7 +2301,7 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
 
     // Send the request using WordPress HTTP API
     $response = wp_remote_post($api_url, $args);
-  
+
     if (is_wp_error($response)) {
         echo 'Error connecting to Mailchimp service.';
     } else {
