@@ -2257,6 +2257,8 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
     $api_key = get_field('mailchimp_api_key', 'option');
     $list_id = get_field('mailchimp_list_id', 'option');
 
+    echo $api_key;
+
     $datacenter = explode('-', $api_key);;
 
     $member_hash = md5(strtolower($email));
@@ -2321,4 +2323,6 @@ function handle_mailchimp_subscribe($email, $fname, $lname)
             wp_send_json_error(['message' => "Subscription failed: {$error_detail}"]);
         }
     }*/
+
+    return;
 }
