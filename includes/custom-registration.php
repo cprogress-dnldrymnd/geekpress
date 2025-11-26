@@ -109,7 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['custom_register'])) {
             $errors[] = $user_id->get_error_message();
         }
 
-        
+        if ($email_pref == 'optin') {
+            handle_mailchimp_subscribe($email, $first_name, $last_name);
+        }
     }
 }
 ?>
